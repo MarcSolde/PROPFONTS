@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import domini.classes.*;
 import domini.controladores.drivers.*;
+import persistencia.CtrlData;
 
 /**
  * Es tracta del controlador del ranking Ranking
@@ -19,8 +20,11 @@ public class CtrlRanking {
 	public CtrlRanking()
 	//Creadora del controlador
 	{
+		CtrlData cData = new CtrlData();
 		BT = new BestTime();
+		cData.llegirBestTime(BT);
 		MS = new MostSolved();
+		cData.llegirMostSolved(MS);
 	}
 
 	/**
