@@ -51,5 +51,8 @@ public class MostSolved extends Ranking{
 	private boolean isThere(String user) {
 		return map.get(user) != null;
 	}
+	public Map<String, Integer> getMap() {
+		return map;
+	}
 	
 }

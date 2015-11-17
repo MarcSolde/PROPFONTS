@@ -242,6 +242,7 @@ public class main {
 			p.inGame();
 			if (p.getAcabada()) {
 				cRank.anadir_valores_fin_partida(cUsr.getNom(), p.getPartida().getTauler().getMida(), p.getPartida().getTemps());
+
 			}
 			break;
 			/*System.out.println("\n\nCOM VOLS INTRODUIR EL KENKEN?\n\n");
@@ -281,6 +282,9 @@ public class main {
 		}
 		cPartida.carregaPartida(s, cUsr.getNom());
 		cPartida.inGame();
+		if (cPartida.getAcabada()) {
+			cRank.anadir_valores_fin_partida(cUsr.getNom(), cPartida.getPartida().getTauler().getMida(), cPartida.getPartida().getTemps());
+		}
 	}
 	
 	public static void consultarRanking(){
