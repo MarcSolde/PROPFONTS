@@ -35,7 +35,7 @@ public class BestTime extends Ranking {
 		for (Integer key : hash.keySet()) {
 			if (key == x) {
 				for (pair<String, Integer> i: hash.get(key)) {
-					System.out.println("Size: "+key+"x"+key+" Time: "+i.getFirst()+" User: "+i.getSecond());
+					System.out.println("Size: "+key+"x"+key+" Time: "+i.getSecond()+" User: "+i.getFirst());
 				}
 			}
 		}
@@ -79,10 +79,18 @@ public class BestTime extends Ranking {
 		ArrayList<pair<String, Integer> > ar = hash.get(tam_KK);
 		if (ar == null) {
 			ar = new ArrayList<pair<String, Integer> >();
+			pair<String, Integer> p = new pair(user, f);
+			p.setFirst(user);
+			p.setSecond(f);
+			ar.add(p);
 			hash.put(tam_KK, ar);
 		}
 		pair <String, Integer> p = new pair<String, Integer>(user, f);
 		hash.get(tam_KK).add(p); 
 
+	}
+	
+	public Hashtable<Integer, ArrayList<pair<String, Integer> > > getHash() {
+		return hash;
 	}
 }

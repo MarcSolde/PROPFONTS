@@ -47,23 +47,25 @@ public class CtrlRanking {
 		if (x == 1) {
 			System.out.println("Elige si global o no (1 o 2)?");
 			int b = input.nextInt();
-			while (b!= 1 && b != 2) {
+			boolean t = false;
+			if (!t) {
 				if (b == 1) BT.getBestTimeGlobal();
 				else if (b == 2)BT.getBestTime();
-				else break; 
+				t = true;
 			}
 			
 		}
 		else if (x == 2) {
 			System.out.println("Elige si global o no (1 o 2)?");
 			int b = input.nextInt();
-			while (b!= 1 && b != 2) {
+			boolean t = false;
+			if (!t) {
 				if (b == 1) MS.getMostSolvedGlobal();
 				else if (b == 2) {
 					String s = input.next();
 					MS.getMostSolvedUser(s);
 				}
-				else break;
+				t = false;
 			}
 				
 		}
