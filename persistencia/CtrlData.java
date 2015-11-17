@@ -252,6 +252,11 @@ public class CtrlData {
 		}
 		return p;
 	}
+	
+	public void esborrarPartida(String id, String nom) {
+		File file = new File("usuaris/"+ nom + "/partida" + id + ".txt");
+		file.delete();
+	}
 
 	/**
 	 * Guarda un tauler a la BD
@@ -402,6 +407,7 @@ public class CtrlData {
 				s = key+" "+map.get(key)+" ";
 				fw.write(s,offset,s.length());
 			}
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -416,6 +422,7 @@ public class CtrlData {
 			while (sc.hasNext()) {
 				map.put(sc.next(), Integer.parseInt(sc.next()));
 			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -437,6 +444,7 @@ public class CtrlData {
 					fw.write(s,offset,s.length());
 				}
 			}
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -458,6 +466,7 @@ public class CtrlData {
 					aux.add(p);
 				}
 			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
