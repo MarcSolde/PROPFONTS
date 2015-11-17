@@ -3,6 +3,7 @@ import java.util.*;
 
 import domini.*;
 import domini.classes.Partida;
+import persistencia.CtrlData;
 
 /**
  * 

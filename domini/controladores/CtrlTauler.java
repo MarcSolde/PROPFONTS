@@ -3,6 +3,7 @@ package domini.controladores;
 import java.util.*;
 
 import domini.classes.TaulerKenken;
+import persistencia.CtrlData;
 
 public class CtrlTauler {
 	private TaulerKenken t;
