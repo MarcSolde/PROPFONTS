@@ -269,25 +269,26 @@ public class CtrlData {
 	 * @param id identificador del fitxer
 	 */
 	public void escriureTauler(TaulerKenken t, int id) {
-		File file = new File("taulers/"+Integer.toString(id));
+		File file = new File("taulers/kenken"+Integer.toString(id));
 		Scanner sc;
 		//System.out.println("estic dins d¡escriure tauler");
 		if (!file.exists()) {
 			//System.out.println("crea tauler");
-				try {
+			/*	try {
 					file.createNewFile();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			FileWriter fw;
+
 			try {
 				fw = new FileWriter(file);
 				fw.write(Integer.toString(id),0,Integer.toString(id).length());
 				fw.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
-			}
+			}*/
+			FileWriter fw;
 			file = new File("taulers/kenken" + Integer.toString(id)+".txt");
 			try {
 				file.createNewFile();
@@ -328,6 +329,7 @@ public class CtrlData {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+		}
 
 }
 	

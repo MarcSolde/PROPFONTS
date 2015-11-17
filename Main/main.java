@@ -33,11 +33,11 @@ public class main {
 			
 			boolean b = false;
 			b = iniciarSessio();
-			cPartida.assignarUser(cUsr.getNom());
+			if(b) cPartida.assignarUser(cUsr.getNom());
 			
 			int op = -1;
 			
-			while (op != 0) {
+			while (b && op != 0) {
 				System.out.println("\nTria que vols fer:\n\n");
 				System.out.println("1: Nova partida\n");
 				System.out.println("2: Resumir partida\n");
@@ -69,13 +69,16 @@ public class main {
 						for (File path:paths) {
 							if (!path.getName().equals("num.txt")) System.out.println(path);
 						}
-						System.out.println("\n\nNom del kenken: ");
+						System.out.println("\n\n 0: Tornar al menu");
+						System.out.println("\nNumero del kenken: ");
 						String s = scin.next();
+						if (s.equals("0")) break;
 						cPartida.assignarUser(cUsr.getNom());
 						cPartida.creaPartidaBD(s);
 						cPartida.inGame();
 						if (cPartida.getAcabada()) {
 							cRank.anadir_valores_fin_partida(cUsr.getNom(), cPartida.getPartida().getTauler().getMida(), cPartida.getPartida().getTemps());
+
 						}
 						break;
 					case 3:
@@ -104,7 +107,7 @@ public class main {
 						}
 					}
 					System.out.print("0: Tornar al menu");
-					System.out.print("\n\nNom de la partida: ");
+					System.out.print("\n\nNumero de la partida: ");
 					String s = scin.next();
 					if (s.equals("0")) break;
 					if(Integer.parseInt(s)>it-2 || Integer.parseInt(s) <=0){
