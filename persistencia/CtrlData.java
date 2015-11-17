@@ -1,14 +1,9 @@
-package domini.controladores;
+package persistencia;
 
 import java.io.*;
 import java.util.*;
 
-import domini.classes.Partida;
-import domini.classes.Regio;
-import domini.classes.TaulerKenken;
-import domini.classes.Usuari;
-import domini.classes_compartides.Casilla_comp;
-import domini.classes_compartides.Tauler;
+import domini.classes.*;
 
 /**
  * @author Anna Mascaro
@@ -40,7 +35,18 @@ public class CtrlData {
 		file = new File("rankings");
 		if (!file.exists()) {
 			file.mkdirs();
-			//file = new File ("")
+			file = new File ("rankings/mostSolved.txt");
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			file = new File ("rankings/bestTime.txt");
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -379,5 +385,21 @@ public class CtrlData {
 			t = new TaulerKenken(0);
 		}
 		return t;
+	}
+	
+	public void escriureMostSolved() {
+		
+	}
+	
+	public Map<String,Integer> llegirMostSolved() {
+		map = New TreeMap<String,Integer>();
+	}
+	
+	public void escriureBestTime() {
+		
+	}
+	
+	public Hashtable<Integer,ArrayList<pair<String, Integer>>> llegirBestTime() {
+		
 	}
 }
