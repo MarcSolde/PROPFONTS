@@ -55,4 +55,7 @@ public class MostSolved extends Ranking{
 		return map;
 	}
 	
+	public void setMap(Map<String, Integer> m) {
+		map = m;
+	}
 }

@@ -85,12 +85,18 @@ public class BestTime extends Ranking {
 			ar.add(p);
 			hash.put(tam_KK, ar);
 		}
-		pair <String, Integer> p = new pair<String, Integer>(user, f);
-		hash.get(tam_KK).add(p); 
+		else {
+			pair <String, Integer> p = new pair<String, Integer>(user, f);
+			hash.get(tam_KK).add(p);
+		}
 
 	}
 	
 	public Hashtable<Integer, ArrayList<pair<String, Integer> > > getHash() {
 		return hash;
+	}
+	
+	public void setHash(Hashtable<Integer, ArrayList<pair<String, Integer> > > h) {
+		hash = h;
 	}
 }
