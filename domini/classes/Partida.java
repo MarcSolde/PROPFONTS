@@ -82,7 +82,6 @@ public class Partida{
 	public boolean comprovar(int i){
 		if(t.taulerEsValid( i)){
 			partida_acabada = t.taulerFi();
-			getTemps();
 			return true;
 		}
 		return false;

@@ -50,6 +50,7 @@ public class CtrlPartida{
 		CtrlData cData = new CtrlData();
 		p = new Partida(cData.llegirTauler(ken));
 	}
+	
 	public void creaPartidaUser(int tamany){
 		p = new Partida(tamany);
 		p.montar();
@@ -123,7 +124,7 @@ public class CtrlPartida{
 			System.out.println("2: imprimir tauler per pantalla ");
 			System.out.println("3: comprovar el kenken");
 			System.out.println("4: demanar una ajuda");
-			System.out.println("8: guardar kenken");
+			System.out.println("8: guardar partida");
 			System.out.println("9: QUIT");
 
 			switch(in.nextInt()){
@@ -152,6 +153,7 @@ public class CtrlPartida{
 					b = true;
 					System.out.println("Sortint de la partida...");
 					partida_acabada = true;
+					
 				}
 				else{
 					System.out.println("correcte de moment");

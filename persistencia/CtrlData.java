@@ -229,7 +229,7 @@ public class CtrlData {
 			sc = new Scanner(file);
 			sc.useDelimiter(" ");
 			String kenken = sc.next();
-			TaulerKenken t = llegirTauler("taulers/kenken"+kenken+".txt");
+			TaulerKenken t = llegirTauler(kenken);
 			p = new Partida(t);
 			p.setTemps(Integer.parseInt(sc.next()));
 			if (sc.next()=="1") p.partidaFi(true);
@@ -251,6 +251,16 @@ public class CtrlData {
 			e.printStackTrace();
 		}
 		return p;
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param nom
+	 */
+	public void esborrarPartida(String id, String nom) {
+		File file = new File("usuaris/"+ nom + "/partida" + id + ".txt");
+		file.delete();
 	}
 
 	/**
@@ -328,7 +338,7 @@ public class CtrlData {
 	 */
 	public TaulerKenken llegirTauler (String nom) {
 		TaulerKenken t;
-		File file = new File(nom);
+		File file = new File("taulers/kenken"+nom+".txt");
 		Scanner sc;
 		int nr;
 		String s;
@@ -366,19 +376,6 @@ public class CtrlData {
 					} else t.setRegioById(x, y, id);
 				}
 			}
-			/*for (int x = 0; x < mida; ++x) {
-				for (int y = 0; y < mida; ++y) {
-					if(x== 0 && y == 0){
-						int val = Integer.parseInt(s);
-						t.setValorTauler(x,y,val);
-					}
-															
-					int val = Integer.parseInt(s);
-					t.setValorTauler(x,y,val);
-					s = sc.next();
-					
-				}
-			}*/
 			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -402,6 +399,7 @@ public class CtrlData {
 				s = key+" "+map.get(key)+" ";
 				fw.write(s,offset,s.length());
 			}
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -414,8 +412,10 @@ public class CtrlData {
 			Scanner sc = new Scanner(file);
 			sc.useDelimiter(" ");
 			while (sc.hasNext()) {
-				map.put(sc.next(), Integer.parseInt(sc.next()));
+				String key = sc.next();
+				map.put(key, Integer.parseInt(sc.next()));
 			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -437,6 +437,7 @@ public class CtrlData {
 					fw.write(s,offset,s.length());
 				}
 			}
+			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -457,7 +458,9 @@ public class CtrlData {
 					pair<String,Integer> p = new pair <String,Integer>(sc.next(),Integer.parseInt(sc.next()));
 					aux.add(p);
 				}
+				hash.put(key,aux);
 			}
+			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
