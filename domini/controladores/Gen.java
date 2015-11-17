@@ -2,7 +2,11 @@ package domini.controladores;
 import java.util.*;
 
 import domini.classes.*;
-
+/**
+ * 
+ * @author pau
+ *
+ */
 public class Gen {
 	private static TaulerKenken t;
 	private static int tamany;
