@@ -5,7 +5,11 @@ import java.util.*;
 import domini.classes_compartides.Jugador;
 
 import java.lang.*;
-
+/**
+ * 
+ * @author pau
+ *
+ */
 public class Usuari extends Jugador {
 
 	private static final long serialVersionUID = 1L;
