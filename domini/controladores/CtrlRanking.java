@@ -75,4 +75,10 @@ public class CtrlRanking {
 		}
 		
 	}
+	public BestTime getBestTime() {
+		return BT;
+	}
+	public MostSolved getMostSolved() {
+		return MS;
+	}
 }
