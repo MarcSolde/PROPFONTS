@@ -1,0 +1,7 @@
+#ignorar
+KenKen/.settings
+KenKen/bin
+KenKen/class
+KenKen/.classpath
+KenKen/.project
+/bin/
