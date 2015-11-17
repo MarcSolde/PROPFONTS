@@ -33,6 +33,7 @@ public class mainYEAH {
 			
 			boolean b = false;
 			b = iniciarSessio();
+			cPartida.assignarUser(cUsr.getNom());
 			
 			int op = -1;
 			
@@ -51,14 +52,77 @@ public class mainYEAH {
 					System.out.println("1: Triar kenken guardat\n");
 					System.out.println("2: Jugar un kenken\n");
 					System.out.println("3: Tornar al menu\n");
+					int x = scin.nextInt();
+					switch(x) {
+					case 1:
+						System.out.println("\n\nTRIA UN KENKEN GUARDAT\n\n");
+						File f = new File("taulers/");
+						File[] paths = f.listFiles();
+						for (File path:paths) {
+							if (!path.getName().equals("num.txt")) System.out.println(path);
+						}
+						System.out.println("\n\nNom del kenken: ");
+						String s = scin.next();
+						cPartida.assignarUser(cUsr.getNom());
+						cPartida.creaPartidaBD(s);
+						cPartida.inGame();
+						if (cPartida.getAcabada()) {
+							cRank.anadir_valores_fin_partida(cUsr.getNom(), cPartida.getPartida().getTauler().getMida(), cPartida.getPartida().getTemps());
+						}
+						break;
+					case 2:
+						CtrlPartida p;
+						p = new CtrlPartida();
+						System.out.println("digues tamany tauler ");
+						p.creaPartidaRand(scin.nextInt());
+						p.inGame();
+						if (p.getAcabada()) {
+							cRank.anadir_valores_fin_partida(cUsr.getNom(), p.getPartida().getTauler().getMida(), p.getPartida().getTemps());
+
+						}
+						break;
+					case 3:
+						break;
+					}
+					break;
+				case 2:
+					System.out.println("\n\nTRIA UNA PARTIDA\n\n");
+					File f = new File("usuaris/"+cUsr.getNom());
+					File[] paths = f.listFiles();
+					int it = 0;
+					for (File path:paths) {
+					++it;
+						if (!path.getName().equals("contrasenya.txt") && !path.getName().equals("num.txt")) {
+							System.out.println(path);
+						}
+					}
+					System.out.print("1: Tornar al menu");
+					System.out.print("\n\nNom de la partida: ");
+					String s = scin.next();
+					if (s.equals("1")) break;
+					if(Integer.parseInt(s)>it-2 || Integer.parseInt(s) <=0){
+						System.out.println("No hi ha partides per a poder carregar. Tornant al menu");
+						return;
+					}
+					cPartida.carregaPartida(s, cUsr.getNom());
+					cPartida.inGame();
+					if (cPartida.getAcabada()) {
+						cRank.anadir_valores_fin_partida(cUsr.getNom(), cPartida.getPartida().getTauler().getMida(), cPartida.getPartida().getTemps());
+					}
+					break;
+				case 3:
+					System.out.println("\n\nRANKING:\n\n");
+					cRank.consultar();
+					break;
 				}
 			}
+			//AQUI S'HA DE GUARDAR EL RANKING AL FITXER
 		}
 		
 		/**
 		 * inicia sessio amb un usuari existent o crea un usuari nou
 		 */
-		private static void iniciarSessio() {
+		private static boolean iniciarSessio() {
 			//CARREGAR RANKING
 			String nom, pwd;
 			nom = "";
