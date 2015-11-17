@@ -407,10 +407,19 @@ public class CtrlData {
 		}
 	}
 	
-	public Map<String,Integer> llegirMostSolved() {
+	public void llegirMostSolved(MostSolved r) {
 		Map<String,Integer> map = new TreeMap<String,Integer>();
-		
-		return map;
+		File file = new File("rankings/mostSolved.txt");
+		try {
+			Scanner sc = new Scanner(file);
+			sc.useDelimiter(" ");
+			while (sc.hasNext()) {
+				map.put(sc.next(), Integer.parseInt(sc.next()));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		r.setMap(map);
 	}
 	
 	public void escriureBestTime(BestTime r) {
@@ -433,7 +442,25 @@ public class CtrlData {
 		}
 	}
 	
-	public Hashtable<Integer,ArrayList<pair<String, Integer>>> llegirBestTime() {
-		
+	public void llegirBestTime(BestTime r) {
+		Hashtable<Integer, ArrayList<pair<String,Integer> > > hash = new Hashtable<Integer, ArrayList<pair<String, Integer> > >();
+		File file = new File("rankings/bestTime.txt");
+		try {
+			Scanner sc = new Scanner(file);
+			sc.useDelimiter(" ");
+			int key, n;
+			while(sc.hasNext()) {
+				key = Integer.parseInt(sc.next());
+				n = Integer.parseInt(sc.next());
+				ArrayList<pair<String,Integer>> aux = new ArrayList<pair<String,Integer>>(n);
+				for (int i = 0; i < n; ++i) {
+					pair<String,Integer> p = new pair <String,Integer>(sc.next(),Integer.parseInt(sc.next()));
+					aux.add(p);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		r.setHash(hash);
 	}
 }
