@@ -387,16 +387,50 @@ public class CtrlData {
 		return t;
 	}
 	
-	public void escriureMostSolved() {
-		
+	/**
+	 * Escriu el ranking MostSolved a un fitxer
+	 * @param r ranking MostSolved
+	 */
+	public void escriureMostSolved(MostSolved r) {
+		Map<String,Integer> map= r.getMap();
+		File file = new File("rankings/mostSolved.txt");
+		try {
+			FileWriter fw = new FileWriter(file);
+			String s;
+			int offset = 0;
+			for(String key : map.keySet()) {
+				s = key+" "+map.get(key)+" ";
+				fw.write(s,offset,s.length());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Map<String,Integer> llegirMostSolved() {
-		map = New TreeMap<String,Integer>();
+		Map<String,Integer> map = new TreeMap<String,Integer>();
+		
+		return map;
 	}
 	
-	public void escriureBestTime() {
-		
+	public void escriureBestTime(BestTime r) {
+		Hashtable<Integer, ArrayList<pair<String, Integer>>> hash = r.getHash();
+		File file = new File("rankings/bestTime.txt");
+		try {
+			FileWriter fw = new FileWriter(file);
+			String s;
+			int offset = 0;
+			for (Integer key : hash.keySet()) {
+				s = key+" "+hash.keySet().size()+" ";
+				fw.write(s,offset,s.length());
+				for(pair<String, Integer> i : hash.get(key)) {
+					s = i.getFirst()+" "+i.getSecond()+" ";
+					fw.write(s,offset,s.length());
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Hashtable<Integer,ArrayList<pair<String, Integer>>> llegirBestTime() {
