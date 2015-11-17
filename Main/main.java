@@ -1,12 +1,10 @@
 package Main;
 
-import controladores.dominio.*;
-
 import java.io.*;
 import domini.*;
-import ranking.*;
-import tablero.*;
-import controladores.dominio.*;
+import domini.controladores.*;
+import domini.controladores.drivers.*;
+import domini.*;
 
 import java.util.*;
 

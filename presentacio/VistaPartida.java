@@ -26,8 +26,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import controladores.dominio.CtrlPresentacio;
-
+import domini.controladores.CtrlPresentacio;
 import presentacio.CasillaCP;
 
 

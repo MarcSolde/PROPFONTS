@@ -1,6 +1,6 @@
 package presentacio;
 
-import controladores.dominio.CtrlPresentacio;
+import domini.controladores.CtrlPresentacio;
 
 /**
  * 
