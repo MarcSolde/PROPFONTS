@@ -1,9 +1,11 @@
 package domini.controladores.drivers;
-
+import domini.classes.*;
 import java.util.Scanner;
-
-import domini.classes.Casella;
-
+/**
+ * 
+ * @author arnau.zapata.i
+ *
+ */
 public class driverCasella {
 	public static Casella a;
 		
@@ -26,38 +28,51 @@ public static void option1(int n) {
 	System.out.print(option6());
 }
 private static int option6() {
-	// TODO Auto-generated method stub
 	return a.getNum();
 }
 
 public static void option3(int n) {
 	a.setCandidat(n, true);
-	System.out.println(a.getCandidats());
+	option5();
 }
 public static void option4(int n) {
 	a.setCandidat(n,false);
-	System.out.println(a.getCandidats());
+	option5();
 }
 public static void option5() {
-	System.out.println(a.getCandidats());
+	boolean[] lb =a.getCandidats();
+	for(int i=0;i<lb.length;i++){
+		if(lb[i]){System.out.print(String.valueOf(i+1)+ " ");}
+	}
 }
 	
 public static void main(String[] args) {
-	printOptions();
-	System.out.println("0- EXIT");
+	
 	
  	Scanner s = new Scanner(System.in);
- 	Integer option = s.nextInt();
- 	System.out.println("ELIJE TAMANO);");
+ 	System.out.print("ELIJE TAMANO:");
  	int n=s.nextInt();
+ 	printOptions();
+	System.out.println("0- EXIT");
+	Integer option = s.nextInt();
  	a = new Casella(n);
  	while (option != 0) {
- 		if(option == 1) option1(s.nextInt());
+ 		if(option == 1){
+ 			System.out.print("introdueix el valor de la casella");
+ 			option1(s.nextInt());
+ 		}
  		if(option == 2) option2();
- 		if(option == 3) option3(s.nextInt());
- 		if(option == 4) option4(s.nextInt());
+ 		if(option == 3){
+ 			System.out.print("introdueix el candidat que vols afegir");
+ 			option3(s.nextInt());
+ 		}
+ 		if(option == 4){
+ 			System.out.print("introdueix el candidat que vols treure");
+ 			option4(s.nextInt());
+ 		}
  		if(option == 5) option5();
  		if(option == 6) option6();
+ 		printOptions();
 	 	option = s.nextInt();
     }
  	s.close();

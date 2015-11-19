@@ -1,10 +1,8 @@
 package domini.controladores.drivers;
-
+import domini.classes.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import domini.classes.BestTime;
-import domini.classes.pair;
 
 public class driverBestTime {
 		public static BestTime a= new BestTime();
@@ -47,6 +45,7 @@ public class driverBestTime {
 			if(option == 2) option2();
 			if(option == 3) option3(s.nextInt(),s.next(),s.nextInt());
 			if(option == 4) option4();
+			printOptions();
 	 	option = s.nextInt();
 	}
 		s.close();

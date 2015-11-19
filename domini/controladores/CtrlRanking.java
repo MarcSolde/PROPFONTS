@@ -47,13 +47,13 @@ public class CtrlRanking {
 		System.out.println("Que desea consultar? (Introduzca el numero)");
 		System.out.println("1.- Los mejores tiempos");
 		System.out.println("2.- Los mas resueltos");
-		System.out.println("Otro.- Salir a menú");
+		System.out.println("Otro.- Salir a menu");
 		int x = input.nextInt();
 		if (x == 1) {
 			System.out.println("Elija:");
 			System.out.println("1.- Ver todos los kenkens");
-			System.out.println("2.- Elegir el tamaño del kenken");
-			System.out.println("Otro.- Salir a menú");
+			System.out.println("2.- Elegir el tamano del kenken");
+			System.out.println("Otro.- Salir a menu");
 			int b = input.nextInt();
 			boolean t = false;
 			if (!t) {
@@ -66,8 +66,8 @@ public class CtrlRanking {
 		else if (x == 2) {
 			System.out.println("Elija:");
 			System.out.println("1.- Ver todos los kenkens");
-			System.out.println("2.- Elegir el tamaño del kenken");
-			System.out.println("Otro.- Salir a menú");
+			System.out.println("2.- Elegir el tamano del kenken");
+			System.out.println("Otro.- Salir a menu");
 			int b = input.nextInt();
 			boolean t = false;
 			if (!t) {

@@ -38,12 +38,17 @@ public class driverRegio {
 	}
 	
 
-	public static void option3(int n) {
+	public static void option3() {
 		a.removeAll();
 		option4();
 	}
 	public static void option4() {
-		System.out.println(a.getList());
+		ArrayList<Casilla_comp> lc=a.getList();
+		for(Casilla_comp i:lc){
+			String res=String.valueOf(i.getValor());
+			System.out.print(res+" ");
+		}
+		System.out.println();
 	}
 	public static void option5() {
 		System.out.println(a.getOperacio());
@@ -105,21 +110,42 @@ public class driverRegio {
 	 	Integer option = s.nextInt();
 	 	a = new Regio();
 	 	Casilla_comp c = new Casilla_comp();
+	 	ArrayList<Casilla_comp> lc= new ArrayList<Casilla_comp>();
 	 	while (option !=0) {
-	 		if(option==15){int num=s.nextInt();c=new Casilla_comp();c.setValor(num);};
-	 		if(option == 1) option1(c);
-	 		if(option == 2) option2(c);
-	 		if(option == 3) option3(s.nextInt());
+	 		if(option == 1){
+	 			System.out.println("eligeix el valor que vols que tingui la casella que afegiras");
+	 			int num=s.nextInt();
+	 			c=new Casilla_comp();
+	 			c.setValor(num);
+	 			lc.add(c);
+	 			option1(c);
+	 			
+	 		}
+	 		if(option == 2){option2(lc.get(lc.size()-1));lc.remove(c);}
+	 		if(option == 3) {option3();lc = new ArrayList<Casilla_comp>();}
 	 		if(option == 4) option4();
 	 		if(option == 5) option5();
-	 		if(option == 6) option6(s.next());
+	 		if(option == 6){
+	 			System.out.println("introdueix una operacio. Pots elegir entre '+','-','*','/' y ' '");
+	 			option6(s.next());
+	 		}
 	 		if(option == 7) option7();
 	 		if(option == 8) option8();
 	 		if(option == 9) option9();
-	 		if(option == 10) option10(s.nextInt());
-	 		if(option == 11) option11(s.nextInt());
-	 		if(option == 12) option12(s.nextInt());
+	 		if(option == 10){
+	 			System.out.println("introdueix el objectiu que tindra la Regio");
+	 			option10(s.nextInt());
+	 		}
+	 		if(option == 11) {
+	 			System.out.println("introdueix el valor que s'afegira al resultat de la Regio");
+	 			option11(s.nextInt());
+	 		}
+	 		if(option == 12){
+	 			System.out.println("introdueix el valor que 'es desafegira' al resultat de la Regio");
+	 			option12(s.nextInt());
+	 		}
 	 		if(option == 14) option14();
+	 		printOptions();
 		 	option = s.nextInt();
 	    }
 	 	s.close();

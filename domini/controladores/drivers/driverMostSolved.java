@@ -1,8 +1,7 @@
 package domini.controladores.drivers;
+import domini.classes.*;
 
 import java.util.Scanner;
-
-import domini.classes.MostSolved;
 
 public class driverMostSolved {
 		public static MostSolved a= new MostSolved();
@@ -31,7 +30,8 @@ public class driverMostSolved {
 		while (option != 0) {
 			if(option == 1) option1(s.next());
 			if(option == 2) option2(s.next());
-	 	option = s.nextInt();
+			printOptions();
+			option = s.nextInt();
 	}
 		s.close();
 	}

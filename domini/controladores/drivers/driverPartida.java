@@ -1,13 +1,11 @@
 package domini.controladores.drivers;
 
+import domini.classes.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import domini.classes.Casella;
-import domini.classes.Partida;
-import domini.classes.Regio;
-import domini.classes.TaulerKenken;
-import domini.classes_compartides.Casilla_comp;
+import domini.classes_compartides.*;
 
 public class driverPartida {
 	public static Partida a= new Partida(7);
@@ -23,24 +21,28 @@ public class driverPartida {
 		System.out.println("6-partidaFi()");
 		System.out.println("7-partidaFi(true)");
 		System.out.println("8-partidaFi(false)");
+		System.out.println("9-temps_emprat()");
 		System.out.println("10-montar(int t)");
 		System.out.println("11-getTemps()");
 		System.out.println("12-setId(int id)");
 		System.out.println("13-getId()");
 	}
 	
-
+	
 public static void option1() {
 	a.Start();
 }
-
 public static void option2(int i) {
 a.ini(i);
 }
 
 
 public static void option3() {
-a.imprimirReg();
+	try {
+		a.imprimirReg();
+	} catch( IndexOutOfBoundsException e ) {
+		System.out.println("tauler buit, no te regions per imprimir");
+	}
 }
 public static void option4() {
 	TaulerKenken t= a.getTauler();
@@ -65,6 +67,10 @@ private static void option8() {
 	option6();
 }
 
+private static void option9() {
+System.out.println(a.getTemps());
+
+}
 private static void option10() {
 a.montar();
 
@@ -119,10 +125,12 @@ System.out.println("0- EXIT");
 		if(option == 6) option6();
 		if(option == 7) option7();
 		if(option == 8) option8();
+		if(option == 9) option9();
 		if(option == 10) option10();
 		if(option == 11) option11();
 		if(option == 12) option12(s.nextInt());
 		if(option == 13) option13();
+		printOptions();
  	option = s.nextInt();
 }
 	s.close();

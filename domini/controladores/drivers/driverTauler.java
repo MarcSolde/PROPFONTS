@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import domini.classes.Regio;
-import domini.classes.TaulerKenken;
-import domini.classes_compartides.Casilla_comp;
-import domini.classes_compartides.Tauler_comp;
-
+import domini.classes_compartides.*;
+import domini.classes.*;
+/**
+ * 
+ * @author arnau.zapata.i
+ *
+ */
 public class driverTauler {
 	public static TaulerKenken a= new TaulerKenken(7);
 	static int tamany = 7;
@@ -115,7 +117,7 @@ imprimirRegio(a.getRegio(x, y));
 private static void imprimirRegio(Regio r) {
 	ArrayList<Casilla_comp> aux= r.getList();
 	for(int i=0;i<aux.size();i++){
-		System.out.println(aux.get(i).getValor());
+		System.out.println(aux.get(i).getValor() + " ");
 	}
 	
 }
@@ -136,29 +138,95 @@ System.out.println("0- EXIT");
 
 	Scanner s = new Scanner(System.in);
 	Integer option = s.nextInt();
-	
 	Regio r = new Regio();
 	Casilla_comp c = new Casilla_comp();
 	while (option != 0) {
-		if(option == 1) option1(s.nextInt(),s.nextInt(),r);
-		if(option == 2) option2(s.nextInt(),s.nextInt(),s.next(),s.nextInt());
-		if(option == 3) option3(s.nextInt(),s.nextInt(),s.nextInt());
+		
+		if(option == 1){ 
+			int i=0;
+			System.out.println("indica la posicion donde esta la Regio que vols que tingui la casella");
+			r=a.getRegio(s.nextInt(), s.nextInt());
+			System.out.println("indica la posicion de la casella a la que li vols afegir la Regio");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			option1(op1,op2,r);
+			}
+		if(option == 2){ 
+			System.out.println("indica la posicion de la casella a la que li vols afegir la Regio");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			System.out.println("indica la operacio y objectiu de la Regio");
+			String op3 = s.next();
+			int op4 =s.nextInt();
+			option2(op1,op2,op3,op4);	
+		}
+		if(option == 3){
+			System.out.println("indica la posicion de la casella a la que li vols afegir la Regio");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			System.out.println("indica el id de la Regio");
+			int op3 = s.nextInt();
+			option3(op1,op2,op3);
+		}
 		if(option == 4) option4();
-		if(option == 5) option5(s.nextInt(),s.nextInt(),s.nextInt());
-		if(option == 6) option6(s.nextInt(),s.nextInt(),s.nextInt());
-		if(option == 7) option7(s.nextInt(),s.nextInt());
-		if(option == 8) option8(s.nextInt(),s.nextInt());
-		if(option == 9) option9(s.nextInt(),s.nextInt());
-		if(option == 10) option10(s.nextInt());
+		if(option == 5){
+			System.out.println("indica la posicion de la casella");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			System.out.println("indica el valor de la casella");
+			int op3 = s.nextInt();
+			option5(op1,op2,op3);
+		}
+		if(option == 6){
+			System.out.println("indica la posicion de la casella");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			System.out.println("indica el valor de la solucio de la casella");
+			int op3 = s.nextInt();
+			option6(op1,op2,op3);
+		}
+		if(option == 7){
+			System.out.println("indica la posicion de la casella");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			option7(op1,op2);
+		}
+		if(option == 8){
+			System.out.println("indica la posicion de la casella");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			option8(op1,op2);
+		}
+		if(option == 9){
+			System.out.println("indica la posicion de la casella");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			option9(op1,op2);
+		}
+		if(option == 10){
+			System.out.println("introdueix un valor");
+			int op1=s.nextInt();
+			option10(op1);
+		}
 		if(option == 11) option11();
-		if(option == 13) option13(s.nextInt(),s.nextInt());
-		if(option == 14) option14(s.nextInt());
- 	option = s.nextInt();
-}
+		if(option == 13){
+			System.out.println("indica la posicion de la Regio");
+			int op1=s.nextInt();
+			int op2=s.nextInt();
+			option13(op1,op2);
+		}
+		
+		if(option == 14){
+			System.out.println("indica el id de la Regio");
+			option14(s.nextInt());
+		}
+		printOptions();
+		option = s.nextInt();
+	}
 	s.close();
 }
-
-
-
-
 }
+
+
+
+
