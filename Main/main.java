@@ -64,7 +64,7 @@ public class main {
 						break;
 					case 2:
 						System.out.println("\n\nTRIA UN KENKEN GUARDAT\n\n");
-						File f = new File("taulers/");
+						File f = new File("data/taulers/");
 						File[] paths = f.listFiles();
 						for (File path:paths) {
 							if (!path.getName().equals("num.txt")) System.out.println(path);
@@ -97,7 +97,7 @@ public class main {
 					break;
 				case 2:
 					System.out.println("\n\nTRIA UNA PARTIDA\n\n");
-					File f = new File("usuaris/"+cUsr.getNom());
+					File f = new File("data/usuaris/"+cUsr.getNom());
 					File[] paths = f.listFiles();
 					int it = 0;
 					for (File path:paths) {
@@ -127,7 +127,7 @@ public class main {
 					break;
 				case 4:
 					System.out.println("\n\nTRIA UNA PARTIDA\n\n");
-					File file = new File("usuaris/"+cUsr.getNom());
+					File file = new File("data/usuaris/"+cUsr.getNom());
 					File[] p = file.listFiles();
 					int ite = 0;
 					for (File path:p) {

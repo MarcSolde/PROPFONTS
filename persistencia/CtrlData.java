@@ -23,25 +23,25 @@ public class CtrlData {
 		//cUsuari = new CtrlUsuari();
 		//cPartida = new CtrlPartida();
 		//cTauler = new CtrlTauler();
-		File file = new File("usuaris");
+		File file = new File("data/usuaris");
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		file = new File("taulers");
+		file = new File("data/taulers");
 		if (!file.exists()) {
 			file.mkdirs();
-			file = new File("taulers/num.txt"); //the borrat el num de taulers, no fa falta, amb el nom ja sabem de quina partida son
+			file = new File("data/taulers/num.txt"); //the borrat el num de data/taulers, no fa falta, amb el nom ja sabem de quina partida son
 		}
-		file = new File("rankings");
+		file = new File("data/rankings");
 		if (!file.exists()) {
 			file.mkdirs();
-			file = new File ("rankings/mostSolved.txt");
+			file = new File ("data/rankings/mostSolved.txt");
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			file = new File ("rankings/bestTime.txt");
+			file = new File ("data/rankings/bestTime.txt");
 			try {
 				file.createNewFile();
 			} catch (IOException e1) {
@@ -59,7 +59,7 @@ public class CtrlData {
 	 * @return retorna si s'ha escrit o no l'usuari
 	 */
 	public boolean escriureUsuari(String nom, String pwd) {
-		File file = new File("usuaris/" + nom);
+		File file = new File("data/usuaris/" + nom);
 		if (file.exists()) {
 			return false;
 		} else {
@@ -67,8 +67,8 @@ public class CtrlData {
 			if (!file.isDirectory()) {
 				System.out.print("no s'ha pogut crear l'usuari\n");
 			} else {
-				file = new File("usuaris/" + nom + "/contrasenya.txt");
-				File f = new File("usuaris/"+nom+"/num.txt");
+				file = new File("data/usuaris/" + nom + "/contrasenya.txt");
+				File f = new File("data/usuaris/"+nom+"/num.txt");
 				try {
 					file.createNewFile();
 				} catch (IOException e) {
@@ -116,7 +116,7 @@ public class CtrlData {
 	 * contrasenya = pwd a la BD
 	 */
 	public boolean llegirUsuari(String nom, String pwd) {
-		File file = new File("usuaris/" + nom + "/contrasenya.txt");
+		File file = new File("data/usuaris/" + nom + "/contrasenya.txt");
 		Scanner sc = null;
 		if (file.exists()) {
 			try {
@@ -149,9 +149,9 @@ public class CtrlData {
 		int numk = 0;
 		if (p.getId() != -1) {
 			num = p.getId();
-			file = new File("usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
+			file = new File("data/usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
 		} else {
-			File aux = new File("usuaris/"+nom+"/num.txt");
+			File aux = new File("data/usuaris/"+nom+"/num.txt");
 			try {
 				sc = new Scanner(aux);
 				sc.useDelimiter(" ");
@@ -159,7 +159,7 @@ public class CtrlData {
 				num = Integer.parseInt(s);
 				num += 1;
 				p.setId(num);					//CALCULES ID MOLT B, PERO NO L'ASSIGNES A PARTIDA (EVIDENTMENT LA LINIA AQUESTA L'HE FET JO
-				file = new File("usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
+				file = new File("data/usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
 				FileWriter fw;
 				try {
 					fw = new FileWriter(aux);
@@ -223,7 +223,8 @@ public class CtrlData {
 	 */
 	public Partida llegirPartida(String id, String nom) {
 		Partida p = new Partida(0);
-		File file = new File("usuaris/"+ nom + "/partida" + id + ".txt");//BUSQUES UNA PARTIDA AMB DIRECTORI CORRECTE
+		System.out.println("abans new file");
+		File file = new File("data/usuaris/"+ nom + "/partida" + id + ".txt");//BUSQUES UNA PARTIDA AMB DIRECTORI CORRECTE
 		Scanner sc;
 		try {
 			sc = new Scanner(file);
@@ -259,7 +260,7 @@ public class CtrlData {
 	 * @param nom
 	 */
 	public void esborrarPartida(String id, String nom) {
-		File file = new File("usuaris/"+ nom + "/partida" + id + ".txt");
+		File file = new File("data/usuaris/"+ nom + "/partida" + id + ".txt");
 		file.delete();
 	}
 
@@ -269,7 +270,7 @@ public class CtrlData {
 	 * @param id identificador del fitxer
 	 */
 	public void escriureTauler(TaulerKenken t, int id) {
-		File file = new File("taulers/kenken"+Integer.toString(id));
+		File file = new File("data/taulers/kenken"+Integer.toString(id));
 		Scanner sc;
 		//System.out.println("estic dins d¡escriure tauler");
 		if (!file.exists()) {
@@ -289,7 +290,7 @@ public class CtrlData {
 				e1.printStackTrace();
 			}*/
 			FileWriter fw;
-			file = new File("taulers/kenken" + Integer.toString(id)+".txt");
+			file = new File("data/taulers/kenken" + Integer.toString(id)+".txt");
 			try {
 				file.createNewFile();
 				fw = new FileWriter(file);
@@ -340,7 +341,7 @@ public class CtrlData {
 	 */
 	public TaulerKenken llegirTauler (String nom) {
 		TaulerKenken t;
-		File file = new File("taulers/kenken"+nom+".txt");
+		File file = new File("data/taulers/kenken"+nom+".txt");
 		Scanner sc;
 		int nr;
 		String s;
@@ -392,7 +393,7 @@ public class CtrlData {
 	 */
 	public void escriureMostSolved(MostSolved r) {
 		Map<String,Integer> map= r.getMap();
-		File file = new File("rankings/mostSolved.txt");
+		File file = new File("data/rankings/mostSolved.txt");
 		try {
 			FileWriter fw = new FileWriter(file);
 			String s;
@@ -409,7 +410,7 @@ public class CtrlData {
 	
 	public void llegirMostSolved(MostSolved r) {
 		Map<String,Integer> map = new TreeMap<String,Integer>();
-		File file = new File("rankings/mostSolved.txt");
+		File file = new File("data/rankings/mostSolved.txt");
 		try {
 			Scanner sc = new Scanner(file);
 			sc.useDelimiter(" ");
@@ -426,7 +427,7 @@ public class CtrlData {
 	
 	public void escriureBestTime(BestTime r) {
 		Hashtable<Integer, ArrayList<pair<String, Integer>>> hash = r.getHash();
-		File file = new File("rankings/bestTime.txt");
+		File file = new File("data/rankings/bestTime.txt");
 		try {
 			FileWriter fw = new FileWriter(file);
 			String s;
@@ -447,7 +448,7 @@ public class CtrlData {
 	
 	public void llegirBestTime(BestTime r) {
 		Hashtable<Integer, ArrayList<pair<String,Integer> > > hash = new Hashtable<Integer, ArrayList<pair<String, Integer> > >();
-		File file = new File("rankings/bestTime.txt");
+		File file = new File("data/rankings/bestTime.txt");
 		try {
 			Scanner sc = new Scanner(file);
 			sc.useDelimiter(" ");
