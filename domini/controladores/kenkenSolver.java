@@ -122,7 +122,6 @@ public class kenkenSolver {
 			return true;
 		}
 		else {
-			System.out.print("Tiene "+sol+" soluciones");
 			return false;
 		}
 	}
