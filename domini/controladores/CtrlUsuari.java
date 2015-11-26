@@ -8,7 +8,7 @@ import domini.classes.Usuari;
 
 public class CtrlUsuari{
 	
-	private Usuari usuari;
+	private	Usuari usuari;
 
 	
 	/**
