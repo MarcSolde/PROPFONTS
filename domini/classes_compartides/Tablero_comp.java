@@ -1,5 +1,9 @@
 package domini.classes_compartides;
- 
+/**
+ * 
+ * @author	grupo kenken
+ *
+ */
 public class Tablero_comp {
        
         protected Casilla_comp[][] tauler;
