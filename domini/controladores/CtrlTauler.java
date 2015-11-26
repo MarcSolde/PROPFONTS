@@ -4,7 +4,11 @@ import java.util.*;
 
 import domini.classes.TaulerKenken;
 import persistencia.CtrlData;
-
+/**
+ * 
+ * @author anna
+ *
+ */
 public class CtrlTauler {
 	private TaulerKenken t;
 	public CtrlData cData;

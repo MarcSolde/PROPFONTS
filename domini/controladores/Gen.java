@@ -11,7 +11,6 @@ public class Gen {
 	private static TaulerKenken t;
 	private static int tamany;
 	private static boolean jata;
-	private static int[][] matriu_reg;
 	private static int contador_regions;// num regions
 	private ArrayList<Integer> resultats; //solucio a la regio iterador
 	private ArrayList<Integer> operacions;// 0 suma, 1 mult, 2 resta, 3 divisio, 4 cap
@@ -27,12 +26,11 @@ public class Gen {
 			tamany = t.getMida();	
 			operacions = new ArrayList<Integer>();
 			resultats = new ArrayList<Integer>();
-			matriu_reg = new int[tamany][tamany];
 			backtraking(0,0);
 			contador_regions = 0;
 			for (int i = 0; i< tamany; i++){
 				for(int j = 0; j< tamany; j++){
-					if(matriu_reg[i][j]== 0){
+					if(t.getIdRegio(i, j)== 0){
 						contador_regions++;
 						crear_regio(i,j);
 					}
@@ -110,6 +108,26 @@ public class Gen {
 	}
 	
 	
+	private void intercanvi(int i, int j){
+		t.getRegio(i, j).setObjectiu(resultats.get(contador_regions-1));
+		if(operacions.get(contador_regions-1) == 0){
+			t.getRegio(i, j).setOperacio("+");
+		}
+		else if(operacions.get(contador_regions-1) == 1){
+			t.getRegio(i, j).setOperacio("*");
+		}
+		else if(operacions.get(contador_regions-1) == 2){
+			t.getRegio(i, j).setOperacio("-");
+		}
+		else if (operacions.get(contador_regions-1)==3){
+			t.getRegio(i, j).setOperacio("/");
+		}
+		else{
+			t.getRegio(i, j).setOperacio("+");
+		}
+		//falta assignar objectiu i l'operacio
+	}
+	
 	/**
 	 * 
 	 * @param i fila del tauler
@@ -122,28 +140,31 @@ public class Gen {
 		Random rand = new Random();
 		int reg = rand.nextInt(4);
 		ArrayList<Integer> agrupa_nums = new ArrayList<Integer>();
-		matriu_reg[i][j] = contador_regions;
 		agrupa_nums.add(t.getValorTauler(i, j));
 		while(reg != 0){			//assignar una casella mes a la regio
 			ArrayList<Integer> llista = new ArrayList<Integer>();
 			if(i-1 >= 0 ){
-				if(matriu_reg[i-1][j] == 0){
+				if(t.getIdRegio(i-1, j) == 0){
 					llista.add(0);
 				}
+				
+				/*if(matriu_reg[i-1][j] == 0){
+					llista.add(0);
+				}*/
 			}
 			if(j-1 >= 0 ){
-				if(matriu_reg[i][j-1] == 0){
+				if(t.getIdRegio(i, j-1) == 0){
 					llista.add(1);
 				}
 			}
 			
 			if(i+1 < tamany){
-				if(matriu_reg[i+1][j] == 0){
+				if(t.getIdRegio(i+1, j) == 0){
 					llista.add(2);
 				}
 			}
 			if(j+1 < tamany){
-				if(matriu_reg[i][j+1] == 0){
+				if(t.getIdRegio(i, j+1) == 0){
 					llista.add(3);
 				}
 			}
@@ -155,25 +176,21 @@ public class Gen {
 			random2 = llista.get(random2);	//seleccionem una direccio random
 			
 			if(random2 == 0){				//va amunt assignem casella d'amunt a la regio
-				matriu_reg[i-1][j] = contador_regions;
 				t.setRegioTauler(i-1,j,r);
 				
 				i = i-1;
 			}
 			
 			if(random2 == 1){				//va cap a l'esquerra, assignem casella  a regio
-				matriu_reg[i][j-1] = contador_regions;
 				t.setRegioTauler(i,j-1,r);
 				j = j-1;
 			}
 			
 			if(random2 == 2){				//va  cap  avall i assigna la nova cassella a regio
-				matriu_reg[i+1][j] = contador_regions;
 				t.setRegioTauler(i+1,j,r);
 				i = i+1;
 			}
 			if(random2 == 3){				//va cap a la dreta i assigna la casella a la regio
-				matriu_reg[i][j+1] = contador_regions;
 				t.setRegioTauler(i,j+1,r);
 				
 				j = j+1;
@@ -245,23 +262,8 @@ public class Gen {
 			resultats.add(resultat);
 
 		}
-		t.getRegio(i, j).setObjectiu(resultats.get(contador_regions-1));
-		if(operacions.get(contador_regions-1) == 0){
-			t.getRegio(i, j).setOperacio("+");
-		}
-		else if(operacions.get(contador_regions-1) == 1){
-			t.getRegio(i, j).setOperacio("*");
-		}
-		else if(operacions.get(contador_regions-1) == 2){
-			t.getRegio(i, j).setOperacio("-");
-		}
-		else if (operacions.get(contador_regions-1)==3){
-			t.getRegio(i, j).setOperacio("/");
-		}
-		else{
-			t.getRegio(i, j).setOperacio("+");
-		}
-		//falta assignar objectiu i l'operacio
+		intercanvi(i,j);
+		
 		
 	}
 	

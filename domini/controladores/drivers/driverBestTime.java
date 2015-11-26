@@ -3,7 +3,11 @@ import domini.classes.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+/**
+ * 
+ * @author arnau.zapata.i
+ *
+ */
 public class driverBestTime {
 		public static BestTime a= new BestTime();
 		static int tamany = 7;

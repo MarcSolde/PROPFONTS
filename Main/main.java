@@ -6,7 +6,12 @@ import domini.controladores.*;
 import persistencia.CtrlData;
 
 import java.util.*;
-
+/**
+ * 
+ * @author anna, contribuidor: pau
+ * 
+ *
+ */
 public class main {
 	
 		private static CtrlData cData;

@@ -3,7 +3,11 @@ package domini.classes;
 import java.util.ArrayList;
 
 import domini.classes_compartides.*;
-
+/**
+ * 
+ * @author arnau.zapata.i
+ *
+ */
 public class Regio{
 	private String operacio;
 	private int resultat;

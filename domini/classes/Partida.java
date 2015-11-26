@@ -21,6 +21,7 @@ public class Partida extends Partida_comp{
 	/**
 	 * 
 	 * @param i - tamany del tauler que es vol crear 
+	 * inicialitza una partida
 	 */
 	public Partida(int i){
 		//super();//#proskills

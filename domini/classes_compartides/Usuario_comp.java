@@ -13,7 +13,7 @@ public class Usuario_comp implements Serializable{
  
     /*PRE: No existe ningún Jugador con nombre = 'nombre'.
      */
-    protected Usuario_comp(String nombre, String password){
+    public Usuario_comp(String nombre, String password){
         this.nombre = nombre;
         this.password = password;
     }

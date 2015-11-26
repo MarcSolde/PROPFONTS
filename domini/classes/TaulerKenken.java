@@ -306,6 +306,9 @@ public class TaulerKenken extends Tablero_comp {
 		return taulerReg.get(id);
 	}
 
+	public int getIdRegio(int x, int y) {
+		return regions[x][y];
+	}
 	/**
 	 * Imprimeix el tauler
 	 */

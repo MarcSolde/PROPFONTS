@@ -44,13 +44,17 @@ public class CtrlPartida{
 	}
 	/**
 	 * 
-	 * @param ken
+	 * @param ken carrega la partida de la bd
 	 */
 	public void creaPartidaBD(String ken){
 		CtrlData cData = new CtrlData();
 		p = new Partida(cData.llegirTauler(ken));
 	}
-	
+	/**
+	 * 
+	 * @param tamany tamany del tauler
+	 * crea una partida introduida per lusuari
+	 */
 	public void creaPartidaUser(int tamany){
 		p = new Partida(tamany);
 		p.montar();

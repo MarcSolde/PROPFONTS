@@ -1,6 +1,12 @@
 package domini.classes;
 import java.util.*;
-
+/**
+ * 
+ * @author Marc
+ *
+ * @param <F>
+ * @param <S>
+ */
 public class pair<F, S> {
     private F first; //first member of pair
     private S second; //second member of pair

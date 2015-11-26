@@ -3,7 +3,11 @@ package domini.controladores.drivers;
 import java.util.*;
 
 import domini.classes.Usuari;
-
+/**
+ * 
+ * @author arnau.zapata.i
+ *
+ */
 public class DriverUsuario {
 	
 	private Usuari usr;

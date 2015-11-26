@@ -5,7 +5,11 @@ import java.util.*;
 import domini.classes.Partida;
 import domini.classes.Usuari;
 
-
+/**
+ * 
+ * @author pau
+ *
+ */
 public class CtrlUsuari{
 	
 	private	Usuari usuari;
