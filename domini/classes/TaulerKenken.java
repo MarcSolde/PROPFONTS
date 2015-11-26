@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import domini.classes_compartides.Casilla_comp;
-import domini.classes_compartides.Tauler_comp;
+import domini.classes_compartides.Tablero_comp;
 
 /**
  * Created by Anna on 12/10/2015.
  */
-public class TaulerKenken extends Tauler_comp {
+public class TaulerKenken extends Tablero_comp {
 
 	private Casilla_comp[][] solucio;
 	private ArrayList<Regio> taulerReg;

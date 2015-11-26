@@ -1,19 +1,20 @@
 
 package domini.classes;
 import java.util.Scanner;
+import domini.classes_compartides.*;
 
 /**
  * 
  * @author pau
  *
  */
-public class Partida{
+public class Partida extends Partida_comp{
 
 	private int temps;
 	private static int tamany;
 	private boolean partida_acabada;
 	private static TaulerKenken t;
-	private int id;
+	int id;
 	long tStart;
 	double elapsedSeconds;
 	
@@ -22,6 +23,7 @@ public class Partida{
 	 * @param i - tamany del tauler que es vol crear 
 	 */
 	public Partida(int i){
+		//super();//#proskills
 		ini(i);
 	}
 	/**
@@ -165,12 +167,8 @@ public class Partida{
 	public void setId (int id) {
 		this.id = id;
 	}
-	/**
-	 * 
-	 * @return l'identificador de partida
-	 */
-	public int getId () {
+	
+	public int getId(){
 		return id;
 	}
-
 	}
