@@ -6,21 +6,24 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 /**
  * 
  * @author arnau.zapata.i
  *
  */
+@SuppressWarnings("serial")
 public class CasillaCP extends JPanel{
 	int x;int y;
 	Graphics g;
-	Color colorOriginal =new Color(0,0,255);;
+	
 	boolean error;
 	int tamany;
 	int valor=0;
@@ -31,6 +34,7 @@ public class CasillaCP extends JPanel{
 	JLabel labelValor = new JLabel();
 	JLabel labelObjectiu = new JLabel();
 	private Point p = new Point();
+	Color colorOriginal =new Color(0,0,255);
 	Color color1 = new Color(255,0,0);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
@@ -46,12 +50,11 @@ public class CasillaCP extends JPanel{
 		candidats= new boolean[tamany];
 		for(int i =0;i<tamany;i++)candidats[i]=false;
 		writeCandidats();
-		labelCandidats.setSize(1, 9);
 		this.setBackground(colorOriginal);
 		this.setLayout(new BorderLayout());
 		this.add(labelOperacio,BorderLayout.WEST);
 		this.add(labelCandidats,BorderLayout.SOUTH);
-		this.add(labelValor,BorderLayout.CENTER);
+		this.add(labelValor,BorderLayout.EAST);
 		this.add(labelObjectiu,BorderLayout.NORTH);
 		
 		
@@ -65,7 +68,7 @@ public class CasillaCP extends JPanel{
          int j=this.getLocation().y; 
          //System.out.println(i+" "+j);
 	     super.paintComponent(g); 
-	     int L=20;
+	     int L=50;
 	    for(int x=0;x<tamany;x++)for(int y=0;y<tamany;y++){
 	    	int x1=27*x;
 	    	int y1=42*y;
@@ -95,8 +98,9 @@ public class CasillaCP extends JPanel{
 	public Color getColorOriginal() {
 		return colorOriginal;
 	}
-	public int getValor() {
-		return valor;		
+	public String getValor() {
+		String s=this.labelValor.getText();
+		return s;		
 	}
 	public void setValor(String valor) {
 		if(!valor.equals("CAP")){
@@ -104,7 +108,7 @@ public class CasillaCP extends JPanel{
 			labelValor.setText(valor);
 		}
 		else{
-			this.valor=Integer.valueOf(0);
+			this.valor=0;
 			labelValor.setText("");
 		}
 	}
@@ -115,7 +119,8 @@ public class CasillaCP extends JPanel{
 		return labelObjectiu.getText();
 	}
 	public void setOperacio(String o){
-		if(o.equals("CAP")){labelOperacio.setText("");}
+		if(o.equals("eligeix l'operacio")){}
+		else if(o.equals("CAP")){labelOperacio.setText(" ");}
 		else labelOperacio.setText(o);
 	}
 	public boolean[] getCandidats(){
@@ -166,12 +171,37 @@ public class CasillaCP extends JPanel{
 		}
 	}
 
-	public void setObjectiu(String valor) {
-		labelObjectiu.setText(valor);
+	public boolean setObjectiu(String valor) {
+		boolean b =toInt(valor);
+		valor=valor.replaceAll(" ","");
+		if(b){
+			labelObjectiu.setText(valor);	
+		}
+		return b;
 	}
 
+	private boolean toInt(String valor) {
+		valor.replaceAll(" ", "");
+		int i= valor.length();
+		for(int j=0;j<i;j++){
+			char c=valor.charAt(j);
+			if(c==' '){}
+			if(c>='a' && c<='z'){return false;}
+			if(c>='A' && c<='Z'){return false;}
+		}
+		return true;
+	}
 	public Color getColor() {
-		return this.getColor();
+		return this.getBackground();
+	}
+
+	public void borrarValor() {
+		this.setValor("CAP");
+		
+	}
+
+	public int getValorInt() {
+		return valor;
 	}
 	
 }

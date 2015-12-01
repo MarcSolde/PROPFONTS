@@ -37,7 +37,7 @@ import presentacio.CasillaCP;
  * @author arnau.zapata.i
  *
  */
-public class VistaPartida {
+public class VistaPartida{
 	 private CtrlPresentacio cp;
 	//principal
 	private JFrame frameVista = new JFrame("Vista Principal");
@@ -47,22 +47,33 @@ public class VistaPartida {
 	private JPanel panelAfegirCandidat = new JPanel();
 	private JPanel panelBorrarCandidat = new JPanel();
 	Color old;
-	
-	int tamany=7;
+	int RegionsId[][];
+	int RegionsColor[][];
+	CasillaCP Caselles[][];
+	CasillaCP Select;
+	Color colorDefecte = new Color(0,0,255);
+	Color color1 = new Color(255,0,0);
+	Color color2= new Color(0,255,0);
+	Color color3= new Color(255,255,0);
+	Color color4= new Color(255,0,255);
+	Color color5= new Color(0,255,255);
+	int tamany=6;
 	int pulsaX=0;
 	int pulsaY=0;
 	boolean pulsat=false;
+	boolean visit[][] = new boolean[tamany][tamany];
+	boolean visit2[][] = new boolean[tamany][tamany];
+	
 	
 	Color colorOriginal[][];
 	
 	//OPCIONS
-	@SuppressWarnings("rawtypes")
-	private JComboBox comboboxAfegirValor = new JComboBox();
-	private JButton buttonAfegirValor = new JButton("AÃ±adir");
-	private JComboBox comboboxAfegirCandidat = new JComboBox();
-	private JButton buttonAfegirCandidat = new JButton("AÃ±adir Candidato");
+	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
+	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
+	private JButton buttonAfegirCandidat = new JButton("Añadir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
-	private JComboBox comboboxBorrarCandidat = new JComboBox();
+	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
 	String auxBorrarCandidat = "indica el valor del candidato";
 	
@@ -70,15 +81,120 @@ public class VistaPartida {
 	
 	  public VistaPartida (CtrlPresentacio pCtrlPresentacion) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
-	   cp = pCtrlPresentacion;
+	    cp = pCtrlPresentacion;
 	    inicializarComponentes();
 	    
 	  }
+	  
+	  public void setTamany(int tam){
+			 tamany=tam;
+	   }
 	  
 	  public void llamarVista(){
 		  hacerVisible();
 		  repintar();
 	  }
+	  public void llamarVista(String[][] valor, String[][] obj, String[][] op, int[][] reg){
+		  hacerVisible();
+		  RegionsId=reg;
+		  int max=0;
+		  RegionsColor= new int[tamany][tamany];
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  if(reg[i][j]>max)max=reg[i][j];
+		  }
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  RegionsColor[i][j]=0;
+		  }
+		  cleanVisit(visit);
+		  boolean regions[]= new boolean[max+1];
+		  boolean ColorPosible[] = new boolean[6];
+		  for(boolean b:ColorPosible)b=true;
+		  visit[0][0]=true;
+		  ponerColor(0,0,reg[0][0],1);
+		  int idOld=RegionsId[0][0];
+		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+			  	int idNew=RegionsId[i][j];
+			  	if(idNew!=idOld){
+			  		for (int k = 0; k < ColorPosible.length; k++) {
+						ColorPosible[k]=true;
+					}
+			  		idOld=idNew;
+			  	}
+				if(visit[i][j]==false){
+					ColorPosible=ColorPosible(i,j,RegionsId[i][j],ColorPosible);
+					int color =0;
+					boolean ok=false;
+					for(int k=0;k<6 && !ok;k++){
+						if(ColorPosible[k]){
+							ok=true;
+							color=k;
+						}
+					}
+					ponerColor(i,j,reg[i][j],color);
+				}
+			}
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  Color color = this.ChooseColor(RegionsColor[i][j]);
+			  Caselles[i][j].setColorOriginal(color);
+		  }
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  CasillaCP c= Caselles[i][j];
+			  c.setObjectiu(obj[i][j]);
+			  c.setOperacio(op[i][j]);
+			  c.setValor(valor[i][j]);
+		  }
+		  repintar();
+	  }
+	  private boolean[] ColorPosible(int i, int j,int id, boolean[] colorPosible) {
+		  visit[i][j]=true;
+		  int a=0;
+		  for(int x1=i-1;x1<=i+1;x1++)for(int y1=j-1;y1<=j+1;y1++){
+				if(x1<0){}
+				else if(a%2==0){}
+				else if(x1>=tamany){}
+				else if(y1<0){}
+				else if(y1>=tamany){}
+				else if(RegionsId[x1][y1]==id && visit[x1][y1]==false){
+					ColorPosible(x1,y1,id,colorPosible);
+				}
+				else if(RegionsId[x1][y1]!=id){
+					int color= RegionsColor[x1][y1];
+					System.out.println("estoy en la posicion: "+i+","+j+" y el color no puede ser:"+ color);
+					colorPosible[color]=false;
+					colorPosible[0]=false;
+				}
+				a++;
+			}
+		  for(boolean b:colorPosible)System.out.print(b + ",");
+		  System.out.println();
+		  return colorPosible;
+	  }
+
+	private void cleanVisit(boolean[][] visit){
+			for(int i=0;i<visit.length;i++)for(int j=0;j<visit.length;j++)visit[i][j]=false;
+		}
+	  private void ponerColor(int x,int y,int c,int col) {
+			visit[x][y]=true;
+			RegionsColor[x][y]=col;
+			Color color= ChooseColor(col);
+			System.out.println("el color seleccionado para: "+x+","+y+" es:"+ col);
+			Caselles[x][y].setColorOriginal(color);
+			int i=0;
+			for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
+				if(x1<0){}
+				else if(i%2==0){}
+				else if(x1>=tamany){}
+				else if(y1<0){}
+				else if(y1>=tamany){}
+				else if(RegionsId[x1][y1]==c && !Caselles[x1][y1].getColorOriginal().equals(this.ChooseColor(col))){
+					RegionsColor[x1][y1]=col;
+					Caselles[x1][y1].setColorOriginal(color);
+					System.out.println("el color seleccionado para: "+x1+","+y1+" es:"+ col);
+					ponerColor(x1,y1,c,col);
+				}
+				i++;
+			}
+		}
 	  
 	  public void inicializarComponentes(){
 		 	inicializar_frameVista();
@@ -90,7 +206,7 @@ public class VistaPartida {
 	  
 	 
 
-	private void inicializar_frameVista() {
+	protected void inicializar_frameVista() {
 		    // Tamanyo
 			
 		    frameVista.setMinimumSize(new Dimension(700,400));
@@ -110,69 +226,69 @@ public class VistaPartida {
 		  colorOriginal= new Color[tamany][tamany];
 		  panelTauler.setLayout(new GridLayout (tamany,tamany)); //a revisar
 		    // Paneles
-		  
+		  Caselles= new CasillaCP[tamany][tamany];
 		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
-			 CasillaCP c = new CasillaCP(tamany,i,j);
-			 Graphics g = c.getGraphics();
-			 c.paintComponents(g);
-			 colorOriginal[i][j]=c.getColorOriginal();
-			 c.addMouseListener(new MouseListener() {
-		        public void mouseClicked(MouseEvent e) {
-		          CasillaCP aux = (CasillaCP)e.getSource();
-		          
-		          int x=aux.getLocation().x;
-		          int y=aux.getLocation().y;
-		          System.out.println("En la casilla que esta en la posicion: x="+x+ ",y="+y);
-		          actionPerformed_CasillaPulsada(e);
-		          
-		        }
-		        public void mouseEntered(MouseEvent e) {
-					CasillaCP aux = (CasillaCP)e.getSource();
-			        Color c= aux.getColor();
-			        int gr=c.getGreen();
-			        int r=c.getRed();
-			        int b=c.getBlue();
-			        gr=gr/2;
-			        r=r/2;
-			        b=b/2;
-			        Color c1=new Color(r,gr,b);
-			        aux.setColor(c1);
-				}
-
-				@Override
-				public void mouseExited(MouseEvent e) {
-					CasillaCP aux = (CasillaCP)e.getSource();
-					Color c2=aux.getColor();
-					if(c2.equals(new Color(0,0,0))){}
-					else{
-						Color c= aux.getColor();
+				 CasillaCP c = new CasillaCP(tamany,i,j);
+				 Caselles[i][j]=c;
+				 Graphics g = c.getGraphics();
+				 c.paintComponents(g);
+				 c.addMouseListener(new MouseListener() {
+			        public void mouseClicked(MouseEvent e) {
+			          CasillaCP aux = (CasillaCP)e.getSource();
+			          
+			          int x=aux.getLocation().x;
+			          int y=aux.getLocation().y;
+			          System.out.println("En la casilla que esta en la posicion: x="+x+ ",y="+y);
+			          actionPerformed_CasillaPulsada(e);
+			          
+			        }
+			        @Override
+					public void mouseEntered(MouseEvent e) {
+						CasillaCP aux = (CasillaCP)e.getSource();
+				        Color c= aux.getColor();
 				        int gr=c.getGreen();
 				        int r=c.getRed();
 				        int b=c.getBlue();
-				        gr=gr*2;
-				        r=r*2;
-				        b=b*2;
+				        gr=gr/2;
+				        r=r/2;
+				        b=b/2;
 				        Color c1=new Color(r,gr,b);
 				        aux.setColor(c1);
 					}
-			        
-				}
 
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						CasillaCP aux = (CasillaCP)e.getSource();
+						Color c2=aux.getColor();
+						if(c2.equals(new Color(0,0,0))){}
+						else{
+							Color c= aux.getColor();
+					        int gr=c.getGreen();
+					        int r=c.getRed();
+					        int b=c.getBlue();
+					        gr=gr*2;if(gr>255)gr=255;
+					        r=r*2;if(r>255)r=255;
+					        b=b*2;if(b>255)b=255;
+					        Color c1=new Color(r,gr,b);
+					        aux.setColor(c1);
+						}
+				        
+					}
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
 
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-		      });
-			 panelTauler.add(c); 
-			 
-		  }
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+			      });
+				 panelTauler.add(c); 
+				 
+			  }
 	  }
 	  
 	 
@@ -271,61 +387,94 @@ public class VistaPartida {
 	}
 
 	protected void actionPerformed_buttonBorrarCandidat(ActionEvent event) {
-		String valor = (String) comboboxBorrarCandidat.getModel().getSelectedItem(); 
-		if(pulsat && !valor.equals(auxBorrarCandidat)){
-			CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
-			Point p=b.getXY();
-			int x=p.x;
-			int y=p.y;
-			int n=Integer.valueOf(valor);
-			if(cp.borrarCandidat(x,y,n)){
-				b.eraseCandidat(valor);	
-			}
-			b.ReturnColorOriginal();
-			pulsat=false;
-			buidarComboboxCandidats();
+		if(pulsat==false){
+			cp.llamarError("No has pulsat cap Casella");
 		}
-		repintar();	
-	}
-
-	protected void actionPerformed_buttonAfegirCandidat(ActionEvent event) {
-		String valor = (String) comboboxAfegirCandidat.getModel().getSelectedItem(); 
-		if(pulsat && !valor.equals(auxAfegirCandidat)){
-			CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
-			Point p=b.getXY();
-			int x=p.x;
-			int y=p.y;
-			int n=Integer.valueOf(valor);
-			if(cp.addCandidat(x,y,n)){
-				b.addCandidat(valor);
+		else{
+			String valor = (String) comboboxBorrarCandidat.getModel().getSelectedItem(); 
+			if(!valor.equals(auxBorrarCandidat)){
+				//CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
+				CasillaCP b=Select;
+				Point p=b.getXY();
+				int x=p.x;
+				int y=p.y;
+				int n=Integer.valueOf(valor);
+				if(cp.borrarCandidat(x,y,n)){
+					b.eraseCandidat(valor);	
+				}
+				posarComboboxCandidats(b);
 			}
-			b.ReturnColorOriginal();
-			pulsat=false;
-			buidarComboboxCandidats();
+			else{
+				cp.llamarError("No has seleccionat cap candidat");
+			}
+			repintar();	
 		}
-		repintar();	
 		
 	}
 
-	@SuppressWarnings("deprecation")
-	protected void actionPerformed_buttonAfegirValor(ActionEvent event) {
-		String valor = (String) comboboxAfegirValor.getModel().getSelectedItem(); 
-		if(pulsat && !valor.equals("Indica el valor que vols afegir")){
-			CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
-			Point p=b.getXY();
-			int x=p.x;
-			int y=p.y;
-			int n=Integer.valueOf(valor);
-			if(cp.afegirValor(x,y,n)){
-				b.setValor(valor);
+	protected void actionPerformed_buttonAfegirCandidat(ActionEvent event) {
+		if(pulsat==false){
+			cp.llamarError("No has pulsat cap Casella");
+		}
+		else{
+			String valor = (String) comboboxAfegirCandidat.getModel().getSelectedItem(); 
+			if(!valor.equals(auxAfegirCandidat)){
+				//CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
+				CasillaCP b=Select;
+				Point p=b.getXY();
+				int x=p.x;
+				int y=p.y;
+				int n=Integer.valueOf(valor);
+				if(cp.addCandidat(x,y,n)){
+					b.addCandidat(valor);
+				}
+				posarComboboxCandidats(b);
 			}
 			else{
-				b.setColor(Color.ORANGE);
+				cp.llamarError("No has seleccionat cap candidat");
 			}
-			b.ReturnColorOriginal();
-			pulsat=false;
+			repintar();	
 		}
-		repintar();
+		
+		
+	}
+
+	protected void actionPerformed_buttonAfegirValor(ActionEvent event) {
+		if(pulsat==false){
+			cp.llamarError("No has pulsat cap Casella");
+		}
+		else{
+			String valor = (String) comboboxAfegirValor.getModel().getSelectedItem(); 
+			if(!valor.equals("Indica el valor que vols afegir")){
+				//CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
+				CasillaCP b=Select;
+				Point p=b.getXY();
+				int x=p.x;
+				int y=p.y;
+				if(valor.equals("CAP")){
+					cp.borrarValorJugar(x,y);
+					b.borrarValor();
+				}
+				else{
+					int n=Integer.valueOf(valor);
+					if(cp.afegirValor(x,y,n)){
+						b.setValor(valor);
+						
+					}
+					else{
+						b.setColor(Color.ORANGE);
+					}
+				}
+				b.ReturnColorOriginal();
+				buidarComboboxCandidats();
+				pulsat=false;
+			}
+			else{
+				cp.llamarError("No has seleccionat cap valor");
+			}
+			repintar();
+		}
+		
 	}
 	
 	
@@ -340,13 +489,14 @@ public class VistaPartida {
 		  }
 		  else{
 			  if(pulsat){
-				  CasillaCP aux2= (CasillaCP) panelTauler.getComponentAt(pulsaX,pulsaY);
+				  CasillaCP aux2= Select;
 				  System.out.println("pulsaX:" + pulsaX+" ,pulsaY:"+pulsaY);
 				  aux2.ReturnColorOriginal();
 			  }
 			  pulsat=true;
 			  pulsaX=aux.getLocation().x;
 			  pulsaY=aux.getLocation().y;
+			  Select= (CasillaCP) panelTauler.getComponentAt(pulsaX,pulsaY);
 			  Color c = new Color(0,0,0);
 			  aux.setColor(c);
 			  posarComboboxCandidats(aux);
@@ -372,5 +522,16 @@ public class VistaPartida {
 		comboboxAfegirCandidat.addItem(auxAfegirCandidat);
 		comboboxBorrarCandidat.addItem(auxBorrarCandidat);
 	}
+	private Color ChooseColor(int i) {
+		Color c = colorDefecte;
+		switch(i){
+			case 1: return color1;
+			case 2: return color2;
+			case 3: return color3;
+			case 4: return color4;
+			case 5: return color5;
+			default:return c;
+		}
 	
+	}
 }

@@ -1,44 +1,60 @@
 package domini.controladores;
-
-import domini.controladores.CtrlDomini;
-import presentacio.*;
+import presentacio.CasillaCP;
+import presentacio.VistaCreacio;
+import presentacio.VistaEmergente;
+import presentacio.VistaLogin;
+import presentacio.VistaMenu;
+import presentacio.VistaPartida;
 /**
  * 
  * @author arnau.zapata.i
  *
  */
 public class CtrlPresentacio {
-	int tamany=7;
+	int tamany=6;
 	private CtrlDomini cd = new CtrlDomini();
 	private VistaPartida vp;
-	private VistaCreacio vc;
-	//private VistaMenu vm= new VistaMenu(this);
-	//private VistaLogin vl=new VistaLogin();
+	private VistaCreacio vc = new VistaCreacio(this);
+	private VistaMenu vm= new VistaMenu(this);
+	private VistaLogin vl=new VistaLogin(this);
+	private VistaEmergente ve = new VistaEmergente(this);
 	public void inicializarPresentacion() {
-			//vm.llamarVista();
-			//vp=new VistaPartida(this);	
+			vm.llamarVista();
+			//vl.llamarVista();
+			vp=new VistaPartida(this);	
 			//vp.llamarVista();
 			vc= new VistaCreacio(this);
-			vc.llamarVista();
+			//vc.llamarVista();
 	}
 	public void enviarTablero(CasillaCP[][] caselles, int[][] regionsId) {
-		cd.crearTauler();
+		cd.crearTauler(caselles.length);
+		String valor[][] = new String[caselles.length][caselles.length];
+		String obj[][] = new String[caselles.length][caselles.length];
+		String op[][] = new String[caselles.length][caselles.length];
 		for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 			CasillaCP c= caselles[i][j];
-			int valor=c.getValor();
-			String op=c.getOperacio();
-			String obj=c.getObjectiu();
+			valor[i][j]=c.getValor();
+			int num=c.getValorInt();
+			if(num>0){cd.introduirSolucioCasellaCreacio(i,j,num);}
+			op[i][j]=c.getOperacio();
+			obj[i][j]=c.getObjectiu();
 			int id= regionsId[i][j];
-			
-			cd.introduirValorCasellaCreacio(i,j,valor);
-			cd.introduirRegioCreacio(i,j,id);
-			cd.introduirOperacioCreacio(i,j,id,op);
-			cd.introduirResultatCreacio(i,j,id,obj);
+			int objectiu=Integer.valueOf(c.getObjectiu());
+			cd.introduirValorCasellaCreacio(i,j,num);
+			cd.introduirRegioCreacio(i,j,id,op[i][j],objectiu);
 		}
-		if (cd.teSolucioUnica(cd.getTauler())) {
+		if (cd.teSolucioUnica()) {
+			System.out.println("te solucio unica");
 			cd.GuardarTauler();
 		}
-		//else{misatgeError+continuar en Vista Creacio}
+		else{
+			System.out.println("hi ha mes d'una solucio");
+			vc.hacerInvisible();
+			vp.llamarVista(valor,obj,op,regionsId);
+		}
+	}
+	public void enviarTablero(String[][] valor, String[][] obj, String[][] op, int[][] reg) {
+		vp.llamarVista(valor,obj,op,reg);
 	}
 	
 	public boolean afegirValor(int x, int y, int n) {
@@ -53,12 +69,46 @@ public class CtrlPresentacio {
 		return cd.addCandidatJugar(x,y,n);
 	}
 	public void llamarCreacio() {
-		 vc=new VistaCreacio(this);
+		 
 		 vc.llamarVista();
 	}
 	public void llamarPartida() {
 		 vp=new VistaPartida(this);
 		 vp.llamarVista();
+	}
+	public void borrarValorJugar(int x, int y) {
+		cd.borrarValorJugar(x,y);
+		
+	}
+	public void llamarError(String string) {
+		ve.llamarVista(string);
+	}
+	public boolean Login(String u, String p) {
+		return cd.Login(u,p);
+		
+	}
+	public void resumirPartida() {
+		cd.resumirPartida();		
+	}
+	public void consultarRanking() {
+		String s=cd.consultarRanking();
+		
+		
+	}
+	public void setTamany(int tam) {
+		tamany=tam;
+		vc.setTamany(tam);
+		vp.setTamany(tam);
+	}
+	public void llamarCarregarKenken() {
+		ve.llamarCarregarKenken();
+		
+	}
+	public void CarregarPartida(String s) {
+		cd.CarregarPartida(s);
+	}
+	public String[] ConsultaKenkenGuardats() {
+		return cd.ConsultaKenkenGuardats();
 	}
 	
 }

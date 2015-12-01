@@ -1,68 +1,88 @@
 package domini.controladores;
+
+import persistencia.CtrlData;
+
 /**
  * 
  * @author arnau.zapata.i
  *
  */
 public class CtrlDomini {
-	CtrlPartida cp = new CtrlPartida();
+	CtrlPresentacio cp;
+	CtrlTauler ct;
+	CtrlPartida cPar = new CtrlPartida();
+	CtrlData cd = new CtrlData();
 	public CtrlDomini(){
-		
 	}
 
-	public void crearTauler() {
-		// TODO Auto-generated method stub
-		
+	public void crearTauler(int n) {
+		ct=new CtrlTauler();
+		ct.CrearTauler(n);
 	}
 
 	public void introduirValorCasellaCreacio(int i, int j, int valor) {
-		// TODO Auto-generated method stub
+		ct.introduirValorCasella(i,j,valor);
 		
 	}
 
-	public void introduirRegioCreacio(int i, int j, int id) {
-		// TODO Auto-generated method stub
+	public void introduirRegioCreacio(int i, int j, int id,String op,int obj) {
+		ct.introduirRegio(i,j,id,op,obj);
 		
 	}
-
-	public void introduirOperacioCreacio(int i, int j, int id, String op) {
-		// TODO Auto-generated method stub
+	public boolean teSolucioUnica() {
+		return ct.teSolucioUnica();
 		
-	}
-
-	public void introduirResultatCreacio(int i, int j, int id, String obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object getTauler() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean teSolucioUnica(Object tauler) {
-		// TODO Auto-generated method stub
-		return true;
 	}
 
 	public void GuardarTauler() {
-		// TODO Auto-generated method stub
-		
+		cd.escriureTauler(ct.getTauler(),ct.getId());	
 	}
 
 	public boolean introduirValorJugar(int x, int y, int n) {
-		//return cp.setValorTau(x,y,n);
+		//cPar.setValor(x,y,n);
 		return true;
 	}
 
 	public boolean borrarCandidatJugar(int x, int y, int n) {
-		// TODO Auto-generated method stub
+		//cPar.borrarCandidat
 		return true;
 	}
 
 	public boolean addCandidatJugar(int x, int y, int n) {
-		// TODO Auto-generated method stub
+		//cPar.addCandidat(x,y,n);
 		return true;
 	}
 
+	public void introduirSolucioCasellaCreacio(int i, int j, int valor) {
+		ct.introduirSolucioCasella(i,j,valor);
+		
+	}
+
+	public void borrarValorJugar(int x, int y) {
+		//cPar.borrarValor(x,y);
+		
+	}
+
+	public boolean Login(String u, String p) {
+		return cd.llegirUsuari(u, p);
+		//return false;
+	}
+
+	public void resumirPartida() {
+		
+	}
+
+	public String consultarRanking() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String[] ConsultaKenkenGuardats() {
+		//return cd.consultarLlistaPartides();
+		return null;
+	}
+
+	public void CarregarPartida(String s) {
+		//cd.llegirPartida(id, s);
+	}
 }
