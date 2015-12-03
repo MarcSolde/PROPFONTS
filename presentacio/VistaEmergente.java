@@ -3,8 +3,10 @@ package presentacio;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,8 +19,11 @@ public class VistaEmergente extends SuperVista{
 		private JLabel labelAlert = new JLabel("ERROR:");
 		private JLabel labelError = new JLabel();
 		private JButton buttonOk = new JButton("OK");
+		int opcio=0;
 	
 	private JPanel panelCarregarKenken = new JPanel();
+		private JComboBox comboboxKenkenPosible = new JComboBox();
+		private JButton buttonKenkenPosible = new JButton("Carregar");
 		
 	
 	private JPanel panelDadesTauler = new JPanel();
@@ -47,25 +52,36 @@ public class VistaEmergente extends SuperVista{
 		  repintar();
 	  }
 	  public void llamarCarregarKenken() {
-			String s[]=cp.ConsultaKenkenGuardats();
+		  llamarVista();
+		  ArrayList<String> s=cp.ConsultaKenkenGuardats();
 			inicializar_panelCarregarKenken(s);
 			cambiarPanel(panelCarregarKenken);
-			
+			llamarVista();
+			opcio=0;
 		}
-	  private void inicializar_panelCarregarKenken(String[] ls) {
+	  
+	  public void llamarResumirPartida() {
+		    llamarVista();
+		  	ArrayList<String> s =cp.ConsultaPartidesGuardades();
+			inicializar_panelCarregarKenken(s);
+			cambiarPanel(panelCarregarKenken);
+			opcio=1;
+		}
+	  public void llamarEsborrarPartida() {
+		  llamarVista();
+		  	ArrayList<String> s =cp.ConsultaPartidesGuardades();
+			inicializar_panelCarregarKenken(s);
+			cambiarPanel(panelCarregarKenken);
+			opcio=2;
+		}
+	  private void inicializar_panelCarregarKenken(ArrayList<String> ls) {
 		  panelCarregarKenken.removeAll();
 		  for(String s:ls){
-			  JButton b = new JButton(s);
-			  b.addActionListener
-		      (new ActionListener() {
-		        public void actionPerformed (ActionEvent event) {
-		          String texto = ((JButton) event.getSource()).getText();
-		          System.out.println("Has clickado el boton con texto: " + texto);
-		          actionPerformed_buttonKenkenGuardat(event);
-		          
-		        }
-		      });
+			  this.comboboxKenkenPosible.addItem(s);
 		  }
+		  panelCarregarKenken.add(comboboxKenkenPosible);
+		  panelCarregarKenken.add(buttonKenkenPosible);
+		  
 	}
 
 	protected void actionPerformed_buttonKenkenGuardat(ActionEvent event) {
@@ -85,16 +101,15 @@ public class VistaEmergente extends SuperVista{
 		  public void inicializarComponentes(){
 			 	inicializar_frameVista();
 			 	contentPane.add(panelOpcions);
+			 	inicializar_panelError();
 			    inicializar_panelOpcions();
-			    inicializar_panelError();
 			    asignar_listenersComponentes(); //a hacer
-			
 		}
 		  
 		  private void inicializar_panelError() {
-			  	panelOpcions.add(labelAlert);
-				panelOpcions.add(labelError);
-				panelOpcions.add(buttonOk);
+			  panelError.add(labelAlert);
+			  panelError.add(labelError);
+			  panelError.add(buttonOk);
 			
 		}
 
@@ -112,6 +127,24 @@ public class VistaEmergente extends SuperVista{
 		          
 		        }
 		      });
+			buttonKenkenPosible.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonKenkenPosible(event);
+			          
+			        }
+			 });
+			
+		}
+
+		protected void actionPerformed_buttonKenkenPosible(ActionEvent event) {
+			String s=(String) this.comboboxKenkenPosible.getSelectedItem();
+			this.hacerInvisible();
+			if(opcio==0)cp.carregarKenkenGuardat(s);
+			else if(opcio==1)cp.CarregarPartida(s);
+			else cp.borrarPartida(s);
 			
 		}
 
@@ -120,6 +153,10 @@ public class VistaEmergente extends SuperVista{
 			 this.hacerInvisible();
 			
 		}
+
+		
+
+		
 
 		
 }

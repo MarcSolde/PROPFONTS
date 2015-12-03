@@ -190,8 +190,12 @@ public class VistaCreacio extends SuperVista{
 					manteniendo=true;
 					CasillaCP c=(CasillaCP) e.getSource();
 					lc.add(c);
-					CasillaCP aux=(CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
-					aux.ReturnColorOriginal();
+					if(pulsaX==0 && pulsaY==0){}
+					else{
+						CasillaCP aux=(CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
+						aux.ReturnColorOriginal();
+					}
+					
 				}
 					
 		

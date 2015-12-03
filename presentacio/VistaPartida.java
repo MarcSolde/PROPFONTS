@@ -37,10 +37,8 @@ import presentacio.CasillaCP;
  * @author arnau.zapata.i
  *
  */
-public class VistaPartida{
-	 private CtrlPresentacio cp;
+public class VistaPartida extends SuperVista{
 	//principal
-	private JFrame frameVista = new JFrame("Vista Principal");
 	private JPanel panelTauler = new JPanel();
 	private JPanel panelOpcions = new JPanel();
 	private JPanel panelAfegirValor = new JPanel();
@@ -75,6 +73,7 @@ public class VistaPartida{
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
+	private JButton buttonGuardarPartida = new JButton("GuardarPartida");
 	String auxBorrarCandidat = "indica el valor del candidato";
 	
 	
@@ -82,8 +81,6 @@ public class VistaPartida{
 	  public VistaPartida (CtrlPresentacio pCtrlPresentacion) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = pCtrlPresentacion;
-	    inicializarComponentes();
-	    
 	  }
 	  
 	  public void setTamany(int tam){
@@ -92,10 +89,11 @@ public class VistaPartida{
 	  
 	  public void llamarVista(){
 		  hacerVisible();
+		  inicializarComponentes();
 		  repintar();
 	  }
 	  public void llamarVista(String[][] valor, String[][] obj, String[][] op, int[][] reg){
-		  hacerVisible();
+		  llamarVista();
 		  RegionsId=reg;
 		  int max=0;
 		  RegionsColor= new int[tamany][tamany];
@@ -120,7 +118,7 @@ public class VistaPartida{
 					}
 			  		idOld=idNew;
 			  	}
-				if(visit[i][j]==false){
+			  	if(visit[i][j]==false){
 					ColorPosible=ColorPosible(i,j,RegionsId[i][j],ColorPosible);
 					int color =0;
 					boolean ok=false;
@@ -143,7 +141,7 @@ public class VistaPartida{
 			  c.setOperacio(op[i][j]);
 			  c.setValor(valor[i][j]);
 		  }
-		  repintar();
+		  //llamarVista();
 	  }
 	  private boolean[] ColorPosible(int i, int j,int id, boolean[] colorPosible) {
 		  visit[i][j]=true;
@@ -159,14 +157,12 @@ public class VistaPartida{
 				}
 				else if(RegionsId[x1][y1]!=id){
 					int color= RegionsColor[x1][y1];
-					System.out.println("estoy en la posicion: "+i+","+j+" y el color no puede ser:"+ color);
 					colorPosible[color]=false;
 					colorPosible[0]=false;
 				}
 				a++;
 			}
-		  for(boolean b:colorPosible)System.out.print(b + ",");
-		  System.out.println();
+		 
 		  return colorPosible;
 	  }
 
@@ -177,7 +173,6 @@ public class VistaPartida{
 			visit[x][y]=true;
 			RegionsColor[x][y]=col;
 			Color color= ChooseColor(col);
-			System.out.println("el color seleccionado para: "+x+","+y+" es:"+ col);
 			Caselles[x][y].setColorOriginal(color);
 			int i=0;
 			for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
@@ -189,7 +184,6 @@ public class VistaPartida{
 				else if(RegionsId[x1][y1]==c && !Caselles[x1][y1].getColorOriginal().equals(this.ChooseColor(col))){
 					RegionsColor[x1][y1]=col;
 					Caselles[x1][y1].setColorOriginal(color);
-					System.out.println("el color seleccionado para: "+x1+","+y1+" es:"+ col);
 					ponerColor(x1,y1,c,col);
 				}
 				i++;
@@ -197,29 +191,33 @@ public class VistaPartida{
 		}
 	  
 	  public void inicializarComponentes(){
+		  	inicializarMatrius();
 		 	inicializar_frameVista();
 		    inicializar_panelTauler();
+		    anadirPanels();
 		    inicializar_panelOpcions();
 		    asignar_listenersComponentes(); //a hacer
 		
 	}
 	  
-	 
+	  private void anadirPanels() {
+		  contentPane.setLayout(new BorderLayout());
+		  contentPane.add(panelTauler,BorderLayout.WEST);
+		  contentPane.add(panelOpcions,BorderLayout.EAST);
+	}
 
-	protected void inicializar_frameVista() {
-		    // Tamanyo
+	private void inicializarMatrius() {
 			
-		    frameVista.setMinimumSize(new Dimension(700,400));
-		    frameVista.setPreferredSize(frameVista.getMinimumSize());
-		    frameVista.setResizable(false);
-		    // Posicion y operaciones por defecto
-		    frameVista.setLocationRelativeTo(null);
-		    frameVista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    JPanel contentPane = (JPanel) frameVista.getContentPane();
-		    contentPane.setLayout(new BorderLayout());
-		    contentPane.add(panelTauler,BorderLayout.WEST);
-		    contentPane.add(panelOpcions,BorderLayout.EAST);
-		  }
+			RegionsId= new int[tamany][tamany];
+			for(int i=0;i<RegionsId.length;i++)for(int j=0;j<RegionsId.length;j++){
+				RegionsId[i][j]=0;
+			}
+			visit= new boolean[tamany][tamany];
+			 for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+				 visit[i][j]=false;
+			 }
+			Caselles= new CasillaCP[tamany][tamany];
+		}
 	  
 	  private void inicializar_panelTauler() {
 		    // Layout
@@ -316,41 +314,8 @@ public class VistaPartida{
 		  	panelAfegirCandidat.add(buttonAfegirCandidat);
 		  	panelBorrarCandidat.add(comboboxBorrarCandidat);
 		  	panelBorrarCandidat.add(buttonBorrarCandidat);
+		  	panelBorrarCandidat.add(buttonGuardarPartida);
 	  }
-	  
-	
-
-	  public void hacerInvisible() {
-		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
-		    frameVista.pack();
-		    frameVista.setVisible(false);
-		  }
-	  
-	  public void hacerVisible() {
-	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
-	    frameVista.pack();
-	    frameVista.setVisible(true);
-	  }
-
-	  public void activar() {
-	    frameVista.setEnabled(true);
-	  }
-
-	  public void desactivar() {
-	    frameVista.setEnabled(false);
-	  }
-	 
-		/*public void cambiarModificarRelacionUtilidades(JPanel p){
-			panelUtilizacionABM.remove(panelModificarRelacionUtilidades);
-			panelModificarRelacionUtilidades.setLayout(p.getLayout());
-			panelModificarRelacionUtilidades = p;
-			panelUtilizacionABM.add(panelModificarRelacionUtilidades,BorderLayout.SOUTH);
-			cambiarUtilizacionABM(panelModificarRelacion);
-		}*/
-		public void repintar(){
-			 frameVista.pack();
-		     frameVista.repaint();
-		}
 		
 	
 	private void asignar_listenersComponentes() { //a hacer
@@ -384,6 +349,21 @@ public class VistaPartida{
 		          
 		        }
 		      });
+		buttonGuardarPartida.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonGuardarPartida(event);
+		          
+		        }
+		      });
+	}
+
+	protected void actionPerformed_buttonGuardarPartida(ActionEvent event) {
+		cp.GuardaPartida();
+		this.hacerInvisible();
+		
 	}
 
 	protected void actionPerformed_buttonBorrarCandidat(ActionEvent event) {

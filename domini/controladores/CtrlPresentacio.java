@@ -1,4 +1,6 @@
 package domini.controladores;
+import java.util.ArrayList;
+
 import presentacio.CasillaCP;
 import presentacio.VistaCreacio;
 import presentacio.VistaEmergente;
@@ -12,18 +14,17 @@ import presentacio.VistaPartida;
  */
 public class CtrlPresentacio {
 	int tamany=6;
-	private CtrlDomini cd = new CtrlDomini();
-	private VistaPartida vp;
+	private CtrlDomini cd = new CtrlDomini(this);
+	private VistaPartida vp= new VistaPartida(this);
 	private VistaCreacio vc = new VistaCreacio(this);
 	private VistaMenu vm= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
 	public void inicializarPresentacion() {
-			vm.llamarVista();
-			//vl.llamarVista();
-			vp=new VistaPartida(this);	
+
+			vl.llamarVista();
+			//vm.llamarVista();
 			//vp.llamarVista();
-			vc= new VistaCreacio(this);
 			//vc.llamarVista();
 	}
 	public void enviarTablero(CasillaCP[][] caselles, int[][] regionsId) {
@@ -50,7 +51,8 @@ public class CtrlPresentacio {
 		else{
 			System.out.println("hi ha mes d'una solucio");
 			vc.hacerInvisible();
-			vp.llamarVista(valor,obj,op,regionsId);
+			cd.GuardarTauler();
+			//vp.llamarVista(valor,obj,op,regionsId);
 		}
 	}
 	public void enviarTablero(String[][] valor, String[][] obj, String[][] op, int[][] reg) {
@@ -72,10 +74,6 @@ public class CtrlPresentacio {
 		 
 		 vc.llamarVista();
 	}
-	public void llamarPartida() {
-		 vp=new VistaPartida(this);
-		 vp.llamarVista();
-	}
 	public void borrarValorJugar(int x, int y) {
 		cd.borrarValorJugar(x,y);
 		
@@ -88,7 +86,8 @@ public class CtrlPresentacio {
 		
 	}
 	public void resumirPartida() {
-		cd.resumirPartida();		
+		ve.llamarResumirPartida();
+		//cd.resumirPartida();		
 	}
 	public void consultarRanking() {
 		String s=cd.consultarRanking();
@@ -106,9 +105,69 @@ public class CtrlPresentacio {
 	}
 	public void CarregarPartida(String s) {
 		cd.CarregarPartida(s);
+		this.setTamany(cd.getTamany());
+		String[][] mv=cd.getMValors();
+		String[][] obj=cd.getMObjectius();
+		String[][] op=cd.getMOperacions();
+		int[][] reg=cd.getMRegions();
+		vp.llamarVista(mv, obj, op, reg);
 	}
-	public String[] ConsultaKenkenGuardats() {
+	public ArrayList<String> ConsultaKenkenGuardats() {
 		return cd.ConsultaKenkenGuardats();
+	}
+	public ArrayList<String> ConsultaPartidesGuardades() {
+		return cd.consultaPartidesGuardades();
+	}
+	public void CrearUsuari(String u, String p) {
+		cd.crearUsuari(u,p);
+		
+	}
+	public void llamarMenu() {
+		vm.llamarVista();
+		
+	}
+	public void carregarKenkenGuardat(String id) {
+		vm.hacerInvisible();
+		vp= new VistaPartida(this);
+		cd.CarregarKenkenGuardat(id);
+		this.setTamany(cd.getTamany());
+		String[][] mv=cd.getMValors();
+		String[][] obj=cd.getMObjectius();
+		String[][] op=cd.getMOperacions();
+		int[][] reg=cd.getMRegions();
+		vp.llamarVista(mv, obj, op, reg);
+		//funcions necesaries per durlo a terme
+		//vp.llamarVista(valor,obj,op,reg);
+		//vp.llamarVista();
+	}
+	public void getMasResueltos() {
+		cd.getMasResueltos();
+		
+	}
+	public void getMejoresTiempos() {
+		cd.getMejoresTiempos();
+		
+	}
+	public void llamarEsborrarPartida() {
+		ve.llamarEsborrarPartida();
+		
+	}
+	public void llamarNovaPartida(int tam) {
+		cd.novaPartida(tam);
+		vp= new VistaPartida(this);
+		setTamany(tam);
+		String[][] mv=cd.getMValors();
+		String[][] obj=cd.getMObjectius();
+		String[][] op=cd.getMOperacions();
+		int[][] reg=cd.getMRegions();
+		vp.llamarVista(mv, obj, op, reg);
+	}
+	public void GuardaPartida() {
+		cd.guardarPartida();
+	}
+	public void borrarPartida(String s) {
+		cd.borrarPartida(s);
+		
 	}
 	
 }

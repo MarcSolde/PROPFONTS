@@ -23,6 +23,7 @@ public class VistaLogin extends SuperVista{
 	private JTextField textUsuari = new JTextField("Usuari");
 	private JTextField textPassword = new JTextField("Password");
 	private JButton buttonLogin = new JButton("Login");
+	private JButton buttonCrear = new JButton("Nou Usuari");
 	
 	private JPanel panelDadesTauler = new JPanel();
 	
@@ -60,6 +61,7 @@ public class VistaLogin extends SuperVista{
 				panelOpcions.add(textUsuari);
 				panelOpcions.add(textPassword);
 				panelOpcions.add(buttonLogin);
+				panelOpcions.add(buttonCrear);
 			  }
 		
 		private void asignar_listenersComponentes() {
@@ -72,7 +74,29 @@ public class VistaLogin extends SuperVista{
 		          
 		        }
 		      });
+			buttonCrear.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonCrear(event);
+			          
+			        }
+			 });
 			
+		}
+
+		protected void actionPerformed_buttonCrear(ActionEvent event) {
+			String u = textUsuari.getText();
+			String p = textPassword.getText();
+			cp.CrearUsuari(u,p);
+			/*if(cp.Login(u,p)){
+				this.hacerInvisible();
+			}
+			else{
+				cp.llamarError("Usuari y/o password incorrectes");
+			}*/
+					
 		}
 
 		protected void actionPerformed_buttonLogin(ActionEvent event) {
@@ -81,6 +105,7 @@ public class VistaLogin extends SuperVista{
 			String p = textPassword.getText();
 			if(cp.Login(u,p)){
 				this.hacerInvisible();
+				cp.llamarMenu();
 			}
 			else{
 				cp.llamarError("Usuari y/o password incorrectes");

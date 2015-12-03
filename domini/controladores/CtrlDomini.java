@@ -1,5 +1,10 @@
 package domini.controladores;
 
+import java.util.ArrayList;
+
+import domini.classes.Partida;
+import domini.classes.Ranking;
+import domini.classes.TaulerKenken;
 import persistencia.CtrlData;
 
 /**
@@ -9,10 +14,13 @@ import persistencia.CtrlData;
  */
 public class CtrlDomini {
 	CtrlPresentacio cp;
-	CtrlTauler ct;
+	CtrlTauler ct = new CtrlTauler();
 	CtrlPartida cPar = new CtrlPartida();
 	CtrlData cd = new CtrlData();
-	public CtrlDomini(){
+	CtrlRanking cr = new CtrlRanking();
+	CtrlUsuari cu = new CtrlUsuari();
+	public CtrlDomini(CtrlPresentacio ctrlPresentacio){
+		cp=ctrlPresentacio;
 	}
 
 	public void crearTauler(int n) {
@@ -35,7 +43,7 @@ public class CtrlDomini {
 	}
 
 	public void GuardarTauler() {
-		cd.escriureTauler(ct.getTauler(),ct.getId());	
+		cd.escriureTauler(ct.getTauler(),1);	
 	}
 
 	public boolean introduirValorJugar(int x, int y, int n) {
@@ -64,8 +72,11 @@ public class CtrlDomini {
 	}
 
 	public boolean Login(String u, String p) {
-		return cd.llegirUsuari(u, p);
-		//return false;
+		if(cd.llegirUsuari(u, p)){
+			cu.nouUsuari(u, p);
+			return true;
+		}
+		return false;
 	}
 
 	public void resumirPartida() {
@@ -77,12 +88,77 @@ public class CtrlDomini {
 		return null;
 	}
 
-	public String[] ConsultaKenkenGuardats() {
+	public ArrayList<String> ConsultaKenkenGuardats() {
 		//return cd.consultarLlistaPartides();
-		return null;
+		ArrayList<String> ls= new ArrayList<String>();
+		ls.add("1");
+		return ls;
 	}
 
 	public void CarregarPartida(String s) {
-		//cd.llegirPartida(id, s);
+		Partida p=cd.llegirPartida(s, cu.getNom());
+		ct.setTauler(p.getTauler());
+	}
+
+	public ArrayList<String> consultaPartidesGuardades() {
+		ArrayList<String> ls= new ArrayList<String>();
+		ls.add("1");
+		return ls;
+	}
+
+	public void crearUsuari(String u, String p) {
+		if(cd.escriureUsuari(u, p))cu.nouUsuari(u,p);
+	}
+
+	public void CarregarKenkenGuardat(String id) {
+		ct.setTauler(cd.llegirTauler(id));
+	}
+	
+
+	public void getMasResueltos() {
+		cr.getMostSolved();
+		
+	}
+
+	public void getMejoresTiempos() {
+		cr.getBestTime();
+		
+	}
+
+	public String[][] getMValors() {
+		return ct.getMValors();
+	}
+
+	public String[][] getMObjectius() {
+		
+		return ct.getMObjectius();
+	}
+
+	public String[][] getMOperacions() {
+		return ct.getMOperacions();
+	}
+
+	public int[][] getMRegions() {
+		return ct.getMRegions();
+	}
+
+	public int getTamany() {
+		return ct.getTamany();
+	}
+
+	public void novaPartida(int tam) {
+		cPar.creaPartidaRand(tam);
+		ct.setTauler(cPar.getPartida().getTauler());
+		System.out.println("La mida es:" +ct.getTauler().getMida());
+	}
+
+	public void guardarPartida() {
+		cPar.getPartida().setId(1);
+		cd.escriurePartida(cPar.getPartida(),cu.getNom());
+	}
+
+	public void borrarPartida(String s) {
+		cd.esborrarPartida(s,cu.getNom());
+		
 	}
 }

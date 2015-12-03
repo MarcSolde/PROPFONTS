@@ -50,7 +50,7 @@ public class SuperVista{
 
 
 			protected void inicializar_frameVista() {
-				    frameVista.setMinimumSize(new Dimension(950,400));
+				    frameVista.setMinimumSize(new Dimension(1080,400));
 				    frameVista.setPreferredSize(frameVista.getMinimumSize());
 				    frameVista.setResizable(false);
 				    // Posicion y operaciones por defecto

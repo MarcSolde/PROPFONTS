@@ -127,7 +127,7 @@ public class VistaMenu extends SuperVista{
 		comboboxTamany.addItem("6");
 		comboboxTamany.addItem("7");
 		comboboxTamany.addItem("8");
-		//comboboxTamany.addItem("9");
+		comboboxTamany.addItem("9");
 		//comboboxTamany.addItem("10");
 		panelTamany.add(comboboxTamany);
 		panelTamany.add(buttonValidar);
@@ -141,15 +141,7 @@ public class VistaMenu extends SuperVista{
 
 	    // Listeners para los botones
 			//Componentes de PanelBotones
-		buttonPartida.addActionListener
-	      (new ActionListener() {
-	        public void actionPerformed (ActionEvent event) {
-	          String texto = ((JButton) event.getSource()).getText();
-	          System.out.println("Has clickado el boton con texto: " + texto);
-	          actionPerformed_buttonPartida(event);
-	          
-	        }
-	      });
+		
 		buttonCreacio.addActionListener
 	      (new ActionListener() {
 		        public void actionPerformed (ActionEvent event) {
@@ -191,16 +183,7 @@ public class VistaMenu extends SuperVista{
 		        public void actionPerformed (ActionEvent event) {
 		          String texto = ((JButton) event.getSource()).getText();
 		          System.out.println("Has clickado el boton con texto: " + texto);
-		          //actionPerformed_buttonConsultarRanking(event);
-		          
-		        }
-		 });
-		buttonFerKenken.addActionListener
-	      (new ActionListener() {
-		        public void actionPerformed (ActionEvent event) {
-		          String texto = ((JButton) event.getSource()).getText();
-		          System.out.println("Has clickado el boton con texto: " + texto);
-		          //actionPerformed_buttonConsultarRanking(event);
+		          actionPerformed_buttonEsborrarPartida(event);
 		          
 		        }
 		 });
@@ -227,7 +210,7 @@ public class VistaMenu extends SuperVista{
 		        public void actionPerformed (ActionEvent event) {
 		          String texto = ((JButton) event.getSource()).getText();
 		          System.out.println("Has clickado el boton con texto: " + texto);
-		          //actionPerformed_buttonConsultarRanking(event);
+		          actionPerformed_buttonJugarKenken(event);
 		          
 		        }
 		 });
@@ -265,9 +248,46 @@ public class VistaMenu extends SuperVista{
 		          actionPerformed_buttonTornarRanking(event);  
 		        }
 		 });
+		buttonMejoresTiempos.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonMejoresTiempos(event);  
+		        }
+		 });
+		buttonMasResueltos.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonMasResueltos(event);  
+		        }
+		 });
 	}
 
 	
+
+	protected void actionPerformed_buttonEsborrarPartida(ActionEvent event) {
+		cp.llamarEsborrarPartida();
+		
+	}
+
+	protected void actionPerformed_buttonMasResueltos(ActionEvent event) {
+		cp.getMasResueltos();
+		
+	}
+
+	protected void actionPerformed_buttonMejoresTiempos(ActionEvent event) {
+		cp.getMejoresTiempos();
+		
+	}
+
+	protected void actionPerformed_buttonJugarKenken(ActionEvent event) {
+		cambiarPanel(panelTamany);
+		opcio=1;
+		
+	}
 
 	protected void actionPerformed_buttonTornarRanking(ActionEvent event) {
 		cambiarPanel(panelElegir);
@@ -313,13 +333,16 @@ public class VistaMenu extends SuperVista{
 
 	protected void actionPerformed_buttonValidar(ActionEvent event) {
 		String valor = (String) this.comboboxTamany.getModel().getSelectedItem(); 
-		if(!valor.equals(this.StringCombo)){
+		if(!valor.equals(StringCombo)){
 			int tam = Integer.valueOf(valor);
 			cp.setTamany(tam);
 			if(opcio==0){cp.llamarCreacio();}
 			else if (opcio==1){
-				cp.llamarPartida();
+				cp.llamarNovaPartida(tam);
 			}
+		}
+		else{
+			cp.llamarError("No has seleccionado ningun tamano");
 		}
 		
 	}
@@ -341,13 +364,7 @@ public class VistaMenu extends SuperVista{
 		repintar();
 	}
 
-	protected void actionPerformed_buttonPartida(ActionEvent event) {
-		desactivar();
-		this.hacerInvisible();
-		cp.llamarPartida();
-		//opcio=0;
-		//cambiarPanelTamany();
-	}
+	
 
 	
 	

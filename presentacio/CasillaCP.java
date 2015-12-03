@@ -103,7 +103,7 @@ public class CasillaCP extends JPanel{
 		return s;		
 	}
 	public void setValor(String valor) {
-		if(!valor.equals("CAP")){
+		if(!valor.equals("CAP") && !valor.equals("0")){
 			this.valor=Integer.valueOf(valor);
 			labelValor.setText(valor);
 		}
