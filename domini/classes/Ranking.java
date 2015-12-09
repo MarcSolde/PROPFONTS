@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author Marc Soldevilla
  * Clase Ranking
  */
-public class Ranking {
+public class Ranking implements java.io.Serializable {
 	
 	protected Scanner in = new Scanner(System.in);
 	protected int SIZE = 10;

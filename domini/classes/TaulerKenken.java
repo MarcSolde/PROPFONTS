@@ -10,7 +10,7 @@ import domini.classes_compartides.Tablero_comp;
 /**
  * Created by Anna on 12/10/2015.
  */
-public class TaulerKenken extends Tablero_comp {
+public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 
 	private Casilla_comp[][] solucio;
 	private ArrayList<Regio> taulerReg;

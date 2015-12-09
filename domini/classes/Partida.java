@@ -8,7 +8,7 @@ import domini.classes_compartides.*;
  * @author pau
  *
  */
-public class Partida extends Partida_comp{
+public class Partida extends Partida_comp implements java.io.Serializable {
 
 	private int temps;
 	private static int tamany;
