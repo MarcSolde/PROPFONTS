@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import domini.classes.Partida;
+import domini.classes.TaulerKenken;
 
 public class CtrlPersistencia {
 	
@@ -18,6 +19,10 @@ public class CtrlPersistencia {
 		file = new File("data/kenkens");
 		if (!file.exists()) {
 			file.mkdirs();
+			file = new File("data/kenkens/num.txt");
+			FileWriter fw = new FileWriter(file);
+			fw.write(("0 "), 0, ("0 ").length());
+			fw.close();
 		}
 		file = new File("data/rankings");
 		if (!file.exists()) {
@@ -29,7 +34,7 @@ public class CtrlPersistencia {
 		}
 	}
 	
-	public boolean guardarUsuari(String nom, String pwd) throws IOException {
+	public boolean escriureUsuari(String nom, String pwd) throws IOException {
 		File file = new File("data/usuaris/" + nom);
 		if (file.exists()) return false;
 		else {
@@ -65,7 +70,7 @@ public class CtrlPersistencia {
 		return false;
 	}
 	
-	public void guardarPartida(Partida p, String nom) throws IOException {
+	public void escriurePartida(Partida p, String nom) throws IOException {
 		if (p.getId() == -1) {
 			File aux = new File("data/usuaris/"+nom+"/num.txt");
 			Scanner sc = new Scanner(aux);
@@ -94,7 +99,7 @@ public class CtrlPersistencia {
 	public Partida llegirPartida(String nom) throws IOException, ClassNotFoundException {
 		Partida p = new Partida(0);
 		System.out.println("\n\nTRIA UNA PARTIDA\n\n");
-		File f = new File("data/usuaris/"+cUsr.getNom());
+		File f = new File("data/usuaris/"+nom);
 		File[] paths = f.listFiles();
 		int it = 0;
 		for (File path:paths) {
@@ -116,7 +121,40 @@ public class CtrlPersistencia {
 		return p;
 	}
 	
+	public void esborrarPartida(String nom) {
+		System.out.println("\n\nTRIA UNA PARTIDA\n\n");
+		File f = new File("data/usuaris/"+nom);
+		File[] paths = f.listFiles();
+		int it = 0;
+		for (File path:paths) {
+		++it;
+			if (!path.getName().equals("contrasenya.txt") && !path.getName().equals("num.txt")) {
+				System.out.println(path);
+			}
+		}
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		File file = new File("data/usuaris/"+nom+ "/partida"+s+".txt");
+		file.delete();
+	}
 	
+	public void escriureTauler(TaulerKenken t) throws IOException{
+		File aux = new File("data/taulers/num.txt");
+		Scanner sc = new Scanner(aux);
+		sc.useDelimiter(" ");
+		String s = sc.next();
+		int num = Integer.parseInt(s);
+		num += 1;
+		t.setId(num);
+		FileOutputStream file = new FileOutputStream("data/kenkens/kenken"+Integer.toString(num)+".txt");
+		ObjectOutputStream out = new ObjectOutputStream(file);
+		out.writeObject(t);
+		out.close();
+		file.close();
+		FileWriter fw = new FileWriter(aux);
+		fw.write(Integer.toString(num),0,Integer.toString(num).length());
+		fw.close();
+	}
 	
 
 

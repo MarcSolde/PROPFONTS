@@ -7,7 +7,7 @@ import java.util.*;
  * @param <F>
  * @param <S>
  */
-public class pair<F, S> {
+public class pair<F, S> implements java.io.Serializable {
     private F first; //first member of pair
     private S second; //second member of pair
 
