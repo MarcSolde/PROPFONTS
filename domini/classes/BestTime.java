@@ -99,4 +99,22 @@ public class BestTime extends Ranking {
 	public void setHash(Hashtable<Integer, ArrayList<pair<String, Integer> > > h) {
 		hash = h;
 	}
+	
+	//OTROS
+	public ArrayList<String> getBestTime_String() 
+	{
+		//System.out.println("Introduce el valor N, por el tama�o del Kenken NxN: ");
+		System.out.println("chivato0");
+		System.out.println("chivato0,5");
+		ArrayList<String> s = new ArrayList<String>();
+		System.out.println("chivato1");
+		for (Integer key : hash.keySet()) {
+			for (pair<String, Integer> i: hash.get(key)) {
+				s.add(Integer.toString(key));
+				s.add(Integer.toString(i.getSecond()));
+				s.add(i.getFirst());			
+			}
+		}
+		return s;
+	}
 }
