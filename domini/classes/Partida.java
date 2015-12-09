@@ -8,7 +8,7 @@ import domini.classes_compartides.*;
  * @author pau
  *
  */
-public class Partida extends Partida_comp{
+public class Partida extends Partida_comp implements java.io.Serializable {
 
 	private int temps;
 	private static int tamany;
@@ -171,5 +171,11 @@ public class Partida extends Partida_comp{
 	
 	public int getId(){
 		return id;
+	}
+	public void borrarValor(int x,int y){
+		t.esborrarValorTauler(x, y);
+	}
+	public void afegirValor(int x, int y, int n){
+		t.setValorTauler(x, y, n);
 	}
 	}

@@ -181,7 +181,19 @@ public class CtrlPartida{
 			}
 		}
 	}
+	public void borrarValor(int x, int y){
+		p.borrarValor(x, y);
+	}
 	
+	public void afegirValor(int x, int y, int n){
+		p.afegirValor(x, y, n);
+	}
+	public void pista(){
+		p.pista();
+	}
+	public boolean comprovar(){
+		return(p.comprovar(3));
+	}
 
 }
 

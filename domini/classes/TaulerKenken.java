@@ -10,7 +10,7 @@ import domini.classes_compartides.Tablero_comp;
 /**
  * Created by Anna on 12/10/2015.
  */
-public class TaulerKenken extends Tablero_comp {
+public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 
 	private Casilla_comp[][] solucio;
 	private ArrayList<Regio> taulerReg;
@@ -31,7 +31,7 @@ public class TaulerKenken extends Tablero_comp {
 		for (i = 0; i < mida; ++i) {
 			for (j = 0; j < mida; ++j) {
 				solucio[i][j] = new Casilla_comp(mida, false);
-				regions[i][j] = 0;
+				regions[i][j] = -1;
 			}
 		}
 		id = -1;
@@ -64,6 +64,7 @@ public class TaulerKenken extends Tablero_comp {
 			taulerReg.add(reg);
 		}
 		regions[x][y] = taulerReg.indexOf(reg);
+		System.out.println("AAA pos "+x+" " + y+" se lhi ha ficat l'index " +taulerReg.indexOf(reg));
 		reg.addCasella(tauler[x][y]);
 	}
 
@@ -269,11 +270,12 @@ public class TaulerKenken extends Tablero_comp {
 				tauler[x][y].setValor(solucio[x][y].getValor());
 				pista = false;
 			}
-			++it;
+			
 			if (it > mida * mida) {
 				taulerEsValid(3);
 				pista = false;
 			}
+			++it;
 		}
 
 	}

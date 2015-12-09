@@ -29,7 +29,7 @@ public class CtrlDomini {
 	}
 
 	public void introduirValorCasellaCreacio(int i, int j, int valor) {
-		ct.introduirValorCasella(i,j,valor);
+		cPar.afegirValor(i,j,valor);
 		
 	}
 
@@ -47,7 +47,7 @@ public class CtrlDomini {
 	}
 
 	public boolean introduirValorJugar(int x, int y, int n) {
-		//cPar.setValor(x,y,n);
+		cPar.afegirValor(x,y,n);
 		return true;
 	}
 
@@ -95,9 +95,15 @@ public class CtrlDomini {
 		return ls;
 	}
 
-	public void CarregarPartida(String s) {
+	public boolean CarregarPartida(String s) {
 		Partida p=cd.llegirPartida(s, cu.getNom());
-		ct.setTauler(p.getTauler());
+		if(p.getId()==-1){
+			return false;
+		}
+		else{
+			ct.setTauler(p.getTauler());
+		}
+		return true;
 	}
 
 	public ArrayList<String> consultaPartidesGuardades() {
@@ -159,6 +165,16 @@ public class CtrlDomini {
 
 	public void borrarPartida(String s) {
 		cd.esborrarPartida(s,cu.getNom());
+		
+	}
+
+	public void pista() {
+		cPar.pista();
+		
+	}
+
+	public boolean comprovar() {
+		return cPar.comprovar();
 		
 	}
 }

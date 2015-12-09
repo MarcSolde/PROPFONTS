@@ -118,3 +118,4 @@ public class BestTime extends Ranking {
 		return s;
 	}
 }
+

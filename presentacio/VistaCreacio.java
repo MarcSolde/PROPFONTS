@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -42,8 +43,12 @@ public class VistaCreacio extends SuperVista{
 	//principal
 	private JPanel panelTauler = new JPanel();
 		private JPanel panelAfegirValor = new JPanel();
-		private JPanel panelRegio = new JPanel();
+		private JPanel panelAfegirRegio = new JPanel();
+		private JPanel panelEliminarRegio = new JPanel();
 		private JPanel panelOperacions = new JPanel();
+		private JPanel panelObjectius = new JPanel();
+		private JPanel panelGuardar = new JPanel();
+		
 	Color old;
 	Color colorDefecte = new Color(0,0,255);
 	Color color1 = new Color(255,0,0);
@@ -77,6 +82,8 @@ public class VistaCreacio extends SuperVista{
 	private JTextField textfieldAfegirObjectiu = new JTextField("  ");
 	private JButton buttonAfegirObjectiu = new JButton("Afegir Objectiu");
 	private JButton buttonGuardar = new JButton("Guardar Tauler");
+	private JButton buttonCancelar = new JButton("Cancelar creacion");
+	private String SelColor = "Negro";
 	
 	String auxAfegirRegio1 = "indica regio a afegir";
 	
@@ -133,6 +140,7 @@ public class VistaCreacio extends SuperVista{
 	  
 	  private void inicializar_panelTauler() {
 		  panelTauler.setLayout(new GridLayout (tamany,tamany)); 
+		  //panelTauler.setMinimumSize(new Dimension(300,300));
 		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 			 CasillaCP c = new CasillaCP(tamany,i,j);
 			 Caselles[i][j]=c;
@@ -140,7 +148,12 @@ public class VistaCreacio extends SuperVista{
 			 c.paintComponents(g);
 			 c.addMouseListener(new MouseListener() {
 		        public void mouseClicked(MouseEvent e) {
-		          CasillaCP aux = (CasillaCP)e.getSource();
+		        	CasillaCP aux = (CasillaCP)e.getSource();
+		        	if(!pulsat && !SelColor.equals("Negro")){
+		        		Color c= StringToColor(SelColor);
+		        		aux.setColorOriginal(c);
+		        		SelColor="Negro";
+		        	}
 		          
 		          int x=aux.getLocation().x;
 		          int y=aux.getLocation().y;
@@ -165,7 +178,7 @@ public class VistaCreacio extends SuperVista{
 				        Color c1=new Color(r,gr,b);
 				        aux.setColor(c1);
 			       }
-			        
+			      
 				}
 
 				@Override
@@ -183,6 +196,7 @@ public class VistaCreacio extends SuperVista{
 				        Color c1=new Color(r,gr,b);
 				        aux.setColor(c1);
 					}
+					
 			        
 				}
 				@Override
@@ -219,11 +233,14 @@ public class VistaCreacio extends SuperVista{
 	
 
 	private void inicializar_panelOpcions() {
-		  	panelOpcions.setLayout(new BorderLayout());
-		  	panelOpcions.add(panelAfegirValor,BorderLayout.NORTH);
-		  	panelOpcions.add(panelRegio,BorderLayout.CENTER);
-		  	panelOpcions.add(panelOperacions,BorderLayout.SOUTH);
-		  	
+		  	panelOpcions.setLayout(new BoxLayout(panelOpcions, BoxLayout.Y_AXIS));
+		  	panelOpcions.add(panelAfegirValor);
+		  	panelOpcions.add(panelAfegirRegio);
+		  	panelOpcions.add(panelEliminarRegio);
+		  	panelOpcions.add(panelOperacions);
+		  	panelOpcions.add(panelObjectius);
+		  	panelOpcions.add(panelGuardar);
+		  			  	
 		  	comboboxAfegirValor.addItem("Indica el valor que vols afegir");
 		  	comboboxAfegirValor.addItem("CAP");
 		  	comboboxAfegirRegio.addItem(auxAfegirRegio1);
@@ -236,10 +253,10 @@ public class VistaCreacio extends SuperVista{
 		  	}
 		  	panelAfegirValor.add(comboboxAfegirValor);
 		  	panelAfegirValor.add(buttonAfegirValor);
-		  	panelRegio.add(comboboxAfegirRegio);
-		  	panelRegio.add(buttonAfegirRegio);
-		  	panelRegio.add(buttonEliminarRegioCasella);
-		  	panelRegio.add(buttonEliminarRegio);
+		  	panelAfegirRegio.add(comboboxAfegirRegio);
+		  	panelAfegirRegio.add(buttonAfegirRegio);
+		  	panelEliminarRegio.add(buttonEliminarRegioCasella);
+		  	panelEliminarRegio.add(buttonEliminarRegio);
 		  	panelOperacions.add(comboboxAfegirOperacio);
 		  	comboboxAfegirOperacio.addItem("eligeix l'operacio");
 		  	comboboxAfegirOperacio.addItem("CAP");
@@ -248,9 +265,11 @@ public class VistaCreacio extends SuperVista{
 		  	comboboxAfegirOperacio.addItem("*");
 		  	comboboxAfegirOperacio.addItem("/");
 		  	panelOperacions.add(buttonAfegirOperacio);
-		  	panelOperacions.add(textfieldAfegirObjectiu);
-		  	panelOperacions.add(buttonAfegirObjectiu);
-		  	panelOperacions.add(buttonGuardar);
+		  	panelObjectius.add(textfieldAfegirObjectiu);
+		  	panelObjectius.add(buttonAfegirObjectiu);
+		  	panelGuardar.add(buttonGuardar);
+		  	panelGuardar.add(buttonCancelar);
+		  	
 	  }
 	
 	private void asignar_listenersComponentes() { //a hacer
@@ -320,8 +339,24 @@ public class VistaCreacio extends SuperVista{
 		          
 		        }
 		});
+		buttonCancelar.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonAtras(event);
+		          
+		        }
+		});
+	
 	}
 
+	
+	
+	protected void actionPerformed_buttonAtras(ActionEvent event) {
+		this.hacerInvisible();
+		cp.llamarMenu();
+	}
 	protected void actionPerformed_buttonGuardar(ActionEvent event) {
 		int aux=0;
 		for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
@@ -353,9 +388,9 @@ public class VistaCreacio extends SuperVista{
 		
 		cp.enviarTablero(Caselles,RegionsId);
 	}
-
 	
-
+	
+	
 
 	protected void actionPerformed_buttonAfegirObjectiu(ActionEvent event) {
 		if(pulsat==false){
@@ -506,7 +541,8 @@ public class VistaCreacio extends SuperVista{
 
 	protected void actionPerformed_buttonAfegirRegio(ActionEvent event) {
 		if(pulsat==false){
-			cp.llamarError("No has pulsat cap Casella");
+			SelColor=(String) comboboxAfegirRegio.getModel().getSelectedItem();
+			//cp.llamarError("No has pulsat cap Casella");
 		}
 		else{
 			String color= (String) comboboxAfegirRegio.getModel().getSelectedItem();
@@ -846,7 +882,7 @@ public class VistaCreacio extends SuperVista{
 		  }
 		  else{
 			  if(pulsat){
-				  CasillaCP aux2= (CasillaCP) panelTauler.getComponentAt(pulsaX,pulsaY);
+				  CasillaCP aux2=  (CasillaCP) panelTauler.getComponentAt(pulsaX,pulsaY);
 				  System.out.println("pulsaX:" + pulsaX+" ,pulsaY:"+pulsaY);
 				  aux2.ReturnColorOriginal();
 			  }
@@ -866,10 +902,11 @@ public class VistaCreacio extends SuperVista{
 	 //FUNCIONES AUXILIARES
 	 
 	 private void posarComboboxCandidats(CasillaCP aux) {
+		    
 			boolean[] a= aux.getCandidats();
-			comboboxAfegirRegio.removeAllItems();
-			comboboxAfegirRegio.removeAllItems();
-			comboboxAfegirRegio.addItem(auxAfegirRegio1);
+			/*comboboxAfegirRegio.removeAllItems();
+			comboboxAfegirRegio.removeAllItems();*/
+			//comboboxAfegirRegio.addItem(auxAfegirRegio1);
 			for(int i=1;i<6;i++){
 				Color c= this.ChooseColor(i);
 				cleanVisit();
@@ -894,17 +931,28 @@ public class VistaCreacio extends SuperVista{
 				}
 				if(res<5){
 					String s=ColorToString(c);
-					comboboxAfegirRegio.addItem(s);
+					if(nohihacap(s))comboboxAfegirRegio.addItem(s);
+				}
+				else{
+					String s=ColorToString(c);
+					comboboxAfegirRegio.removeItem(s);
 				}
 			}
 	 }
 
 	
 
+	private boolean nohihacap(String s) {
+		for(int i=0;i<comboboxAfegirRegio.getItemCount();i++){
+			String aux=(String) comboboxAfegirRegio.getItemAt(i);
+			if(aux.equals(s)) return false;
+		}
+		return true;
+	}
 	private void buidarComboboxCandidats() {
+		/*comboboxAfegirRegio.removeAllItems();
 		comboboxAfegirRegio.removeAllItems();
-		comboboxAfegirRegio.removeAllItems();
-		comboboxAfegirRegio.addItem(auxAfegirRegio1);
+		comboboxAfegirRegio.addItem(auxAfegirRegio1);*/
 	}
 	private Color ChooseColor(int i) {
 		Color c = colorDefecte;
@@ -1037,7 +1085,7 @@ public class VistaCreacio extends SuperVista{
 			i++;
 		}
 	}
-	private Color StringToColor(String color) {
+	protected Color StringToColor(String color) {
 		if(color.equals("Rojo")) return new Color(255,0,0);
 		if(color.equals("Verde")) return new Color(0,255,0);
 		if(color.equals("Azul")) return new Color(0,0,255);
@@ -1047,7 +1095,7 @@ public class VistaCreacio extends SuperVista{
 		return new Color(0,0,0);
 	}
 	
-	private String ColorToString(Color c) {
+	protected String ColorToString(Color c) {
 		if(c.equals(new Color(255,0,0)))return "Rojo";
 		if(c.equals(new Color(0,255,0)))return "Verde";
 		if(c.equals(new Color(0,0,255)))return "Azul";
