@@ -44,6 +44,7 @@ public class VistaPartida extends SuperVista{
 	private JPanel panelAfegirValor = new JPanel();
 	private JPanel panelAfegirCandidat = new JPanel();
 	private JPanel panelBorrarCandidat = new JPanel();
+	private JPanel panelPista = new JPanel();
 	Color old;
 	int RegionsId[][];
 	int RegionsColor[][];
@@ -67,13 +68,15 @@ public class VistaPartida extends SuperVista{
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JButton buttonAfegirValor = new JButton("Aï¿½adir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("Añadir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("Aï¿½adir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
 	private JButton buttonGuardarPartida = new JButton("GuardarPartida");
+	private JButton buttonPista = new JButton("Pista");
+	private JButton buttonComprovar = new JButton("Comprovar");
 	String auxBorrarCandidat = "indica el valor del candidato";
 	
 	
@@ -292,10 +295,12 @@ public class VistaPartida extends SuperVista{
 	 
 
 	private void inicializar_panelOpcions() {
-		  	panelOpcions.setLayout(new BorderLayout());
-		  	panelOpcions.add(panelAfegirValor,BorderLayout.NORTH);
-		  	panelOpcions.add(panelAfegirCandidat,BorderLayout.CENTER);
-		  	panelOpcions.add(panelBorrarCandidat,BorderLayout.SOUTH);
+			panelOpcions.setLayout(new BoxLayout(panelOpcions, BoxLayout.Y_AXIS));
+		  	panelOpcions.add(panelAfegirValor);
+		  	panelOpcions.add(panelAfegirCandidat);
+		  	panelOpcions.add(panelBorrarCandidat);
+		  	panelOpcions.add(panelPista);
+		  	
 		  	
 		  	comboboxAfegirValor.addItem("Indica el valor que vols afegir");
 		  	comboboxAfegirValor.addItem("CAP");
@@ -314,7 +319,11 @@ public class VistaPartida extends SuperVista{
 		  	panelAfegirCandidat.add(buttonAfegirCandidat);
 		  	panelBorrarCandidat.add(comboboxBorrarCandidat);
 		  	panelBorrarCandidat.add(buttonBorrarCandidat);
-		  	panelBorrarCandidat.add(buttonGuardarPartida);
+		  	panelPista.add(buttonGuardarPartida);
+		  	panelPista.add(buttonPista);
+		  	panelPista.add(buttonComprovar);
+		  	
+		  	
 	  }
 		
 	
@@ -358,11 +367,43 @@ public class VistaPartida extends SuperVista{
 		          
 		        }
 		      });
+		this.buttonPista.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonPista(event);
+		          
+		        }
+		      });
+		this.buttonComprovar.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonComprovar(event);
+		          
+		        }
+		      });
+	}
+
+	protected void actionPerformed_buttonComprovar(ActionEvent event) {
+		// TODO Auto-generated method stub
+		
+			cp.llamarComprobar(cp.comprovar());
+		
+	}
+
+	protected void actionPerformed_buttonPista(ActionEvent event) {
+		// TODO Auto-generated method stub
+		cp.pista();
+		
 	}
 
 	protected void actionPerformed_buttonGuardarPartida(ActionEvent event) {
 		cp.GuardaPartida();
 		this.hacerInvisible();
+		cp.llamarMenu();
 		
 	}
 
@@ -513,5 +554,12 @@ public class VistaPartida extends SuperVista{
 			default:return c;
 		}
 	
+	}
+
+	public void afegirValor(String[][] mv) {
+		for(int i=0;i<mv.length;i++)for(int j=0;j<mv.length;j++){
+			Caselles[i][j].setValor(mv[i][j]);
+		}
+		
 	}
 }

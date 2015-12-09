@@ -51,6 +51,7 @@ public class CtrlPresentacio {
 		else{
 			System.out.println("hi ha mes d'una solucio");
 			vc.hacerInvisible();
+			vm.hacerVisible();
 			cd.GuardarTauler();
 			//vp.llamarVista(valor,obj,op,regionsId);
 		}
@@ -104,7 +105,9 @@ public class CtrlPresentacio {
 		
 	}
 	public void CarregarPartida(String s) {
-		cd.CarregarPartida(s);
+		if(!cd.CarregarPartida(s)){
+			ve.llamarVista("La partida seleccionada no existeix");
+		}
 		this.setTamany(cd.getTamany());
 		String[][] mv=cd.getMValors();
 		String[][] obj=cd.getMObjectius();
@@ -167,6 +170,19 @@ public class CtrlPresentacio {
 	}
 	public void borrarPartida(String s) {
 		cd.borrarPartida(s);
+		
+	}
+	public void pista() {
+		cd.pista();
+		String[][] mv=cd.getMValors();
+		vp.afegirValor(mv);
+		
+	}
+	public boolean comprovar() {
+		return cd.comprovar();
+	}
+	public void llamarComprobar(boolean comprovar) {
+		ve.llamarComprovar(comprovar);
 		
 	}
 	

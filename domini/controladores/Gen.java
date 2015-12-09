@@ -30,13 +30,18 @@ public class Gen {
 			contador_regions = 0;
 			for (int i = 0; i< tamany; i++){
 				for(int j = 0; j< tamany; j++){
-					if(t.getIdRegio(i, j)== 0){
+
+					if(t.getIdRegio(i, j)== -1){
+						System.out.print("pos "+i+" "+j+" id de regio = " + t.getIdRegio(i,j));
 						contador_regions++;
 						crear_regio(i,j);
 					}
 					
 				}
-			}			
+			}		
+			for(int x = 0; x < resultats.size(); x++){
+				System.out.print(resultats.get(x)+" ");
+			}
 		}
 		
 	/**
@@ -139,12 +144,15 @@ public class Gen {
 		t.setRegioTauler(i,j,r);
 		Random rand = new Random();
 		int reg = rand.nextInt(4);
+		int x=i;
+		int y=j;
 		ArrayList<Integer> agrupa_nums = new ArrayList<Integer>();
 		agrupa_nums.add(t.getValorTauler(i, j));
 		while(reg != 0){			//assignar una casella mes a la regio
+			System.out.println("he entrat al while amb reg = "+ reg);
 			ArrayList<Integer> llista = new ArrayList<Integer>();
 			if(i-1 >= 0 ){
-				if(t.getIdRegio(i-1, j) == 0){
+				if(t.getIdRegio(i-1, j) == -1){
 					llista.add(0);
 				}
 				
@@ -153,18 +161,18 @@ public class Gen {
 				}*/
 			}
 			if(j-1 >= 0 ){
-				if(t.getIdRegio(i, j-1) == 0){
+				if(t.getIdRegio(i, j-1) == -1){
 					llista.add(1);
 				}
 			}
 			
 			if(i+1 < tamany){
-				if(t.getIdRegio(i+1, j) == 0){
+				if(t.getIdRegio(i+1, j) == -1){
 					llista.add(2);
 				}
 			}
 			if(j+1 < tamany){
-				if(t.getIdRegio(i, j+1) == 0){
+				if(t.getIdRegio(i, j+1) == -1){
 					llista.add(3);
 				}
 			}
@@ -201,8 +209,10 @@ public class Gen {
 		}
 		int rand_op;
 		if(agrupa_nums.size() < 2){//vale, tenim les caselles ficades, operem a regio
+			System.out.println("he entrat a operar una regio duna sola casella a la pos "+ i + " "+j);
 			rand_op = 4;
 			operacions.add(4);
+			System.out.println("s'ha creat la regio amb valor" + t.getValorTauler(i, j)+ " a la pos : " + i + " " +j);
 			resultats.add(t.getValorTauler(i,j));
 		}
 		else if( agrupa_nums.size() == 2){

@@ -172,4 +172,10 @@ public class Partida extends Partida_comp{
 	public int getId(){
 		return id;
 	}
+	public void borrarValor(int x,int y){
+		t.esborrarValorTauler(x, y);
+	}
+	public void afegirValor(int x, int y, int n){
+		t.setValorTauler(x, y, n);
+	}
 	}

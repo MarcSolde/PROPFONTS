@@ -98,20 +98,23 @@ public class VistaMenu extends SuperVista{
 		panelRanking.add(buttonTornarRanking);
 	}
 
-	private void inicializar_panelElegirKenken() {
+	private void inicializar_panelElegir() {
 		panelElegir.setLayout(new FlowLayout());
 		panelElegir.add(buttonNovaPartida);
 		panelElegir.add(buttonResumirPartida);
 		panelElegir.add(buttonConsultarRanking);
 		panelElegir.add(buttonEsborrarPartida);
+		panelElegir.add(buttonSortir);
 	}
 
-	private void inicializar_panelElegir() {
+	private void inicializar_panelElegirKenken() {
 		panelElegirKenken.setLayout(new FlowLayout());
 		panelElegirKenken.add(buttonFerKenken);
 		panelElegirKenken.add(buttonCarregarKenken);
 		panelElegirKenken.add(buttonJugarKenken);
 		panelElegirKenken.add(buttonTornarMenu);
+		
+		
 		
 	}
 
@@ -264,9 +267,22 @@ public class VistaMenu extends SuperVista{
 		          actionPerformed_buttonMasResueltos(event);  
 		        }
 		 });
+		buttonSortir.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonSortir(event);  
+		        }
+		 });
 	}
 
 	
+
+	protected void actionPerformed_buttonSortir(ActionEvent event) {
+		this.hacerInvisible();
+		
+	}
 
 	protected void actionPerformed_buttonEsborrarPartida(ActionEvent event) {
 		cp.llamarEsborrarPartida();
@@ -334,6 +350,7 @@ public class VistaMenu extends SuperVista{
 	protected void actionPerformed_buttonValidar(ActionEvent event) {
 		String valor = (String) this.comboboxTamany.getModel().getSelectedItem(); 
 		if(!valor.equals(StringCombo)){
+			this.hacerInvisible();
 			int tam = Integer.valueOf(valor);
 			cp.setTamany(tam);
 			if(opcio==0){cp.llamarCreacio();}
