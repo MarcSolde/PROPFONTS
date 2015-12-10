@@ -28,13 +28,13 @@ public class CtrlPresentacio {
 			//vc.llamarVista();
 	}
 	public void enviarTablero(CasillaCP[][] caselles, int[][] regionsId) {
-		cd.crearTauler(caselles.length);
+		
 		String valor[][] = new String[caselles.length][caselles.length];
 		String obj[][] = new String[caselles.length][caselles.length];
 		String op[][] = new String[caselles.length][caselles.length];
 		for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 			CasillaCP c= caselles[i][j];
-			valor[i][j]=c.getValor();
+			valor[i][j]=String.valueOf(c.getValorInt());
 			int num=c.getValorInt();
 			if(num>0){cd.introduirSolucioCasellaCreacio(i,j,num);}
 			op[i][j]=c.getOperacio();
@@ -53,7 +53,9 @@ public class CtrlPresentacio {
 			vc.hacerInvisible();
 			vm.hacerVisible();
 			cd.GuardarTauler();
-			//vp.llamarVista(valor,obj,op,regionsId);
+			vp=new VistaPartida(this);
+			this.setTamany(cd.getTamany());
+			vp.llamarVista(valor,obj,op,regionsId);
 		}
 	}
 	public void enviarTablero(String[][] valor, String[][] obj, String[][] op, int[][] reg) {
@@ -64,16 +66,12 @@ public class CtrlPresentacio {
 		return cd.introduirValorJugar(x,y,n);
 	}
 
-	public boolean borrarCandidat(int x, int y, int n) {
-		return cd.borrarCandidatJugar(x,y,n);
-	}
-
-	public boolean addCandidat(int x, int y, int n) {
-		return cd.addCandidatJugar(x,y,n);
-	}
+	
 	public void llamarCreacio() {
-		 
-		 vc.llamarVista();
+		vc = new VistaCreacio(this);
+		this.setTamany(tamany);
+		cd.crearTauler(tamany);
+		vc.llamarVista();
 	}
 	public void borrarValorJugar(int x, int y) {
 		cd.borrarValorJugar(x,y);
@@ -108,12 +106,16 @@ public class CtrlPresentacio {
 		if(!cd.CarregarPartida(s)){
 			ve.llamarVista("La partida seleccionada no existeix");
 		}
-		this.setTamany(cd.getTamany());
-		String[][] mv=cd.getMValors();
-		String[][] obj=cd.getMObjectius();
-		String[][] op=cd.getMOperacions();
-		int[][] reg=cd.getMRegions();
-		vp.llamarVista(mv, obj, op, reg);
+		else{
+			vp= new VistaPartida(this);
+			this.setTamany(cd.getTamany());
+			String[][] mv=cd.getMValors();
+			String[][] obj=cd.getMObjectius();
+			String[][] op=cd.getMOperacions();
+			int[][] reg=cd.getMRegions();
+			vp.llamarVista(mv, obj, op, reg);
+		}
+		
 	}
 	public ArrayList<String> ConsultaKenkenGuardats() {
 		return cd.ConsultaKenkenGuardats();
@@ -166,7 +168,12 @@ public class CtrlPresentacio {
 		vp.llamarVista(mv, obj, op, reg);
 	}
 	public void GuardaPartida() {
-		cd.guardarPartida();
+		if(cd.getid()==-1){
+			ve.llamarGuardar();
+		}
+		else{
+			cd.guardarPartida();
+		}
 	}
 	public void borrarPartida(String s) {
 		cd.borrarPartida(s);
@@ -183,6 +190,17 @@ public class CtrlPresentacio {
 	}
 	public void llamarComprobar(boolean comprovar) {
 		ve.llamarComprovar(comprovar);
+		
+	}
+	public void llamarGuardar() {
+		ve.llamarGuardar();		
+	}
+	public void GuardaPartida(String s) {
+		cd.guardarPartida(s);
+		
+	}
+	public void Guarda() {
+		cd.guardarPartida();
 		
 	}
 	

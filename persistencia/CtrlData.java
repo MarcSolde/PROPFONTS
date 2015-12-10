@@ -146,9 +146,9 @@ public class CtrlData {
 		File file = new File("0");
 		Scanner sc;
 		int num = 0;
-		int numk = 0;
 		if (p.getId() != -1) {
 			num = p.getId();
+			System.out.println(num);
 			file = new File("data/usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
 		} else {
 			File aux = new File("data/usuaris/"+nom+"/num.txt");
@@ -168,15 +168,13 @@ public class CtrlData {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-
-				numk = p.getId();			//TENIES PARTIDA.NOSEK . GETID(() ) UNA PARTIDA TINDRA UN TAULER, DONCS
 			} catch (FileNotFoundException e) {				//LIDENTIFICADOR DE PARTIDA SERA EL NUM DE TXT DE TAULERS
 				e.printStackTrace();
 			}
 		}
 		if (!file.getName().equals("0")) {
 			if (file.exists()) {
-				num = Partida.getTauler().getId();
+				//num = Partida.getTauler().getId();
 			} else {
 				try {
 					file.createNewFile();
@@ -188,7 +186,7 @@ public class CtrlData {
 			try {
 				fw = new FileWriter(file);
 				int offset = 0;
-				String s = Integer.toString(numk)+" ";
+				String s = Integer.toString(num)+" ";
 				fw.write(s, offset, s.length());
 				s = Integer.toString(p.getTemps()) +" ";
 				fw.write(s,offset,s.length());
@@ -224,15 +222,18 @@ public class CtrlData {
 	public Partida llegirPartida(String id, String nom) {
 		Partida p = new Partida(0);
 		System.out.println("abans new file");
+		System.out.println(id);
 		File file = new File("data/usuaris/"+ nom + "/partida" + id + ".txt");//BUSQUES UNA PARTIDA AMB DIRECTORI CORRECTE
 		Scanner sc;
 		try {
 			sc = new Scanner(file);
 			sc.useDelimiter(" ");
 			String kenken = sc.next();
+			System.out.println(kenken);
 			TaulerKenken t = llegirTauler(kenken);
 			p = new Partida(t);
 			p.setTemps(Integer.parseInt(sc.next()));
+			p.setId(Integer.valueOf(id));
 			if (sc.next()=="1") p.partidaFi(true);
 			else p.partidaFi(false);
 			
@@ -271,24 +272,43 @@ public class CtrlData {
 	 */
 	public void escriureTauler(TaulerKenken t, int id) {
 		File file = new File("data/taulers/kenken"+Integer.toString(id));
+		File aux =new File("data/taulers/num.txt");
+		FileWriter auxW = null; 
 		Scanner sc;
-		//System.out.println("estic dins d¡escriure tauler");
+		if(!aux.exists()){
+			try {
+				aux.createNewFile();
+				auxW = new FileWriter(aux);
+				auxW.write("1");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 		if (!file.exists()) {
-			//System.out.println("crea tauler");
-			/*	try {
+			try {
 					file.createNewFile();
+					sc = new Scanner(aux);
+					sc.useDelimiter(" ");
+					String s = sc.next();
+					int num = Integer.parseInt(s);
+					num += 1;
+					auxW = new FileWriter(aux);
+					auxW.write(Integer.toString(num),0,Integer.toString(num).length());
+					auxW.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 
 			try {
-				fw = new FileWriter(file);
+				FileWriter fw = new FileWriter(file);
 				fw.write(Integer.toString(id),0,Integer.toString(id).length());
 				fw.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
-			}*/
+			}
 			FileWriter fw;
 			file = new File("data/taulers/kenken" + Integer.toString(id)+".txt");
 			try {
@@ -331,8 +351,6 @@ public class CtrlData {
 				e1.printStackTrace();
 			}
 		}
-
-}
 	
 	/**
 	 * Llegeix un tauler de la BD
@@ -468,5 +486,44 @@ public class CtrlData {
 			e.printStackTrace();
 		}
 		r.setHash(hash);
+	}
+
+
+	public ArrayList<String> ListPartides(String nom) {
+		ArrayList<String> ls = new ArrayList<String>();
+		TaulerKenken t;
+		File file = new File("data/usuaris/"+nom+"/num.txt");
+		Scanner sc;
+		String s = "0";
+		try {
+			sc = new Scanner(file);
+			sc.useDelimiter(" ");
+			s=sc.next();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		for(int i=1;i<=Integer.valueOf(s);i++){
+			ls.add(String.valueOf(i));
+		}
+		return ls;
+	}
+	
+	public ArrayList<String> ListKenkens() {
+		ArrayList<String> ls = new ArrayList<String>();
+		TaulerKenken t;
+		File file = new File("data/taulers/num.txt");
+		Scanner sc;
+		String s = "0";
+		try {
+			sc = new Scanner(file);
+			sc.useDelimiter(" ");
+			s=sc.next();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		for(int i=1;i<=Integer.valueOf(s);i++){
+			ls.add(String.valueOf(i));
+		}
+		return ls;
 	}
 }

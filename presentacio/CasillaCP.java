@@ -24,7 +24,7 @@ public class CasillaCP extends JPanel{
 	int x;int y;
 	Graphics g;
 	
-	boolean error;
+	boolean error=false;
 	int tamany;
 	int valor=0;
 	JButton b= new JButton();
@@ -34,8 +34,9 @@ public class CasillaCP extends JPanel{
 	JLabel labelValor = new JLabel();
 	JLabel labelObjectiu = new JLabel();
 	private Point p = new Point();
-	Color colorOriginal =new Color(0,0,255);
-	Color color1 = new Color(255,0,0);
+	Color colorDefecte =new Color(255,0,0);
+	Color colorOriginal = new Color(255,0,0);
+	Color color1 = new Color(0,0,255);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
 	Color color4= new Color(255,0,255);
@@ -103,7 +104,8 @@ public class CasillaCP extends JPanel{
 		return s;		
 	}
 	public void setValor(String valor) {
-		if(!valor.equals("CAP") && !valor.equals("0")){
+		if(this.getColorOriginal().equals(colorDefecte)){}
+		else if(!valor.equals("CAP") && !valor.equals("0")){
 			this.valor=Integer.valueOf(valor);
 			labelValor.setText(valor);
 		}
@@ -162,11 +164,11 @@ public class CasillaCP extends JPanel{
 	}
 	private Color ChooseColor(int i) {
 		switch(i){
-			case 1: colorOriginal=color1;return color1;
-			case 2: colorOriginal=color2;return color2;
-			case 3: colorOriginal=color3;return color3;
-			case 4: colorOriginal=color4;return color4;
-			case 5: colorOriginal=color5;return color5;
+			case 1: colorOriginal.equals(color1);return color1;
+			case 2: colorOriginal.equals(color2);return color2;
+			case 3: colorOriginal.equals(color3);return color3;
+			case 4: colorOriginal.equals(color4);return color4;
+			case 5: colorOriginal.equals(color5);return color5;
 			default: return colorOriginal; 
 		}
 	}

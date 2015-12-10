@@ -29,6 +29,10 @@ public class VistaEmergente extends SuperVista{
 	private JPanel panelComprovar = new JPanel();
 		private JLabel labelComprovar = new JLabel();
 		private JButton buttonFi = new JButton("Quit");
+		
+	private JPanel panelGuardar = new JPanel();
+		private JButton buttonSobrescriure = new JButton("Sobrescriure");
+		private JButton buttonNou = new JButton("Nou");
 	
 	  public VistaEmergente(CtrlPresentacio pCtrlPresentacion) {
 		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
@@ -81,8 +85,9 @@ public class VistaEmergente extends SuperVista{
 		}
 	  private void inicializar_panelCarregarKenken(ArrayList<String> ls) {
 		  panelCarregarKenken.removeAll();
+		  comboboxKenkenPosible= new JComboBox();
 		  for(String s:ls){
-			  this.comboboxKenkenPosible.addItem(s);
+			  comboboxKenkenPosible.addItem(s);
 		  }
 		  panelCarregarKenken.add(comboboxKenkenPosible);
 		  panelCarregarKenken.add(buttonKenkenPosible);
@@ -161,7 +166,51 @@ public class VistaEmergente extends SuperVista{
 			          
 			        }
 			 });
+			buttonNou.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonNou(event);
+			          
+			        }
+			 });
+			buttonSobrescriure.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonSobrescriure(event);
+			          
+			        }
+			 });
 			
+		}
+
+		protected void actionPerformed_buttonSobrescriure(ActionEvent event) {
+			ArrayList<String> ls=cp.ConsultaPartidesGuardades();
+			inicializar_panelSobrescriure(ls);
+			cambiarPanel(panelCarregarKenken);
+			
+		}
+
+		  private void inicializar_panelSobrescriure(ArrayList<String> ls) {
+			  panelCarregarKenken.removeAll();
+			  for(String s:ls){
+				  this.comboboxKenkenPosible.addItem(s);
+			  }
+			  panelCarregarKenken.add(comboboxKenkenPosible);
+			  panelCarregarKenken.add(buttonKenkenPosible);
+			  buttonKenkenPosible.setText("Sobrescriu");
+			  panelCarregarKenken.add(buttonQuit);
+			  
+			  
+		}
+		
+		protected void actionPerformed_buttonNou(ActionEvent event) {
+			this.hacerInvisible();
+			cp.Guarda();
+			cp.llamarMenu();
 		}
 
 		protected void actionPerformed_buttonFi(ActionEvent event) {
@@ -177,14 +226,18 @@ public class VistaEmergente extends SuperVista{
 		protected void actionPerformed_buttonKenkenPosible(ActionEvent event) {
 			String s=(String) this.comboboxKenkenPosible.getSelectedItem();
 			this.hacerInvisible();
-			if(opcio==0)cp.carregarKenkenGuardat(s);
+			if(this.buttonKenkenPosible.getText().equals("Sobrescriu")){
+				cp.GuardaPartida(s);
+				cp.llamarMenu();
+			}
+			else if(opcio==0)cp.carregarKenkenGuardat(s);
 			else if(opcio==1)cp.CarregarPartida(s);
 			else cp.borrarPartida(s);
 			
 		}
 
 		protected void actionPerformed_buttonOk(ActionEvent event) {
-			 //this.desactivar();
+			
 			 this.hacerInvisible();
 			
 		}
@@ -199,6 +252,13 @@ public class VistaEmergente extends SuperVista{
 			 panelComprovar.add(labelComprovar);
 			 panelComprovar.add(this.buttonFi);
 			 cambiarPanel(panelComprovar);
+			 llamarVista();
+		}
+
+		public void llamarGuardar() {
+			panelGuardar.add(this.buttonSobrescriure);
+			panelGuardar.add(this.buttonNou);
+			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}
 

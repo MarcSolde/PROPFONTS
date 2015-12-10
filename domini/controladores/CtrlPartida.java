@@ -3,6 +3,7 @@ import java.util.*;
 
 import domini.*;
 import domini.classes.Partida;
+import domini.classes.TaulerKenken;
 import persistencia.CtrlData;
 
 /**
@@ -193,6 +194,14 @@ public class CtrlPartida{
 	}
 	public boolean comprovar(){
 		return(p.comprovar(3));
+	}
+	public void setTauler(TaulerKenken tauler) {
+		p.setTauler(tauler);
+		
+	}
+	public void setPartida(Partida p2) {
+		p=p2;
+		
 	}
 
 }

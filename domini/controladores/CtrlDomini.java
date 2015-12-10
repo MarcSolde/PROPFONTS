@@ -26,10 +26,11 @@ public class CtrlDomini {
 	public void crearTauler(int n) {
 		ct=new CtrlTauler();
 		ct.CrearTauler(n);
+		
 	}
 
 	public void introduirValorCasellaCreacio(int i, int j, int valor) {
-		cPar.afegirValor(i,j,valor);
+		ct.introduirValorCasella(i, j, valor);
 		
 	}
 
@@ -43,7 +44,11 @@ public class CtrlDomini {
 	}
 
 	public void GuardarTauler() {
-		cd.escriureTauler(ct.getTauler(),1);	
+		ArrayList<String> ls = cd.ListKenkens();
+		cd.escriureTauler(ct.getTauler(),ls.size()+1);
+		cPar=new CtrlPartida();
+		cPar.creaPartidaRand(ct.getTauler().getMida());
+		cPar.setTauler(ct.getTauler());
 	}
 
 	public boolean introduirValorJugar(int x, int y, int n) {
@@ -51,24 +56,12 @@ public class CtrlDomini {
 		return true;
 	}
 
-	public boolean borrarCandidatJugar(int x, int y, int n) {
-		//cPar.borrarCandidat
-		return true;
-	}
-
-	public boolean addCandidatJugar(int x, int y, int n) {
-		//cPar.addCandidat(x,y,n);
-		return true;
-	}
-
 	public void introduirSolucioCasellaCreacio(int i, int j, int valor) {
 		ct.introduirSolucioCasella(i,j,valor);
-		
 	}
 
 	public void borrarValorJugar(int x, int y) {
-		//cPar.borrarValor(x,y);
-		
+		cPar.borrarValor(x,y);
 	}
 
 	public boolean Login(String u, String p) {
@@ -79,10 +72,6 @@ public class CtrlDomini {
 		return false;
 	}
 
-	public void resumirPartida() {
-		
-	}
-
 	public String consultarRanking() {
 		// TODO Auto-generated method stub
 		return null;
@@ -91,7 +80,7 @@ public class CtrlDomini {
 	public ArrayList<String> ConsultaKenkenGuardats() {
 		//return cd.consultarLlistaPartides();
 		ArrayList<String> ls= new ArrayList<String>();
-		ls.add("1");
+		ls=cd.ListKenkens();
 		return ls;
 	}
 
@@ -102,13 +91,14 @@ public class CtrlDomini {
 		}
 		else{
 			ct.setTauler(p.getTauler());
+			cPar.setPartida(p);
 		}
 		return true;
 	}
 
 	public ArrayList<String> consultaPartidesGuardades() {
 		ArrayList<String> ls= new ArrayList<String>();
-		ls.add("1");
+		ls=cd.ListPartides(cu.getNom());
 		return ls;
 	}
 
@@ -118,6 +108,9 @@ public class CtrlDomini {
 
 	public void CarregarKenkenGuardat(String id) {
 		ct.setTauler(cd.llegirTauler(id));
+		cPar=new CtrlPartida();
+		cPar.creaPartidaRand(ct.getTauler().getMida());
+		cPar.setTauler(ct.getTauler());
 	}
 	
 
@@ -159,7 +152,10 @@ public class CtrlDomini {
 	}
 
 	public void guardarPartida() {
-		cPar.getPartida().setId(1);
+		cd.escriurePartida(cPar.getPartida(),cu.getNom());
+	}
+	public void guardarPartida(String s) {
+		cPar.getPartida().setId(Integer.valueOf(s));
 		cd.escriurePartida(cPar.getPartida(),cu.getNom());
 	}
 
@@ -176,5 +172,9 @@ public class CtrlDomini {
 	public boolean comprovar() {
 		return cPar.comprovar();
 		
+	}
+
+	public int getid() {
+		return cPar.getPartida().getId();
 	}
 }

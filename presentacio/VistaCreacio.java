@@ -50,8 +50,8 @@ public class VistaCreacio extends SuperVista{
 		private JPanel panelGuardar = new JPanel();
 		
 	Color old;
-	Color colorDefecte = new Color(0,0,255);
-	Color color1 = new Color(255,0,0);
+	Color colorDefecte = new Color(255,0,0);
+	Color color1 = new Color(0,0,255);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
 	Color color4= new Color(255,0,255);
@@ -548,6 +548,8 @@ public class VistaCreacio extends SuperVista{
 			String color= (String) comboboxAfegirRegio.getModel().getSelectedItem();
 			if(!color.equals(auxAfegirRegio1)){
 				CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
+				int v= b.getValorInt();
+				String val= String.valueOf(v);
 				Color ant = b.getColorOriginal();
 					//Color c = (Color) valor;
 					Color c=StringToColor(color);
@@ -560,6 +562,7 @@ public class VistaCreacio extends SuperVista{
 						cleanVisit();
 						String op=getOperacioEntorn(b);
 						b.setOperacio(op);
+						b.setValor(val);
 						System.out.println(op);
 						if(op.equals(" ")){
 							Point p=b.getXY();
@@ -613,15 +616,19 @@ public class VistaCreacio extends SuperVista{
 	protected void auxAfegirRegio(CasillaCP b,CasillaCP aux) {
 			Color color = aux.getColorOriginal();
 			Color ant = b.getColorOriginal();
+			int v= b.getValorInt();
+			String val= String.valueOf(v);
 			String op= b.getOperacio();
 			String obj=b.getObjectiu();
 			b.setColor(color);
 			b.setColorOriginal(color);
+			b.setValor(val);
 			pulsat=false;
 			if(maxRegions(aux)){
 				b.setColorOriginal(ant);
 				b.setObjectiu(obj);
 				b.setOperacio(op);
+				b.setValor(val);
 				}
 			else{
 				Point p=b.getXY();
@@ -856,9 +863,15 @@ public class VistaCreacio extends SuperVista{
 		}
 		else{
 			String valor = (String) comboboxAfegirValor.getModel().getSelectedItem(); 
+			
+			
 			if(!valor.equals("Indica el valor que vols afegir")){
 				CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
 				b.setValor(valor);
+				Color c= b.getColorOriginal();
+				if(c.equals(colorDefecte)){
+					cp.llamarError("No pots afegir un valor en una casella sense regio");
+				}
 				b.ReturnColorOriginal();
 				pulsat=false;
 			}
@@ -1086,7 +1099,7 @@ public class VistaCreacio extends SuperVista{
 		}
 	}
 	protected Color StringToColor(String color) {
-		if(color.equals("Rojo")) return new Color(255,0,0);
+		if(color.equals("Azul")) return new Color(0,0,255);
 		if(color.equals("Verde")) return new Color(0,255,0);
 		if(color.equals("Azul")) return new Color(0,0,255);
 		if(color.equals("Amarillo")) return new Color(255,255,0);
@@ -1096,7 +1109,7 @@ public class VistaCreacio extends SuperVista{
 	}
 	
 	protected String ColorToString(Color c) {
-		if(c.equals(new Color(255,0,0)))return "Rojo";
+		if(c.equals(new Color(0,0,255)))return "Azul";
 		if(c.equals(new Color(0,255,0)))return "Verde";
 		if(c.equals(new Color(0,0,255)))return "Azul";
 		if(c.equals(new Color(255,255,0)))return "Amarillo";

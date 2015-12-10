@@ -90,12 +90,12 @@ public class VistaLogin extends SuperVista{
 			String u = textUsuari.getText();
 			String p = textPassword.getText();
 			cp.CrearUsuari(u,p);
-			/*if(cp.Login(u,p)){
+			if(!cp.Login(u,p)){
 				this.hacerInvisible();
 			}
 			else{
 				cp.llamarError("Usuari y/o password incorrectes");
-			}*/
+			}
 					
 		}
 
