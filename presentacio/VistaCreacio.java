@@ -451,19 +451,26 @@ public class VistaCreacio extends SuperVista{
 				int x=p.x;
 				int y=p.y;
 				if(!aux.equals(colorDefecte)){
-					b.setOperacio(valor);
-					int i=0;
-					for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
-						if(x1<0){}
-						else if(i%2==0){}
-						else if(x1>=tamany){}
-						else if(y1<0){}
-						else if(y1>=tamany){}
-						else if(Caselles[x1][y1].getColorOriginal().equals(aux)){
-							auxAfegirOperacio(Caselles[x1][y1],aux,valor);
-						}
-						i++;
+					if((valor.equals("-") || valor.equals("/")) && auxMaxRegions(b, aux)>2){
+						cp.llamarError("Una Regio amb operacio '-' o '/' no pot ocupar mes de 2 caselles");
 					}
+					else{
+						cleanVisit();
+						b.setOperacio(valor);
+						int i=0;
+						for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
+							if(x1<0){}
+							else if(i%2==0){}
+							else if(x1>=tamany){}
+							else if(y1<0){}
+							else if(y1>=tamany){}
+							else if(Caselles[x1][y1].getColorOriginal().equals(aux)){
+								auxAfegirOperacio(Caselles[x1][y1],aux,valor);
+							}
+							i++;
+						}
+					}
+					
 				}
 				else{
 					cp.llamarError("No es poden afegir Operacions en una casella sense Regio");
@@ -550,17 +557,47 @@ public class VistaCreacio extends SuperVista{
 				CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
 				int v= b.getValorInt();
 				String val= String.valueOf(v);
+				String op= b.getOperacio();
+				String obj=b.getObjectiu();
 				Color ant = b.getColorOriginal();
 					//Color c = (Color) valor;
 					Color c=StringToColor(color);
 					b.setColor(c);
 					b.setColorOriginal(c);
 					pulsat=false;
-					if(maxRegions(b)){b.setColorOriginal(ant);}
+					cleanVisit();
+					op=getOperacioEntorn(b);
+					cleanVisit();
+					if(op.equals("-")||op.equals("/")){
+						if(auxMaxRegions(b,c)>2){
+							b.setColorOriginal(ant);
+							if(!b.getColorOriginal().equals(this.colorDefecte)){
+								b.setObjectiu(obj);
+								b.setOperacio(op);
+								b.setValor(val);
+							}
+						}
+						else{
+							
+							b.setObjectiu(obj);
+							b.setOperacio(op);
+							b.setValor(val);
+						}
+						cleanVisit();
+					}
+					if(maxRegions(b)){
+						b.setColorOriginal(ant);
+						if(!b.getColorOriginal().equals(this.colorDefecte)){
+							b.setObjectiu(obj);
+							b.setOperacio(op);
+							b.setValor(val);
+						}
+						
+					}
 					else{
 						actualitzarRegio(b,b.getColorOriginal());
 						cleanVisit();
-						String op=getOperacioEntorn(b);
+						op=getOperacioEntorn(b);
 						b.setOperacio(op);
 						b.setValor(val);
 						System.out.println(op);
@@ -570,22 +607,10 @@ public class VistaCreacio extends SuperVista{
 							int y=p.y;
 							cleanVisit();
 							visit[x][y]=true;
-							if(b.getColorOriginal().equals(Caselles[x+1][y].getColorOriginal())){
-								
-								auxAfegirOperacio(Caselles[x+1][y],b.getColorOriginal(),op);
-							}
-							if(b.getColorOriginal().equals(Caselles[x-1][y].getColorOriginal())){
-								auxAfegirOperacio(Caselles[x-1][y],b.getColorOriginal(),op);
-							}
-							if(b.getColorOriginal().equals(Caselles[x][y+1].getColorOriginal())){
-								auxAfegirOperacio(Caselles[x][y+1],b.getColorOriginal(),op);
-							}
-							if(b.getColorOriginal().equals(Caselles[x][y-1].getColorOriginal())){
-								auxAfegirOperacio(Caselles[x][y-1],b.getColorOriginal(),op);
-							}
+							auxAfegirOperacio(Caselles[x][y],b.getColorOriginal(),op);
 						}
 						cleanVisit();
-						String obj=getObjectiuEntorn(b);
+						obj=getObjectiuEntorn(b);
 						if(!b.setObjectiu(obj)){
 							cp.llamarError("Sols es pot afegir numeros");
 						}
@@ -596,10 +621,7 @@ public class VistaCreacio extends SuperVista{
 							int y=p.y;
 							cleanVisit();
 							visit[x][y]=true;
-							if(b.getColorOriginal().equals(Caselles[x+1][y].getColorOriginal()) && x+1<tamany)auxAfegirObjectiu(Caselles[x+1][y],b.getColorOriginal(),obj);
-							if(b.getColorOriginal().equals(Caselles[x-1][y].getColorOriginal()) && x-1>=0)auxAfegirObjectiu(Caselles[x-1][y],b.getColorOriginal(),obj);
-							if(b.getColorOriginal().equals(Caselles[x][y+1].getColorOriginal()) && y+1<tamany)auxAfegirObjectiu(Caselles[x][y+1],b.getColorOriginal(),obj);
-							if(b.getColorOriginal().equals(Caselles[x][y-1].getColorOriginal()) && y-1>=0)auxAfegirObjectiu(Caselles[x][y-1],b.getColorOriginal(),obj);
+							auxAfegirObjectiu(Caselles[x][y],b.getColorOriginal(),obj);
 						}
 						
 					
@@ -620,16 +642,39 @@ public class VistaCreacio extends SuperVista{
 			String val= String.valueOf(v);
 			String op= b.getOperacio();
 			String obj=b.getObjectiu();
+			String s= aux.getOperacio();
 			b.setColor(color);
 			b.setColorOriginal(color);
 			b.setValor(val);
 			pulsat=false;
+			cleanVisit();
+			if(s.equals("-")||s.equals("/")){
+				if(auxMaxRegions(b,color)>2){
+					b.setColorOriginal(ant);
+					cleanVisit();
+					if(!b.getColorOriginal().equals(this.colorDefecte)){
+						b.setObjectiu(obj);
+						b.setOperacio(op);
+						b.setValor(val);
+					}
+				}
+				else{
+					cleanVisit();
+					b.setObjectiu(obj);
+					b.setOperacio(op);
+					b.setValor(val);
+				}
+			}
 			if(maxRegions(aux)){
 				b.setColorOriginal(ant);
-				b.setObjectiu(obj);
-				b.setOperacio(op);
-				b.setValor(val);
+				if(!b.getColorOriginal().equals(this.colorDefecte)){
+					b.setObjectiu(obj);
+					b.setOperacio(op);
+					b.setValor(val);
 				}
+				
+				}
+			
 			else{
 				Point p=b.getXY();
 				int x=p.x;
@@ -664,19 +709,8 @@ public class VistaCreacio extends SuperVista{
 					y=p.y;
 					cleanVisit();
 					visit[x][y]=true;
-					if(b.getColorOriginal().equals(Caselles[x+1][y].getColorOriginal())){
-						
-						auxAfegirOperacio(Caselles[x+1][y],b.getColorOriginal(),op);
-					}
-					if(b.getColorOriginal().equals(Caselles[x-1][y].getColorOriginal())){
-						auxAfegirOperacio(Caselles[x-1][y],b.getColorOriginal(),op);
-					}
-					if(b.getColorOriginal().equals(Caselles[x][y+1].getColorOriginal())){
-						auxAfegirOperacio(Caselles[x][y+1],b.getColorOriginal(),op);
-					}
-					if(b.getColorOriginal().equals(Caselles[x][y-1].getColorOriginal())){
-						auxAfegirOperacio(Caselles[x][y-1],b.getColorOriginal(),op);
-					}
+					auxAfegirOperacio(Caselles[x][y],b.getColorOriginal(),op);
+					
 				}
 				cleanVisit();
 				obj=getObjectiuEntorn(b);
@@ -688,10 +722,8 @@ public class VistaCreacio extends SuperVista{
 					y=p.y;
 					cleanVisit();
 					visit[x][y]=true;
-					if(b.getColorOriginal().equals(Caselles[x+1][y].getColorOriginal()) && x+1<tamany)auxAfegirObjectiu(Caselles[x+1][y],b.getColorOriginal(),obj);
-					if(b.getColorOriginal().equals(Caselles[x-1][y].getColorOriginal()) && x-1>=0)auxAfegirObjectiu(Caselles[x-1][y],b.getColorOriginal(),obj);
-					if(b.getColorOriginal().equals(Caselles[x][y+1].getColorOriginal()) && y+1<tamany)auxAfegirObjectiu(Caselles[x][y+1],b.getColorOriginal(),obj);
-					if(b.getColorOriginal().equals(Caselles[x][y-1].getColorOriginal()) && y-1>=0)auxAfegirObjectiu(Caselles[x][y-1],b.getColorOriginal(),obj);
+					auxAfegirObjectiu(Caselles[x][y],b.getColorOriginal(),obj);
+					
 				}
 				
 			}
@@ -816,6 +848,7 @@ public class VistaCreacio extends SuperVista{
 		Point p=aux.getXY();
 		int x=p.x;
 		int y=p.y;
+		visit[x][y]=true;
 		int i=0;
 		for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
 			if(x1<0){}

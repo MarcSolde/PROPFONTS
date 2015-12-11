@@ -141,6 +141,93 @@ public class CtrlData {
 	 * @param nom nom de l'usuari
 	 * @return retorna si s'ha pogut guardar la partida a la BD
 	 */
+	
+	
+	public boolean escriurePartida2(Partida p, String nom,String namePartida){
+		boolean b = false;
+		File file = new File("0");
+		Scanner sc;
+		int num = 0;
+		if (p.getId() != -1) {
+			num = p.getId();
+			System.out.println(num);
+			file = new File("data/usuaris/"+nom+"/partida"+Integer.toString(num));
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			file = new File("data/usuaris/"+nom+"/partida"+Integer.toString(num)+".txt");
+		} else {
+			File aux = new File("data/usuaris/"+nom+"/num.txt");
+			try {
+				sc = new Scanner(aux);
+				sc.useDelimiter(" ");
+				String s = sc.next();
+				num = Integer.parseInt(s);
+				num += 1;
+				p.setId(num);	
+				String id=String.valueOf(num);
+				file = new File("data/usuaris/"+nom+"/partida"+id+".txt");
+				FileWriter fw;
+				try {
+					fw = new FileWriter(aux);
+					fw.write(Integer.toString(num),0,id.length());
+					fw.close();
+					File aux2 = new File("data/usuaris/"+nom+"/partida"+id);
+					fw = new FileWriter(aux2);
+					fw.write(namePartida,0,namePartida.length());
+					fw.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			} catch (FileNotFoundException e) {				//LIDENTIFICADOR DE PARTIDA SERA EL NUM DE TXT DE TAULERS
+				e.printStackTrace();
+			}
+		}
+		if (!file.getName().equals("0")) {
+			if (file.exists()) {
+				//num = Partida.getTauler().getId();
+			} else {
+				try {
+					file.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			FileWriter fw;
+			try {
+				fw = new FileWriter(file);
+				int offset = 0;
+				String s = Integer.toString(num)+" ";
+				fw.write(s, offset, s.length());
+				s = Integer.toString(p.getTemps()) +" ";
+				fw.write(s,offset,s.length());
+				s = Integer.toString(Partida.getTauler().getMida())+" ";
+				if (p.partidaFi()) s = "1 ";
+				else s = "0 ";
+				fw.write(s,offset,s.length());
+				for (int x = 0; x < Partida.getTauler().getMida(); ++x) {
+					for (int y = 0; y < Partida.getTauler().getMida(); ++y) {
+						s = Integer.toString(Partida.getTauler().getValorTauler(x, y))+" ";
+						fw.write(s,offset,s.length());
+					}
+				}
+				fw.close();
+		//AQUI TENIES UN RETURN... MAI ARRIBAVES A CREAR TAULER GJ
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			b= true;
+		}
+		escriureTauler(Partida.getTauler(), p.getId());				//TAULER LI PASSES LID DE LA PARTIDA.
+		
+		return b;
+	}
+	
+
+
 	public boolean escriurePartida(Partida p, String nom){
 		boolean b = false;
 		File file = new File("0");
@@ -211,7 +298,8 @@ public class CtrlData {
 		
 		return b;
 	}
-
+	
+	
 	/**
 	 * Llegeix una partida guardada de la BD
 	 * @param id identificador de la partida
@@ -262,7 +350,32 @@ public class CtrlData {
 	 */
 	public void esborrarPartida(String id, String nom) {
 		File file = new File("data/usuaris/"+ nom + "/partida" + id + ".txt");
-		file.delete();
+		if(file.exists())file.delete();
+		File aux = new File("data/usuaris/"+ nom + "/namePartida" + id+".text");
+		if(aux.exists())aux.delete();
+		file = new File("data/usuaris/"+ nom + "/num.txt");
+		try {
+			Scanner sc = new Scanner(file);
+			String s= sc.next();
+			if(s.equals(id)){
+				int i= Integer.valueOf(s);
+				--i;
+				FileWriter fw;
+				try {
+					fw = new FileWriter(file);
+					fw.write(Integer.toString(i),0,Integer.toString(i).length());
+					fw.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			sc.close();	
+				
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -493,6 +606,7 @@ public class CtrlData {
 		ArrayList<String> ls = new ArrayList<String>();
 		TaulerKenken t;
 		File file = new File("data/usuaris/"+nom+"/num.txt");
+	
 		Scanner sc;
 		String s = "0";
 		try {
@@ -503,7 +617,22 @@ public class CtrlData {
 			e.printStackTrace();
 		}
 		for(int i=1;i<=Integer.valueOf(s);i++){
-			ls.add(String.valueOf(i));
+			file = new File("data/usuaris/"+nom+"/partida"+i);
+			if(!file.exists()){}
+			else{
+				String name="0";
+				try {
+					sc=new Scanner(file);
+					name=sc.nextLine();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("existe"+i);
+				file = new File("data/usuaris/"+nom+"/partida"+i+".txt");
+				if(file.exists())ls.add(String.valueOf(name));
+				file = new File("data/usuaris/"+nom+"/partida"+i);
+			}
 		}
 		return ls;
 	}
@@ -522,8 +651,48 @@ public class CtrlData {
 			e.printStackTrace();
 		}
 		for(int i=1;i<=Integer.valueOf(s);i++){
-			ls.add(String.valueOf(i));
+			file = new File("data/taulers/kenken"+i);
+			if(!file.exists()){}
+			else{
+				ls.add(String.valueOf(i));
+			}
 		}
 		return ls;
+	}
+
+
+	public String findId(String s, String nom) {
+		System.out.println("abans new file");
+		//System.out.println(id);
+		File file = new File("data/usuaris/"+ nom + "/num.txt");//BUSQUES UNA PARTIDA AMB DIRECTORI CORRECTE
+		Scanner sc;
+		String resultat="";
+			try {
+				sc = new Scanner(file);
+				sc.useDelimiter(" ");
+				String n = sc.next();
+				System.out.println(n);
+				for(int i=1;i<=Integer.valueOf(n);i++){
+					file = new File("data/usuaris/"+ nom + "/partida"+i);
+					if(file.exists()){
+						System.out.println("el fichero "+i+" existe" );
+						sc = new Scanner(file);
+						sc.useDelimiter(" ");
+						String name =sc.nextLine();
+						System.out.println("el fichero se llama " +name);
+						if(name.equals(s)){
+							System.out.println(i);
+							file = new File("data/usuaris/"+ nom + "/partida"+i+".txt");
+							if(!file.exists())return "-1";
+							return String.valueOf(i);
+						}
+					}
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(0);
+			return "-1";
 	}
 }

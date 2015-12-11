@@ -85,15 +85,14 @@ public class CtrlDomini {
 	}
 
 	public boolean CarregarPartida(String s) {
-		Partida p=cd.llegirPartida(s, cu.getNom());
-		if(p.getId()==-1){
-			return false;
-		}
-		else{
-			ct.setTauler(p.getTauler());
-			cPar.setPartida(p);
-		}
-		return true;
+		String id=cd.findId(s,cu.getNom());
+		if(id.equals("-1")) return false;
+		Partida p=cd.llegirPartida(id, cu.getNom());
+		if(p.getId()==-1)return false;
+		ct.setTauler(p.getTauler());
+		cPar.setPartida(p);
+		System.out.println("retorna true");
+		 return true;
 	}
 
 	public ArrayList<String> consultaPartidesGuardades() {
@@ -154,13 +153,15 @@ public class CtrlDomini {
 	public void guardarPartida() {
 		cd.escriurePartida(cPar.getPartida(),cu.getNom());
 	}
-	public void guardarPartida(String s) {
-		cPar.getPartida().setId(Integer.valueOf(s));
-		cd.escriurePartida(cPar.getPartida(),cu.getNom());
+	public void Sobrescriu(String s) {
+		String id= cd.findId(s, cu.getNom());
+		cPar.getPartida().setId(Integer.valueOf(id));
+		cd.escriurePartida2(cPar.getPartida(),cu.getNom(),s);
 	}
 
 	public void borrarPartida(String s) {
-		cd.esborrarPartida(s,cu.getNom());
+		String id= cd.findId(s, cu.getNom());
+		cd.esborrarPartida(id,cu.getNom());
 		
 	}
 
@@ -176,5 +177,16 @@ public class CtrlDomini {
 
 	public int getid() {
 		return cPar.getPartida().getId();
+	}
+
+	public void guardarNovaPartida(String s) {
+		cd.escriurePartida2(cPar.getPartida(),cu.getNom(),s);
+		
+	}
+
+	public boolean existePartida(String s) {
+		String id=cd.findId(s, cu.getNom());
+		if(!id.equals("-1")) return false;
+		return true;
 	}
 }

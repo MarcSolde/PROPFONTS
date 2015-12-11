@@ -1,5 +1,6 @@
 package domini.controladores;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import presentacio.CasillaCP;
 import presentacio.VistaCreacio;
@@ -20,6 +21,8 @@ public class CtrlPresentacio {
 	private VistaMenu vm= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
+	//private HashMap<String,String> idToNom= new HashMap<String,String>();
+	//private HashMap<String,String> nomToId= new HashMap<String,String>();
 	public void inicializarPresentacion() {
 
 			vl.llamarVista();
@@ -50,12 +53,14 @@ public class CtrlPresentacio {
 		}
 		else{
 			System.out.println("hi ha mes d'una solucio");
-			vc.hacerInvisible();
-			vm.hacerVisible();
-			cd.GuardarTauler();
-			vp=new VistaPartida(this);
+			vc.hacerVisible();
+			ve.llamarVista("hi ha mes d'una solucio o els objectius son imposibles de realitzar");
+			//vm.hacerVisible();
+			
+			//cd.GuardarTauler();
+			/*vp=new VistaPartida(this);
 			this.setTamany(cd.getTamany());
-			vp.llamarVista(valor,obj,op,regionsId);
+			vp.llamarVista(valor,obj,op,regionsId);*/
 		}
 	}
 	public void enviarTablero(String[][] valor, String[][] obj, String[][] op, int[][] reg) {
@@ -85,6 +90,7 @@ public class CtrlPresentacio {
 		
 	}
 	public void resumirPartida() {
+		ve=new VistaEmergente(this);
 		ve.llamarResumirPartida();
 		//cd.resumirPartida();		
 	}
@@ -99,6 +105,7 @@ public class CtrlPresentacio {
 		vp.setTamany(tam);
 	}
 	public void llamarCarregarKenken() {
+		ve=new VistaEmergente(this);
 		ve.llamarCarregarKenken();
 		
 	}
@@ -121,6 +128,7 @@ public class CtrlPresentacio {
 		return cd.ConsultaKenkenGuardats();
 	}
 	public ArrayList<String> ConsultaPartidesGuardades() {
+		//ArrayList<String>ls= new ArrayList<String>();
 		return cd.consultaPartidesGuardades();
 	}
 	public void CrearUsuari(String u, String p) {
@@ -128,6 +136,7 @@ public class CtrlPresentacio {
 		
 	}
 	public void llamarMenu() {
+		vm= new VistaMenu(this);
 		vm.llamarVista();
 		
 	}
@@ -154,6 +163,7 @@ public class CtrlPresentacio {
 		
 	}
 	public void llamarEsborrarPartida() {
+		ve=new VistaEmergente(this);
 		ve.llamarEsborrarPartida();
 		
 	}
@@ -169,6 +179,7 @@ public class CtrlPresentacio {
 	}
 	public void GuardaPartida() {
 		if(cd.getid()==-1){
+			ve=new VistaEmergente(this);
 			ve.llamarGuardar();
 		}
 		else{
@@ -189,18 +200,27 @@ public class CtrlPresentacio {
 		return cd.comprovar();
 	}
 	public void llamarComprobar(boolean comprovar) {
+		ve=new VistaEmergente(this);
 		ve.llamarComprovar(comprovar);
 		
 	}
 	public void llamarGuardar() {
+		ve=new VistaEmergente(this);
 		ve.llamarGuardar();		
 	}
-	public void GuardaPartida(String s) {
-		cd.guardarPartida(s);
+	public void Sobrescriu(String s) {
+		cd.Sobrescriu(s);
 		
 	}
-	public void Guarda() {
+	/*public void Guarda() {
 		cd.guardarPartida();
+		
+	}*/
+	public void GuardarNou(String s) {
+		if(cd.existePartida(s)){
+			ve.llamarVista("Esa partida ya existe");
+		}
+		else cd.guardarNovaPartida(s);
 		
 	}
 	
