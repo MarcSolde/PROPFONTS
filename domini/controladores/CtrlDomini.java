@@ -190,11 +190,8 @@ public class CtrlDomini {
 		return true;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<String> obtener_BT() {
 		return cr.obtener_BT() ;
 	}
-=======
 	
->>>>>>> 8543e3e426546d0755b9c338a6d432859da982b5
 }
