@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JRadioButton;
@@ -109,6 +110,11 @@ public class VistaRanking extends JFrame {
 				"Tamany KK", "Temps(s)", "Usuari"
 			}
 		));
+	    ButtonGroup group = new ButtonGroup();
+	    group.add(rdbtnBestTime);
+	    group.add(rdbtnMostSolved);
+	    //rdbtnMostSolved.addActionListener(this);
+	    
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 		btnOk.addActionListener(new ActionListener() {

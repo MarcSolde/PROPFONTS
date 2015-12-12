@@ -203,6 +203,7 @@ public class CtrlPartida{
 		p=p2;
 		
 	}
+
 	public boolean partidaFi() {
 		return p.partidaFi();
 	}
@@ -210,6 +211,7 @@ public class CtrlPartida{
 		int i = p.getTemps();
 		String s= String.valueOf(i)+" segons";
 		return s;
+
 	}
 
 }
