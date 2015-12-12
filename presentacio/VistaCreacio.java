@@ -51,7 +51,7 @@ public class VistaCreacio extends SuperVista{
 		
 	Color old;
 	Color colorDefecte = new Color(255,0,0);
-	Color color1 = new Color(0,0,255);
+	Color color1 = new Color(255,255,255);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
 	Color color4= new Color(255,0,255);
@@ -1150,7 +1150,7 @@ public class VistaCreacio extends SuperVista{
 		}
 	}
 	protected Color StringToColor(String color) {
-		if(color.equals("Azul")) return new Color(0,0,255);
+		if(color.equals("Blanco")) return new Color(255,255,255);
 		if(color.equals("Verde")) return new Color(0,255,0);
 		if(color.equals("Azul")) return new Color(0,0,255);
 		if(color.equals("Amarillo")) return new Color(255,255,0);
@@ -1160,9 +1160,8 @@ public class VistaCreacio extends SuperVista{
 	}
 	
 	protected String ColorToString(Color c) {
-		if(c.equals(new Color(0,0,255)))return "Azul";
+		if(c.equals(new Color(255,255,255)))return "Blanco";
 		if(c.equals(new Color(0,255,0)))return "Verde";
-		if(c.equals(new Color(0,0,255)))return "Azul";
 		if(c.equals(new Color(255,255,0)))return "Amarillo";
 		if(c.equals(new Color(255,0,255)))return "Morado";
 		if(c.equals(new Color(0,255,255)))return "Cian";

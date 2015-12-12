@@ -33,9 +33,9 @@ public class CasillaCP extends JPanel{
 	JLabel labelValor = new JLabel();
 	JLabel labelObjectiu = new JLabel();
 	private Point p = new Point();
-	Color colorDefecte =new Color(255,0,0);
 	Color colorOriginal = new Color(255,0,0);
-	Color color1 = new Color(0,0,255);
+	Color colorDefecte = new Color(255,0,0);
+	Color color1 = new Color(255,255,255);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
 	Color color4= new Color(255,0,255);
