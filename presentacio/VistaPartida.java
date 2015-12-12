@@ -69,9 +69,9 @@ public class VistaPartida extends SuperVista{
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("A�adir");
+	private JButton buttonAfegirValor = new JButton("ANadir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("A�adir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("ANadir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
