@@ -132,6 +132,7 @@ public class VistaRanking extends SuperVista {
 				//System.out.print("AAAAA");
 				ArrayList<String> ar= new ArrayList<String>();
 				ar = cp.obtener_BT();
+				System.out.println("SIZE: "+ar.size());
 				for (int i = 0; i < ar.size(); i+= 3) {
 					String s = new String();
 					String s1 = new String();
