@@ -3,6 +3,9 @@ package presentacio;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -10,11 +13,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import com.sun.glass.events.KeyEvent;
 
 import domini.controladores.CtrlPresentacio;
 
 public class VistaEmergente extends SuperVista{
+	private boolean primeraVez=true;
 	private JPanel panelError = new JPanel();
 		private JLabel labelAlert = new JLabel("ERROR:");
 		private JLabel labelError = new JLabel();
@@ -29,7 +36,15 @@ public class VistaEmergente extends SuperVista{
 	private JPanel panelComprovar = new JPanel();
 		private JLabel labelComprovar = new JLabel();
 		private JButton buttonFi = new JButton("Quit");
-	
+		
+	private JPanel panelGuardar = new JPanel();
+		private JButton buttonSobrescriure = new JButton("Sobrescriure");
+		private JButton buttonNou = new JButton("Nou");
+		
+	private JPanel panelNombrar = new JPanel();
+		private JTextField textFieldNombrar= new JTextField("introdueix el nom que tindra la Partida");
+		private JButton buttonNombrar = new JButton("Nombrar");
+		
 	  public VistaEmergente(CtrlPresentacio pCtrlPresentacion) {
 		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 		    cp = pCtrlPresentacion;
@@ -81,8 +96,9 @@ public class VistaEmergente extends SuperVista{
 		}
 	  private void inicializar_panelCarregarKenken(ArrayList<String> ls) {
 		  panelCarregarKenken.removeAll();
+		  comboboxKenkenPosible= new JComboBox();
 		  for(String s:ls){
-			  this.comboboxKenkenPosible.addItem(s);
+			  comboboxKenkenPosible.addItem(s);
 		  }
 		  panelCarregarKenken.add(comboboxKenkenPosible);
 		  panelCarregarKenken.add(buttonKenkenPosible);
@@ -109,11 +125,18 @@ public class VistaEmergente extends SuperVista{
 			 	inicializar_frameVista();
 			 	contentPane.add(panelOpcions);
 			 	inicializar_panelError();
+			 	 inicializar_panelNombrar();
 			    inicializar_panelOpcions();
 			    asignar_listenersComponentes(); //a hacer
 		}
 		  
-		  private void inicializar_panelError() {
+		  private void inicializar_panelNombrar() {
+			  panelNombrar.add(textFieldNombrar);
+			  panelNombrar.add(buttonNombrar);
+			
+		}
+
+		private void inicializar_panelError() {
 			  panelError.add(labelAlert);
 			  panelError.add(labelError);
 			  panelError.add(buttonOk);
@@ -161,7 +184,124 @@ public class VistaEmergente extends SuperVista{
 			          
 			        }
 			 });
+			buttonNou.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonNou(event);
+			          
+			        }
+			 });
+			buttonSobrescriure.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonSobrescriure(event);
+			          
+			        }
+			 });
+			buttonNombrar.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonNombrar(event);
+			          
+			        }
+			 });
+			textFieldNombrar.addMouseListener(new MouseListener() {
+		        public void mouseClicked(MouseEvent e) {
+		        	textFieldNombrar.setText("");
+		        }
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			 });
+			/*textFieldNombrar.addKeyListener(new KeyListener(){
+				 @Override
+				public void keyPressed(java.awt.event.KeyEvent event) {
+					
+					repintar();
+					
+				}
+
+				@Override
+				public void keyReleased(java.awt.event.KeyEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent event) {
+					//textFieldNombrar.getText();
+					if(this.)
+					repintar();
+					
+				}
+				
+			 });*/
 			
+		}
+
+		protected void actionPerformed_buttonNombrar(ActionEvent event) {
+			String s = this.textFieldNombrar.getText();
+			if(s.equals("introdueix el nom que tindra la Partida")){
+				cp.llamarError("Antes has de introducir un nombre a la Partida");
+			}
+			else{
+				cp.GuardarNou(s);	
+				this.hacerInvisible();
+				cp.llamarMenu();
+			}
+			
+		}
+
+		protected void actionPerformed_buttonSobrescriure(ActionEvent event) {
+			ArrayList<String> ls=cp.ConsultaPartidesGuardades();
+			inicializar_panelSobrescriure(ls);
+			cambiarPanel(panelCarregarKenken);
+			
+		}
+
+		  private void inicializar_panelSobrescriure(ArrayList<String> ls) {
+			  panelCarregarKenken.removeAll();
+			  for(String s:ls){
+				  this.comboboxKenkenPosible.addItem(s);
+			  }
+			  panelCarregarKenken.add(comboboxKenkenPosible);
+			  panelCarregarKenken.add(buttonKenkenPosible);
+			  buttonKenkenPosible.setText("Sobrescriu");
+			  panelCarregarKenken.add(buttonQuit);
+			  
+			  
+		}
+		
+		protected void actionPerformed_buttonNou(ActionEvent event) {
+			//cp.Guarda();
+			cambiarPanel(panelNombrar);
 		}
 
 		protected void actionPerformed_buttonFi(ActionEvent event) {
@@ -177,14 +317,18 @@ public class VistaEmergente extends SuperVista{
 		protected void actionPerformed_buttonKenkenPosible(ActionEvent event) {
 			String s=(String) this.comboboxKenkenPosible.getSelectedItem();
 			this.hacerInvisible();
-			if(opcio==0)cp.carregarKenkenGuardat(s);
+			if(this.buttonKenkenPosible.getText().equals("Sobrescriu")){
+				cp.Sobrescriu(s);
+				cp.llamarMenu();
+			}
+			else if(opcio==0)cp.carregarKenkenGuardat(s);
 			else if(opcio==1)cp.CarregarPartida(s);
 			else cp.borrarPartida(s);
 			
 		}
 
 		protected void actionPerformed_buttonOk(ActionEvent event) {
-			 //this.desactivar();
+			
 			 this.hacerInvisible();
 			
 		}
@@ -199,6 +343,13 @@ public class VistaEmergente extends SuperVista{
 			 panelComprovar.add(labelComprovar);
 			 panelComprovar.add(this.buttonFi);
 			 cambiarPanel(panelComprovar);
+			 llamarVista();
+		}
+
+		public void llamarGuardar() {
+			panelGuardar.add(this.buttonSobrescriure);
+			panelGuardar.add(this.buttonNou);
+			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}
 

@@ -50,8 +50,8 @@ public class VistaPartida extends SuperVista{
 	int RegionsColor[][];
 	CasillaCP Caselles[][];
 	CasillaCP Select;
-	Color colorDefecte = new Color(0,0,255);
-	Color color1 = new Color(255,0,0);
+	Color colorDefecte = new Color(255,0,0);
+	Color color1 = new Color(0,0,255);
 	Color color2= new Color(0,255,0);
 	Color color3= new Color(255,255,0);
 	Color color4= new Color(255,0,255);
@@ -68,9 +68,9 @@ public class VistaPartida extends SuperVista{
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("Aï¿½adir");
+	private JButton buttonAfegirValor = new JButton("Añadir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("Aï¿½adir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("Añadir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
@@ -95,6 +95,12 @@ public class VistaPartida extends SuperVista{
 		  inicializarComponentes();
 		  repintar();
 	  }
+	  public void afegirValor(String[][] mv) {
+			for(int i=0;i<mv.length;i++)for(int j=0;j<mv.length;j++){
+				Caselles[i][j].setValor(mv[i][j]);
+			}
+			
+		}
 	  public void llamarVista(String[][] valor, String[][] obj, String[][] op, int[][] reg){
 		  llamarVista();
 		  RegionsId=reg;
@@ -388,14 +394,14 @@ public class VistaPartida extends SuperVista{
 	}
 
 	protected void actionPerformed_buttonComprovar(ActionEvent event) {
-		// TODO Auto-generated method stub
+	
 		
 			cp.llamarComprobar(cp.comprovar());
 		
 	}
 
 	protected void actionPerformed_buttonPista(ActionEvent event) {
-		// TODO Auto-generated method stub
+
 		cp.pista();
 		
 	}
@@ -403,7 +409,7 @@ public class VistaPartida extends SuperVista{
 	protected void actionPerformed_buttonGuardarPartida(ActionEvent event) {
 		cp.GuardaPartida();
 		this.hacerInvisible();
-		cp.llamarMenu();
+		//cp.llamarMenu();
 		
 	}
 
@@ -420,9 +426,7 @@ public class VistaPartida extends SuperVista{
 				int x=p.x;
 				int y=p.y;
 				int n=Integer.valueOf(valor);
-				if(cp.borrarCandidat(x,y,n)){
-					b.eraseCandidat(valor);	
-				}
+				b.eraseCandidat(valor);	
 				posarComboboxCandidats(b);
 			}
 			else{
@@ -446,9 +450,7 @@ public class VistaPartida extends SuperVista{
 				int x=p.x;
 				int y=p.y;
 				int n=Integer.valueOf(valor);
-				if(cp.addCandidat(x,y,n)){
-					b.addCandidat(valor);
-				}
+				b.addCandidat(valor);
 				posarComboboxCandidats(b);
 			}
 			else{
@@ -554,12 +556,5 @@ public class VistaPartida extends SuperVista{
 			default:return c;
 		}
 	
-	}
-
-	public void afegirValor(String[][] mv) {
-		for(int i=0;i<mv.length;i++)for(int j=0;j<mv.length;j++){
-			Caselles[i][j].setValor(mv[i][j]);
-		}
-		
 	}
 }

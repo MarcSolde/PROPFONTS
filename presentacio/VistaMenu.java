@@ -109,9 +109,9 @@ public class VistaMenu extends SuperVista{
 
 	private void inicializar_panelElegirKenken() {
 		panelElegirKenken.setLayout(new FlowLayout());
-		panelElegirKenken.add(buttonFerKenken);
-		panelElegirKenken.add(buttonCarregarKenken);
 		panelElegirKenken.add(buttonJugarKenken);
+		panelElegirKenken.add(buttonCarregarKenken);
+		panelElegirKenken.add(buttonFerKenken);
 		panelElegirKenken.add(buttonTornarMenu);
 		
 		
