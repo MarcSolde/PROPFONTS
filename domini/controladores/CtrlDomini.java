@@ -216,4 +216,9 @@ public class CtrlDomini {
 		return cPar.getMatriuIncorrecte();
 	}
 
+	public ArrayList<String> obtener_BT_tam(Integer value) {
+		return cr.obtener_BT_tam(value);
+		
+	}
+
 }

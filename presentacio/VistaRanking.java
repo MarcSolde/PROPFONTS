@@ -40,6 +40,7 @@ public class VistaRanking extends SuperVista {
 	private JButton btnBTTamKK;
 	private JButton btnMostSolved;
 	private JButton btnNewButton;
+	private JSpinner spinner;
 	/**
 	 * Launch the application.
 	 */
@@ -97,11 +98,37 @@ public class VistaRanking extends SuperVista {
 		});
 		
 		btnBTUser = new JButton("Els Meus Best Time");
+		btnBTUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//XSTUB METHOD
+			}
+		});
+		
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(3, 3, 9, 1));
 		
 		btnBTTamKK = new JButton("Best Time del Tamany");
-		
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(3, 3, 9, 1));
+		btnBTTamKK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+			    model.setRowCount(0);
+				//System.out.print("AAAAA");
+				ArrayList<String> ar= new ArrayList<String>();
+				int x = (Integer)spinner.getValue();
+				ar = cp.obtener_BT_Tam(x);
+				System.out.println("SIZE: "+ar.size());
+				for (int i = 0; i < ar.size(); i+= 3) {
+					String s = new String();
+					String s1 = new String();
+					String s2 = new String();
+					s = ar.get(i);
+					s1 = ar.get(i+1);
+					s2 = ar.get(i+2);
+					//DefaultTableModel model = (DefaultTableModel) table.getModel();
+			        model.addRow(new Object[]{s, s1, s2});
+				}
+			}
+		});
 		
 		btnMostSolved = new JButton("Most Solved");
 		
