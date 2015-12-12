@@ -62,6 +62,7 @@ public class VistaPartida extends SuperVista{
 	boolean pulsat=false;
 	boolean visit[][] = new boolean[tamany][tamany];
 	boolean visit2[][] = new boolean[tamany][tamany];
+	boolean partidaFi = false;
 	
 	
 	Color colorOriginal[][];
@@ -415,8 +416,13 @@ public class VistaPartida extends SuperVista{
 
 	protected void actionPerformed_buttonPista(ActionEvent event) {
 		cp.pista();
-		if(partidaFinalitzada()){
+		if(partidaFinalitzada() && cp.comprovar()){
+			this.hacerInvisible();
 			cp.llamarPartidaFi();
+		}
+		else if(partidaFinalitzada() && !cp.comprovar()){
+			this.actionPerformed_buttonComprovar(null);
+			cp.llamarComprobar(false);
 		}
 		
 	}
@@ -506,12 +512,14 @@ public class VistaPartida extends SuperVista{
 					int n=Integer.valueOf(valor);
 					if(cp.afegirValor(x,y,n)){
 						b.setValor(valor);
-						if(partidaFinalitzada()){
+						if(partidaFinalitzada() && cp.comprovar()){
+							this.hacerInvisible();
 							cp.llamarPartidaFi();
 						}
-					}
-					else{
-						b.setColor(Color.ORANGE);
+						else if(partidaFinalitzada() && !cp.comprovar()){
+							this.actionPerformed_buttonComprovar(null);
+							cp.llamarComprobar(false);
+						}
 					}
 				}
 				b.ReturnColorOriginal();
