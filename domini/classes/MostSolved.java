@@ -1,4 +1,5 @@
 package domini.classes;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -57,5 +58,13 @@ public class MostSolved extends Ranking{
 	
 	public void setMap(Map<String, Integer> m) {
 		map = m;
+	}
+	public ArrayList<String> getMostSolvedGlobal_String() {
+		ArrayList<String> s = new ArrayList<String>();
+		for(String key: map.keySet()) {
+			s.add(key);
+			s.add(Integer.toString(map.get(key)));
+		}
+		return s;
 	}
 }

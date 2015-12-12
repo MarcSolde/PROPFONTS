@@ -221,4 +221,9 @@ public class CtrlDomini {
 		
 	}
 
+	public ArrayList<String> obtener_MS() {
+		// TODO Auto-generated method stub
+		return cr.obtener_MS();
+	}
+
 }

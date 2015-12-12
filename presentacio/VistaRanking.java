@@ -100,6 +100,7 @@ public class VistaRanking extends SuperVista {
 		btnBTUser = new JButton("Els Meus Best Time");
 		btnBTUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BT();
 				//XSTUB METHOD
 			}
 		});
@@ -110,6 +111,7 @@ public class VistaRanking extends SuperVista {
 		btnBTTamKK = new JButton("Best Time del Tamany");
 		btnBTTamKK.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BT();
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 			    model.setRowCount(0);
 				//System.out.print("AAAAA");
@@ -131,8 +133,33 @@ public class VistaRanking extends SuperVista {
 		});
 		
 		btnMostSolved = new JButton("Most Solved");
+		btnMostSolved.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MS();
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+			    model.setRowCount(0);
+				ArrayList<String> ar= new ArrayList<String>();
+				ar = cp.obtener_MS();
+				System.out.println("SIZE: "+ar.size());
+				for (int i = 0; i < ar.size(); i+= 2) {
+					String s = new String();
+					String s1 = new String();
+					s = ar.get(i);
+					s1 = ar.get(i+1);
+					//DefaultTableModel model = (DefaultTableModel) table.getModel();
+			        model.addRow(new Object[]{s, s1});
+				}
+			}
+		});
+		
+		
 		
 		btnNewButton = new JButton("Els Meu Most Solved");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//STUB METHOD
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -192,13 +219,14 @@ public class VistaRanking extends SuperVista {
 				"Tamany KK", "Temps(s)", "Usuari"
 			}
 		));
-	    ButtonGroup group = new ButtonGroup();
+	    //ButtonGroup group = new ButtonGroup();
 	    //rdbtnMostSolved.addActionListener(this);
 	    
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
 		btnBTAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BT();
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 			    model.setRowCount(0);
 				//System.out.print("AAAAA");
@@ -218,5 +246,23 @@ public class VistaRanking extends SuperVista {
 				}
 			}
 		});
+	}
+	public void MS() {
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Quantitat", "Usuari"
+				}
+			));
+	}
+	public void BT() {
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Tamany KK", "Temps(s)", "Usuari"
+				}
+			));
 	}
 }
