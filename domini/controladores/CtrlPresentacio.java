@@ -264,5 +264,9 @@ public class CtrlPresentacio {
 		vr.llamarVista();
 		
 	}
+	public ArrayList<String> obtener_BT_Tam(Integer value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
