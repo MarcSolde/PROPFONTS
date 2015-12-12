@@ -389,13 +389,12 @@ public class VistaPartida extends SuperVista{
 		          String texto = ((JButton) event.getSource()).getText();
 		          System.out.println("Has clickado el boton con texto: " + texto);
 		          actionPerformed_buttonComprovar(event);
-		          
 		        }
 		      });
 	}
 
 	protected void actionPerformed_buttonComprovar(ActionEvent event) {
-	
+			cp.comprovar();
 			boolean[][] error= cp.getMatriuIncorrecte();
 			for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 				CasillaCP c= Caselles[i][j];
