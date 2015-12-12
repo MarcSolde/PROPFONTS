@@ -645,8 +645,12 @@ public class CtrlData {
 		String s = "0";
 		try {
 			sc = new Scanner(file);
-			sc.useDelimiter(" ");
-			s=sc.next();
+			if(!file.exists()){}
+			else{
+				sc.useDelimiter(" ");
+				s=sc.next();
+			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

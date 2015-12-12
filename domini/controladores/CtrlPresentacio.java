@@ -236,5 +236,15 @@ public class CtrlPresentacio {
 		int[][] reg=cd.getMRegions();
 		vc.llamarVista(obj,op,reg);
 	}
+	public void llamarPartidaFi() {
+		ve.llamarPartidaFi();
+		
+	}
+	public boolean partidaFi() {
+		return cd.partidaFi();
+	}
+	public String getTemps() {
+		return cd.getTemps();
+	}
 	
 }

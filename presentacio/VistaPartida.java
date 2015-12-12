@@ -482,7 +482,9 @@ public class VistaPartida extends SuperVista{
 					int n=Integer.valueOf(valor);
 					if(cp.afegirValor(x,y,n)){
 						b.setValor(valor);
-						
+						if(cp.partidaFi()){
+							cp.llamarPartidaFi();
+						}
 					}
 					else{
 						b.setColor(Color.ORANGE);

@@ -45,7 +45,10 @@ public class CtrlDomini {
 
 	public void GuardarTauler() {
 		ArrayList<String> ls = cd.ListKenkens();
-		cd.escriureTauler(ct.getTauler(),ls.size()+1);
+		int i=0;
+		if(ls.isEmpty())i=1;
+		else i=ls.size()+1;
+		cd.escriureTauler(ct.getTauler(),i);
 		cPar=new CtrlPartida();
 		cPar.creaPartidaRand(ct.getTauler().getMida());
 		cPar.setTauler(ct.getTauler());
@@ -188,6 +191,14 @@ public class CtrlDomini {
 		String id=cd.findId(s, cu.getNom());
 		if(!id.equals("-1")) return false;
 		return true;
+	}
+
+	public boolean partidaFi() {
+		return cPar.partidaFi();
+	}
+
+	public String getTemps() {
+		return cPar.getTemps();
 	}
 
 	

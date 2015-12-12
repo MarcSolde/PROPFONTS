@@ -43,6 +43,10 @@ public class VistaEmergente extends SuperVista{
 		private JTextField textFieldNombrar= new JTextField("introdueix el nom que tindra la Partida");
 		private JButton buttonNombrar = new JButton("Nombrar");
 		
+	private JPanel panelPartidaFi = new JPanel();
+		private JLabel labelPartidaFi= new JLabel("¡¡¡HAS GANADO!!!");
+		private JLabel labelTemps = new JLabel();
+		
 	  public VistaEmergente(CtrlPresentacio pCtrlPresentacion) {
 		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 		    cp = pCtrlPresentacion;
@@ -134,11 +138,17 @@ public class VistaEmergente extends SuperVista{
 			 	contentPane.add(panelOpcions);
 			 	inicializar_panelError();
 			 	 inicializar_panelNombrar();
+			 	inicializar_panelPartidaFi();
 			    inicializar_panelOpcions();
 			    asignar_listenersComponentes(); //a hacer
 		}
 		  
-		  private void inicializar_panelNombrar() {
+		  private void inicializar_panelPartidaFi() {
+			  panelPartidaFi.add(this.labelPartidaFi);
+			  panelPartidaFi.add(this.labelTemps);
+		}
+
+		private void inicializar_panelNombrar() {
 			  panelNombrar.add(textFieldNombrar);
 			  panelNombrar.add(buttonNombrar);
 			
@@ -283,6 +293,13 @@ public class VistaEmergente extends SuperVista{
 			  
 			  
 		}
+		  
+		  public void llamarPartidaFi() {
+			  cambiarPanel(panelPartidaFi);
+			  String text = cp.getTemps();
+			  //this.labelTemps.setText(text);
+				
+			}
 		
 		protected void actionPerformed_buttonNou(ActionEvent event) {
 			//cp.Guarda();
@@ -337,6 +354,8 @@ public class VistaEmergente extends SuperVista{
 			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}
+
+		
 
 		
 

@@ -87,6 +87,8 @@ public class VistaCreacio extends SuperVista{
 	private String SelColor = "Negro";
 	
 	String auxAfegirRegio1 = "indica regio a afegir";
+
+	private int[][] RegionsColor;
 	
 	
 	
@@ -1165,8 +1167,102 @@ public class VistaCreacio extends SuperVista{
 		if(c.equals(new Color(0,255,255)))return "Cian";
 		return "Negro";
 	}
+	private void cleanVisit(boolean[][] visit){
+		for(int i=0;i<visit.length;i++)for(int j=0;j<visit.length;j++)visit[i][j]=false;
+	}
+	
 	public void llamarVista(String[][] obj, String[][] op, int[][] reg) {
-		// TODO Auto-generated method stub
+		llamarVista();
+		  RegionsId=reg;
+		  int max=0;
+		  RegionsColor= new int[tamany][tamany];
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  if(reg[i][j]>max)max=reg[i][j];
+		  }
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  RegionsColor[i][j]=0;
+		  }
+		  cleanVisit(visit);
+		  boolean regions[]= new boolean[max+1];
+		  boolean ColorPosible[] = new boolean[6];
+		  for(boolean b:ColorPosible)b=true;
+		  visit[0][0]=true;
+		  ponerColor(0,0,reg[0][0],1);
+		  int idOld=RegionsId[0][0];
+		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+			  	int idNew=RegionsId[i][j];
+			  	if(idNew!=idOld){
+			  		for (int k = 0; k < ColorPosible.length; k++) {
+						ColorPosible[k]=true;
+					}
+			  		idOld=idNew;
+			  	}
+			  	if(visit[i][j]==false){
+					ColorPosible=ColorPosible(i,j,RegionsId[i][j],ColorPosible);
+					int color =0;
+					boolean ok=false;
+					for(int k=0;k<6 && !ok;k++){
+						if(ColorPosible[k]){
+							ok=true;
+							color=k;
+						}
+					}
+					ponerColor(i,j,reg[i][j],color);
+				}
+			}
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  Color color = this.ChooseColor(RegionsColor[i][j]);
+			  Caselles[i][j].setColorOriginal(color);
+		  }
+		  for(int i=0;i<reg.length;i++)for(int j=0;j<reg.length;j++){
+			  CasillaCP c= Caselles[i][j];
+			  c.setObjectiu(obj[i][j]);
+			  c.setOperacio(op[i][j]);
+		  }
 		
+	}
+	
+	 private boolean[] ColorPosible(int i, int j,int id, boolean[] colorPosible) {
+		  visit[i][j]=true;
+		  int a=0;
+		  for(int x1=i-1;x1<=i+1;x1++)for(int y1=j-1;y1<=j+1;y1++){
+				if(x1<0){}
+				else if(a%2==0){}
+				else if(x1>=tamany){}
+				else if(y1<0){}
+				else if(y1>=tamany){}
+				else if(RegionsId[x1][y1]==id && visit[x1][y1]==false){
+					ColorPosible(x1,y1,id,colorPosible);
+				}
+				else if(RegionsId[x1][y1]!=id){
+					int color= RegionsColor[x1][y1];
+					colorPosible[color]=false;
+					colorPosible[0]=false;
+				}
+				a++;
+			}
+		 
+		  return colorPosible;
+	  }
+	
+	private void ponerColor(int x,int y,int c,int col) {
+		visit[x][y]=true;
+		RegionsColor[x][y]=col;
+		Color color= ChooseColor(col);
+		Caselles[x][y].setColorOriginal(color);
+		int i=0;
+		for(int x1=x-1;x1<=x+1;x1++)for(int y1=y-1;y1<=y+1;y1++){
+			if(x1<0){}
+			else if(i%2==0){}
+			else if(x1>=tamany){}
+			else if(y1<0){}
+			else if(y1>=tamany){}
+			else if(RegionsId[x1][y1]==c && !Caselles[x1][y1].getColorOriginal().equals(this.ChooseColor(col))){
+				RegionsColor[x1][y1]=col;
+				Caselles[x1][y1].setColorOriginal(color);
+				ponerColor(x1,y1,c,col);
+			}
+			i++;
+		}
 	}
 }
