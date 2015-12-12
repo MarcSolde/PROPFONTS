@@ -230,7 +230,7 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 				if (tauler[i][j].getValor() != 0) {
 					if (!validesaCasella(i, j)) {
 						matriu_incorrectes[i][j] = true;
-						return false;
+						total = false;
 					}
 				}
 				else temp = false;
@@ -238,8 +238,8 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 		}
 			if(temp)taulerPle = true;
 			w = 1;
-			System.out.println("KENKEN CORRECTE!!");
-		return true;
+			if(total) System.out.println("KENKEN CORRECTE!!");
+		return total;
 	}
 
 	/**
