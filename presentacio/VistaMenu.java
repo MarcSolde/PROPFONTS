@@ -131,7 +131,14 @@ public class VistaMenu extends SuperVista{
 		comboboxTamany.addItem("7");
 		comboboxTamany.addItem("8");
 		comboboxTamany.addItem("9");
-		//comboboxTamany.addItem("10");
+		comboboxTamany.addItem("10");
+		comboboxTamany.addItem("11");
+		comboboxTamany.addItem("12");
+		comboboxTamany.addItem("13");
+		comboboxTamany.addItem("14");
+		comboboxTamany.addItem("15");
+		
+		
 		panelTamany.add(comboboxTamany);
 		panelTamany.add(buttonValidar);
 		panelTamany.add(buttonTornarTamany);

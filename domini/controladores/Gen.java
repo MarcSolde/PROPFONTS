@@ -148,7 +148,7 @@ public class Gen {
 		t.setRegioTauler(i,j,r);
 		Random rand = new Random();
 		int reg;
-		if(tamany==9)reg= rand.nextInt(5);
+		if(tamany>=9)reg= rand.nextInt(5);
 		else reg= rand.nextInt(4);
 		if(reg==4)reg=1;
 		int x=i;
