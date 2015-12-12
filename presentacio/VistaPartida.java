@@ -62,15 +62,16 @@ public class VistaPartida extends SuperVista{
 	boolean pulsat=false;
 	boolean visit[][] = new boolean[tamany][tamany];
 	boolean visit2[][] = new boolean[tamany][tamany];
+	boolean partidaFi = false;
 	
 	
 	Color colorOriginal[][];
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JButton buttonAfegirValor = new JButton("Aï¿½adir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("Añadir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("Aï¿½adir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
@@ -395,15 +396,35 @@ public class VistaPartida extends SuperVista{
 
 	protected void actionPerformed_buttonComprovar(ActionEvent event) {
 	
-		
+			boolean[][] error= cp.getMatriuIncorrecte();
+			for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+				CasillaCP c= Caselles[i][j];
+				if(error[i][j]==true){
+					c.setError(true);
+					c.setColor(new Color(255,0,0));
+					System.out.print("1 ");
+				}
+				else{
+					c.setError(false);
+					c.ReturnColorOriginal();
+					System.out.print("0 ");
+				}
+			
+			}
+			repintar();
 			cp.llamarComprobar(cp.comprovar());
 		
 	}
 
 	protected void actionPerformed_buttonPista(ActionEvent event) {
 		cp.pista();
-		if(partidaFinalitzada()){
+		if(partidaFinalitzada() && cp.comprovar()){
+			this.hacerInvisible();
 			cp.llamarPartidaFi();
+		}
+		else if(partidaFinalitzada() && !cp.comprovar()){
+			this.actionPerformed_buttonComprovar(null);
+			cp.llamarComprobar(false);
 		}
 		
 	}
@@ -493,12 +514,14 @@ public class VistaPartida extends SuperVista{
 					int n=Integer.valueOf(valor);
 					if(cp.afegirValor(x,y,n)){
 						b.setValor(valor);
-						if(partidaFinalitzada()){
+						if(partidaFinalitzada() && cp.comprovar()){
+							this.hacerInvisible();
 							cp.llamarPartidaFi();
 						}
-					}
-					else{
-						b.setColor(Color.ORANGE);
+						else if(partidaFinalitzada() && !cp.comprovar()){
+							this.actionPerformed_buttonComprovar(null);
+							cp.llamarComprobar(false);
+						}
 					}
 				}
 				b.ReturnColorOriginal();
