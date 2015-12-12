@@ -107,7 +107,9 @@ public class BestTime extends Ranking {
 		ArrayList<String> s = new ArrayList<String>();
 		for (Integer key : hash.keySet()) {
 			for (pair<String, Integer> i: hash.get(key)) {
-							
+				s.add(Integer.toString(key));
+				s.add(Integer.toString(i.getSecond()));
+				s.add(i.getFirst());			
 			}
 		}
 		return s;

@@ -274,5 +274,8 @@ public class CtrlPresentacio {
 	public void allCorrect() {
 		vp.allCorrect();
 	}
+	public ArrayList<String> obtener_MS() {
+		return cd.obtener_MS();
+	}
 	
 }
