@@ -3,6 +3,8 @@ package persistencia;
 import java.io.*;
 import java.util.*;
 
+import domini.classes.BestTime;
+import domini.classes.MostSolved;
 import domini.classes.Partida;
 import domini.classes.TaulerKenken;
 
@@ -198,7 +200,41 @@ public class CtrlPersistencia {
 		file.delete();
 	}
 	
-
+	public void escriureMostSolved(MostSolved m) throws FileNotFoundException, IOException {
+		FileOutputStream file = new FileOutputStream("data/rankings/mostSolved.txt");
+		ObjectOutputStream out = new ObjectOutputStream(file);
+		out.writeObject(m);
+		out.close();
+		file.close();
+	}
+	
+	public MostSolved llegirMostSolved() throws FileNotFoundException, ClassNotFoundException, IOException {
+		MostSolved m = new MostSolved();
+		FileInputStream file = new FileInputStream("data/rankings/mostSolved.txt");
+		ObjectInputStream in = new ObjectInputStream(file);
+		m = (MostSolved) in.readObject();
+		in.close();
+		file.close();
+		return m;
+	}
+	
+	public void escriureBestTime(BestTime b) throws FileNotFoundException, IOException {
+		FileOutputStream file = new FileOutputStream("data/rankings/bestTime.txt");
+		ObjectOutputStream out = new ObjectOutputStream(file);
+		out.writeObject(b);
+		out.close();
+		file.close();
+	}
+	
+	public BestTime llegirBestTime() throws FileNotFoundException, IOException, ClassNotFoundException {
+		BestTime b = new BestTime();
+		FileInputStream file = new FileInputStream("data/rankings/bestTime.txt");
+		ObjectInputStream in = new ObjectInputStream(file);
+		b = (BestTime) in.readObject();
+		in.close();
+		file.close();
+		return b;
+	}
 
 
 }
