@@ -267,5 +267,8 @@ public class CtrlPresentacio {
 	public boolean[][] getMatriuIncorrecte() {
 		return cd.getMatriuIncorrecte();
 	}
+	public void allCorrect() {
+		vp.allCorrect();
+	}
 	
 }

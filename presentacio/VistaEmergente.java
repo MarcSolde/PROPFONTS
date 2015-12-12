@@ -326,6 +326,7 @@ public class VistaEmergente extends SuperVista{
 
 		protected void actionPerformed_buttonFi(ActionEvent event) {
 			this.hacerInvisible();
+			cp.allCorrect();
 			
 		}
 

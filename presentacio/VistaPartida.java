@@ -424,7 +424,6 @@ public class VistaPartida extends SuperVista{
 		}
 		else if(partidaFinalitzada() && !cp.comprovar()){
 			this.actionPerformed_buttonComprovar(null);
-			cp.llamarComprobar(false);
 		}
 		
 	}
@@ -593,4 +592,13 @@ public class VistaPartida extends SuperVista{
 		}
 	
 	}
+
+	public void allCorrect() {
+		for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+			CasillaCP c= Caselles[i][j];
+			c.ReturnColorOriginal();
+		}
+		repintar();
+	}
+		
 }
