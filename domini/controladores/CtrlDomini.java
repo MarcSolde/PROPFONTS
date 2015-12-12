@@ -194,4 +194,8 @@ public class CtrlDomini {
 		return cr.obtener_BT() ;
 	}
 	
+	public int getTemps(){
+		return cPar.getTemps();
+	}
+
 }
