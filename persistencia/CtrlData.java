@@ -392,7 +392,7 @@ public class CtrlData {
 			try {
 				aux.createNewFile();
 				auxW = new FileWriter(aux);
-				auxW.write("1");
+				auxW.write("1",0,"1".length());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -670,7 +670,6 @@ public class CtrlData {
 		//System.out.println(id);
 		File file = new File("data/usuaris/"+ nom + "/num.txt");//BUSQUES UNA PARTIDA AMB DIRECTORI CORRECTE
 		Scanner sc;
-		String resultat="";
 			try {
 				sc = new Scanner(file);
 				sc.useDelimiter(" ");
@@ -696,7 +695,7 @@ public class CtrlData {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(0);
+			System.out.println("-1");
 			return "-1";
 	}
 }

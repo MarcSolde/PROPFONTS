@@ -401,9 +401,20 @@ public class VistaPartida extends SuperVista{
 	}
 
 	protected void actionPerformed_buttonPista(ActionEvent event) {
-
 		cp.pista();
+		if(partidaFinalitzada()){
+			cp.llamarPartidaFi();
+		}
 		
+	}
+
+	private boolean partidaFinalitzada() {
+		for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+			CasillaCP c= Caselles[i][j];
+			int n= c.getValorInt();
+			if(n==0) return false;
+		}
+		return true;
 	}
 
 	protected void actionPerformed_buttonGuardarPartida(ActionEvent event) {
@@ -482,7 +493,7 @@ public class VistaPartida extends SuperVista{
 					int n=Integer.valueOf(valor);
 					if(cp.afegirValor(x,y,n)){
 						b.setValor(valor);
-						if(cp.partidaFi()){
+						if(partidaFinalitzada()){
 							cp.llamarPartidaFi();
 						}
 					}

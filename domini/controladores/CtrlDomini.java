@@ -201,8 +201,20 @@ public class CtrlDomini {
 		return cr.obtener_BT() ;
 	}
 	
-	public String getTemps(){
+	public int getTemps(){
 		return cPar.getTemps();
+	}
+
+	public String getNom() {
+		return cu.getNom();
+		
+	}
+
+	public void actualitzarRanking() {
+		int tam= this.getTamany();
+		int temps = this.getTemps();
+		cr.anadir_valores_fin_partida(cu.getNom(), tam, temps);
+		
 	}
 
 }

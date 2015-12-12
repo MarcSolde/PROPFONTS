@@ -219,10 +219,10 @@ public class CtrlPresentacio {
 		
 	}*/
 	public void GuardarNou(String s) {
-		if(cd.existePartida(s)){
+		/*if(cd.existePartida(s)){
 			ve.llamarVista("Esa partida ya existe");
 		}
-		else cd.guardarNovaPartida(s);
+		else*/ cd.guardarNovaPartida(s);
 		
 	}
 	public void llamarImportar() {
@@ -238,7 +238,7 @@ public class CtrlPresentacio {
 	public void importar(String s) {
 		cd.CarregarKenkenGuardat(s);
 		vc= new  VistaCreacio(this);
-		setTamany(tamany);
+		setTamany(cd.getTamany());
 		String[][] obj=cd.getMObjectius();
 		String[][] op=cd.getMOperacions();
 		int[][] reg=cd.getMRegions();
@@ -248,12 +248,16 @@ public class CtrlPresentacio {
 	}
 	public void llamarPartidaFi() {
 		ve.llamarPartidaFi();
+		cd.actualitzarRanking();
+		/*if (p.getAcabada()) {
+			cRank.anadir_valores_fin_partida(cUsr.getNom(), p.getPartida().getTauler().getMida(), p.getPartida().getTemps());
+		}*/
 		
 	}
 	public boolean partidaFi() {
 		return cd.partidaFi();
 	}
-	public String getTemps() {
+	public int getTemps() {
 		return cd.getTemps();
 	}
 	public void llamarRanking() {

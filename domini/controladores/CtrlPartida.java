@@ -207,10 +207,10 @@ public class CtrlPartida{
 	public boolean partidaFi() {
 		return p.partidaFi();
 	}
-	public String getTemps() {
-		int i = p.getTemps();
-		String s= String.valueOf(i)+" segons";
-		return s;
+	public int getTemps() {
+		return p.getTemps();
+		/*String s= String.valueOf(i)+" segons";
+		return s;*/
 
 	}
 
