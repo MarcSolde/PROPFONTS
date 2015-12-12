@@ -69,9 +69,9 @@ public class VistaPartida extends SuperVista{
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JButton buttonAfegirValor = new JButton("Aï¿½adir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("Añadir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("Aï¿½adir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
@@ -402,10 +402,12 @@ public class VistaPartida extends SuperVista{
 				if(error[i][j]==true){
 					c.setError(true);
 					c.setColor(new Color(255,0,0));
+					System.out.print("1 ");
 				}
 				else{
 					c.setError(false);
 					c.ReturnColorOriginal();
+					System.out.print("0 ");
 				}
 			
 			}

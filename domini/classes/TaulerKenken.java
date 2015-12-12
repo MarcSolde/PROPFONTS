@@ -224,6 +224,7 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 	public boolean taulerEsValid(int w) {
 		int i, j;
 		boolean total = true;
+		boolean temp = true;
 		for (i = 0; i < mida; ++i) {
 			for (j = 0; j < mida; ++j) {
 				if (tauler[i][j].getValor() != 0) {
@@ -232,9 +233,10 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 						return false;
 					}
 				}
+				else temp = false;
 			}
 		}
-			taulerPle = true;
+			if(temp)taulerPle = true;
 			w = 1;
 			System.out.println("KENKEN CORRECTE!!");
 		return true;
