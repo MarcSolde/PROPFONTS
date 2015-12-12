@@ -203,6 +203,9 @@ public class CtrlPartida{
 		p=p2;
 		
 	}
+	public int getTemps(){
+		return p.getTemps();
+	}
 
 }
 

@@ -189,6 +189,9 @@ public class CtrlDomini {
 		if(!id.equals("-1")) return false;
 		return true;
 	}
+	public int getTemps(){
+		return cPar.getTemps();
+	}
 
 	
 }
