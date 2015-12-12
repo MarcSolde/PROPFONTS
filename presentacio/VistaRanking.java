@@ -25,15 +25,21 @@ import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class VistaRanking extends SuperVista {
 
 	private JPanel contentPane;
 	private BestTime bt;
-	private JButton btnOk;
+	private JButton btnBTAll;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private CtrlPresentacio cp;
+	private JButton btnBTUser;
+	private JButton btnBTTamKK;
+	private JButton btnMostSolved;
+	private JButton btnNewButton;
 	/**
 	 * Launch the application.
 	 */
@@ -53,10 +59,14 @@ public class VistaRanking extends SuperVista {
 			}
 		});
 	}
+	private void atras() {
+		this.hacerInvisible();
+		//cp.llamarMenu();
+	}
 	 public void inicializarComponentes(){
 		    
 		 	inicializar_frameVista();
-		 	frameVista.add(contentPane);
+		 	frameVista.getContentPane().add(contentPane);
 		 	
 	}
 	/**
@@ -66,47 +76,84 @@ public class VistaRanking extends SuperVista {
 	public VistaRanking(CtrlPresentacio ctrlPresentacio) {
 		cp = ctrlPresentacio;
 		setDefaultCloseOperation(frameVista.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 519, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		inicializarComponentes();
 		
-		btnOk = new JButton("OK");
+		btnBTAll = new JButton("Best Time");
 		
 		
 		scrollPane = new JScrollPane();
 		
-		JRadioButton rdbtnBestTime = new JRadioButton("Best Time");
+		JButton btnAtras = new JButton("Atras");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atras();
+			}
+
+			
+		});
 		
-		JRadioButton rdbtnMostSolved = new JRadioButton("Most Solved");
+		btnBTUser = new JButton("Els Meus Best Time");
+		
+		btnBTTamKK = new JButton("Best Time del Tamany");
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(3, 3, 9, 1));
+		
+		btnMostSolved = new JButton("Most Solved");
+		
+		btnNewButton = new JButton("Els Meu Most Solved");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAtras))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(rdbtnBestTime)
-							.addGap(18)
-							.addComponent(rdbtnMostSolved)
-							.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-							.addComponent(btnOk)
-							.addGap(114))
+							.addGap(36)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnMostSolved)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(btnBTUser)
+										.addGap(47))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnBTTamKK)
+										.addGap(32)))
+								.addComponent(btnBTAll)))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(206, Short.MAX_VALUE))))
+							.addGap(77)
+							.addComponent(btnNewButton)))
+					.addGap(65))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnOk)
-						.addComponent(rdbtnBestTime)
-						.addComponent(rdbtnMostSolved))
+						.addComponent(btnAtras)
+						.addComponent(btnBTAll))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(btnBTUser)
+							.addGap(5)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnBTTamKK)
+								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(23)
+							.addComponent(btnMostSolved)
+							.addGap(4)
+							.addComponent(btnNewButton)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
@@ -119,13 +166,11 @@ public class VistaRanking extends SuperVista {
 			}
 		));
 	    ButtonGroup group = new ButtonGroup();
-	    group.add(rdbtnBestTime);
-	    group.add(rdbtnMostSolved);
 	    //rdbtnMostSolved.addActionListener(this);
 	    
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
-		btnOk.addActionListener(new ActionListener() {
+		btnBTAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 			    model.setRowCount(0);
