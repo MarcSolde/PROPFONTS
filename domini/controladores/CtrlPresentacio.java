@@ -231,7 +231,8 @@ public class CtrlPresentacio {
 	public ArrayList<String> obtener_BT() {
 		return cd.obtener_BT();
 		//return null;
-	}
+}
+
 	public void importar(String s) {
 		cd.CarregarKenkenGuardat(s);
 		vc= new  VistaCreacio(this);
@@ -239,7 +240,9 @@ public class CtrlPresentacio {
 		String[][] obj=cd.getMObjectius();
 		String[][] op=cd.getMOperacions();
 		int[][] reg=cd.getMRegions();
+
 		vc.llamarVista(obj,op,reg);
+
 	}
 	
 }
