@@ -223,5 +223,9 @@ public class CtrlPresentacio {
 		else cd.guardarNovaPartida(s);
 		
 	}
+	public void llamarImportar() {
+		ve.llamarImportar();
+		
+	}
 	
 }

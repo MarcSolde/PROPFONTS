@@ -178,4 +178,8 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 	public void afegirValor(int x, int y, int n){
 		t.setValorTauler(x, y, n);
 	}
+	public void setTauler(TaulerKenken tauler) {
+		t=tauler;
+		
+	}
 	}

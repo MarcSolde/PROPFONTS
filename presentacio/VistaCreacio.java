@@ -83,6 +83,7 @@ public class VistaCreacio extends SuperVista{
 	private JButton buttonAfegirObjectiu = new JButton("Afegir Objectiu");
 	private JButton buttonGuardar = new JButton("Guardar Tauler");
 	private JButton buttonCancelar = new JButton("Cancelar creacion");
+	private JButton buttonImportar = new JButton("importar Kenken");
 	private String SelColor = "Negro";
 	
 	String auxAfegirRegio1 = "indica regio a afegir";
@@ -267,6 +268,7 @@ public class VistaCreacio extends SuperVista{
 		  	panelOperacions.add(buttonAfegirOperacio);
 		  	panelObjectius.add(textfieldAfegirObjectiu);
 		  	panelObjectius.add(buttonAfegirObjectiu);
+			panelGuardar.add(buttonImportar);
 		  	panelGuardar.add(buttonGuardar);
 		  	panelGuardar.add(buttonCancelar);
 		  	
@@ -348,11 +350,24 @@ public class VistaCreacio extends SuperVista{
 		          
 		        }
 		});
+		buttonImportar.addActionListener
+	      (new ActionListener() {
+		        public void actionPerformed (ActionEvent event) {
+		          String texto = ((JButton) event.getSource()).getText();
+		          System.out.println("Has clickado el boton con texto: " + texto);
+		          actionPerformed_buttonImportar(event);
+		          
+		        }
+		});
 	
 	}
 
 	
 	
+	protected void actionPerformed_buttonImportar(ActionEvent event) {
+		cp.llamarImportar();
+		
+	}
 	protected void actionPerformed_buttonAtras(ActionEvent event) {
 		this.hacerInvisible();
 		cp.llamarMenu();

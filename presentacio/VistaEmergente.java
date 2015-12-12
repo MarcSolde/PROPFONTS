@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import com.sun.glass.events.KeyEvent;
-
 import domini.controladores.CtrlPresentacio;
 
 public class VistaEmergente extends SuperVista{
@@ -76,6 +74,16 @@ public class VistaEmergente extends SuperVista{
 			cambiarPanel(panelCarregarKenken);
 			llamarVista();
 			opcio=0;
+		}
+	  
+	  public void llamarImportar() {
+		  llamarVista();
+		  ArrayList<String> s=cp.ConsultaKenkenGuardats();
+			inicializar_panelCarregarKenken(s);
+			buttonKenkenPosible.setText("Carregar");
+			cambiarPanel(panelCarregarKenken);
+			llamarVista();
+			opcio=3;
 		}
 	  
 	  public void llamarResumirPartida() {
@@ -233,36 +241,13 @@ public class VistaEmergente extends SuperVista{
 					// TODO Auto-generated method stub
 					
 				}
-
 				@Override
 				public void mouseReleased(MouseEvent arg0) {
 					// TODO Auto-generated method stub
 					
 				}
-			 });
-			/*textFieldNombrar.addKeyListener(new KeyListener(){
-				 @Override
-				public void keyPressed(java.awt.event.KeyEvent event) {
-					
-					repintar();
-					
-				}
-
-				@Override
-				public void keyReleased(java.awt.event.KeyEvent event) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void keyTyped(java.awt.event.KeyEvent event) {
-					//textFieldNombrar.getText();
-					if(this.)
-					repintar();
-					
-				}
 				
-			 });*/
+			 });
 			
 		}
 
@@ -323,8 +308,8 @@ public class VistaEmergente extends SuperVista{
 			}
 			else if(opcio==0)cp.carregarKenkenGuardat(s);
 			else if(opcio==1)cp.CarregarPartida(s);
-			else cp.borrarPartida(s);
-			
+			else if(opcio==2)cp.borrarPartida(s);
+			//else cp.
 		}
 
 		protected void actionPerformed_buttonOk(ActionEvent event) {
@@ -352,6 +337,8 @@ public class VistaEmergente extends SuperVista{
 			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}
+
+		
 
 		
 
