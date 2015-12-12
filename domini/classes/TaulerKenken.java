@@ -232,6 +232,7 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 						matriu_incorrectes[i][j] = true;
 						total = false;
 					}
+					else matriu_incorrectes[i][j] = false;
 				}
 				else temp = false;
 			}
