@@ -129,6 +129,7 @@ public class BestTime extends Ranking {
 					s.add(i.getFirst());				}
 			}
 		}
+		return s;
 	}
 	
 	

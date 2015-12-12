@@ -94,4 +94,9 @@ public class CtrlRanking {
 	public ArrayList<String> obtener_BT() {
 		return BT.getBestTime_String();
 	}
+
+	public ArrayList<String> obtener_BT_tam(Integer value) {
+		return BT.getBestTimeTam_String(value);
+		return null;
+	}
 }
