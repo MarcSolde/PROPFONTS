@@ -267,7 +267,6 @@ public class CtrlPresentacio {
 
 	public ArrayList<String> obtener_BT_Tam(Integer value) {
 		return cd.obtener_BT_tam(value);
-		return null;
 	}
 	public boolean[][] getMatriuIncorrecte() {
 		return cd.getMatriuIncorrecte();
