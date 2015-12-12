@@ -44,7 +44,7 @@ public class CasillaCP extends JPanel{
 	public CasillaCP(int tamany, int i1, int j1){
 		x=i1;y=j1;
 		Dimension d= this.getSize();
-		d.setSize(d.height, d.height);
+		d.setSize(300, 300);
 		this.setSize(d);
 		this.tamany=tamany;
 		candidats= new boolean[tamany];
@@ -75,7 +75,7 @@ public class CasillaCP extends JPanel{
          int j=this.getLocation().y; 
          //System.out.println(i+" "+j);
 	     super.paintComponent(g); 
-	     int L=50;
+	     int L=150;
 	    for(int x=0;x<tamany;x++)for(int y=0;y<tamany;y++){
 	    	int x1=27*x;
 	    	int y1=42*y;

@@ -60,15 +60,15 @@ public class VistaMenu extends SuperVista{
 	
 	private JPanel panelTamany = new JPanel();
 		private JComboBox<String> comboboxTamany = new JComboBox<String>();
-		private String StringCombo = "elije tamaño";
+		private String StringCombo = "elije tamaNo";
 		private JButton buttonValidar = new JButton("Seleccionar tamaño");
 		private JButton buttonTornarTamany = new JButton("Tornar al menu");
 		
-	private JPanel panelRanking = new JPanel();
+	/*private JPanel panelRanking = new JPanel();
 		private JLabel labelRanking = new JLabel("¿Que desea Consultar?");
 		private JButton buttonMejoresTiempos = new JButton("los mejores tiempos");
 		private JButton buttonMasResueltos = new JButton("Los mas resueltos");
-		private JButton buttonTornarRanking = new JButton("Tornar al menu");
+		private JButton buttonTornarRanking = new JButton("Tornar al menu");*/
 			
 	  public VistaMenu(CtrlPresentacio pCtrlPresentacion) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
@@ -84,19 +84,19 @@ public class VistaMenu extends SuperVista{
 		    inicializar_panelElegir();
 		    inicializar_panelElegirKenken();
 		    inicializar_panelTamany();
-		    inicializar_panelRanking();
+		    //inicializar_panelRanking();
 		    asignar_listenersComponentes(); //a hacer
 		
 	}
 	  
 	  
-	private void inicializar_panelRanking() {
+	/*private void inicializar_panelRanking() {
 		panelRanking.setLayout(new FlowLayout());
 		panelRanking.add(labelRanking);
 		panelRanking.add(buttonMejoresTiempos);
 		panelRanking.add(buttonMasResueltos);
 		panelRanking.add(buttonTornarRanking);
-	}
+	}*/
 
 	private void inicializar_panelElegir() {
 		panelElegir.setLayout(new FlowLayout());
@@ -130,14 +130,7 @@ public class VistaMenu extends SuperVista{
 		comboboxTamany.addItem("6");
 		comboboxTamany.addItem("7");
 		comboboxTamany.addItem("8");
-		comboboxTamany.addItem("9");
-		comboboxTamany.addItem("10");
-		comboboxTamany.addItem("11");
-		comboboxTamany.addItem("12");
-		comboboxTamany.addItem("13");
-		comboboxTamany.addItem("14");
-		comboboxTamany.addItem("15");
-		
+		comboboxTamany.addItem("9");		
 		
 		panelTamany.add(comboboxTamany);
 		panelTamany.add(buttonValidar);
@@ -250,7 +243,7 @@ public class VistaMenu extends SuperVista{
 		          actionPerformed_buttonValidar(event);  
 		        }
 		 });
-		buttonTornarRanking.addActionListener
+		/*buttonTornarRanking.addActionListener
 	      (new ActionListener() {
 		        public void actionPerformed (ActionEvent event) {
 		          String texto = ((JButton) event.getSource()).getText();
@@ -273,7 +266,7 @@ public class VistaMenu extends SuperVista{
 		          System.out.println("Has clickado el boton con texto: " + texto);
 		          actionPerformed_buttonMasResueltos(event);  
 		        }
-		 });
+		 });*/
 		buttonSortir.addActionListener
 	      (new ActionListener() {
 		        public void actionPerformed (ActionEvent event) {
@@ -339,7 +332,7 @@ public class VistaMenu extends SuperVista{
 	}
 
 	protected void actionPerformed_buttonConsultarRanking(ActionEvent event) {
-		cambiarPanel(panelRanking);	
+		cp.llamarRanking();
 	}
 
 	protected void actionPerformed_buttonNovaPartida(ActionEvent event) {
