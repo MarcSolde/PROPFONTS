@@ -309,7 +309,7 @@ public class VistaEmergente extends SuperVista{
 			else if(opcio==0)cp.carregarKenkenGuardat(s);
 			else if(opcio==1)cp.CarregarPartida(s);
 			else if(opcio==2)cp.borrarPartida(s);
-			//else cp.
+			else cp.importar(s);
 		}
 
 		protected void actionPerformed_buttonOk(ActionEvent event) {

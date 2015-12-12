@@ -189,4 +189,6 @@ public class CtrlDomini {
 		if(!id.equals("-1")) return false;
 		return true;
 	}
+
+	
 }

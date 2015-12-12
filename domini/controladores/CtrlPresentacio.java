@@ -227,5 +227,14 @@ public class CtrlPresentacio {
 		ve.llamarImportar();
 		
 	}
+	public void importar(String s) {
+		cd.CarregarKenkenGuardat(s);
+		vc= new  VistaCreacio(this);
+		setTamany(tamany);
+		String[][] obj=cd.getMObjectius();
+		String[][] op=cd.getMOperacions();
+		int[][] reg=cd.getMRegions();
+		vc.llamarVista(obj,op,reg);
+	}
 	
 }
