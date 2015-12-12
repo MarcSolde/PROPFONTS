@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 public class CasillaCP extends JPanel{
 	int x;int y;
 	Graphics g;
-	
 	boolean error=false;
 	int tamany;
 	int valor=0;
@@ -63,6 +62,13 @@ public class CasillaCP extends JPanel{
 	/*public Color getColor(){
 		return c;
 	}*/
+	public void setError(boolean b){
+		error=b;
+	}
+	
+	public boolean getError(){
+		return error;
+	}
 	
 	public void paintComponent(Graphics g) {
          int i=this.getLocation().x;

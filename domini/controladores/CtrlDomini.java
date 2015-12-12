@@ -205,16 +205,10 @@ public class CtrlDomini {
 		return cPar.getTemps();
 	}
 
-	public String getNom() {
-		return cu.getNom();
-		
-	}
-
 	public void actualitzarRanking() {
 		int tam= this.getTamany();
 		int temps = this.getTemps();
 		cr.anadir_valores_fin_partida(cu.getNom(), tam, temps);
-		
 		
 	}
 
