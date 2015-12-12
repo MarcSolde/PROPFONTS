@@ -175,6 +175,8 @@ public class VistaLogin extends SuperVista{
 		
 		protected void actionPerformed_buttonQuit(ActionEvent event) {
 			cambiarPanel(panelElegir);
+			this.textUsuari.setText("Usuari");
+			this.textPassword.setText("Password");
 		}
 
 		protected void actionPerformed_buttonOk(ActionEvent event) {

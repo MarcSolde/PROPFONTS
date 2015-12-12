@@ -156,7 +156,6 @@ public class Gen {
 		ArrayList<Integer> agrupa_nums = new ArrayList<Integer>();
 		agrupa_nums.add(t.getValorTauler(i, j));
 		while(reg != 0){			//assignar una casella mes a la regio
-			System.out.println("he entrat al while amb reg = "+ reg);
 			ArrayList<Integer> llista = new ArrayList<Integer>();
 			if(i-1 >= 0 ){
 				if(t.getIdRegio(i-1, j) == -1){
