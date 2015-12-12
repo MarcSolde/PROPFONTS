@@ -16,10 +16,10 @@ public class CtrlPersistencia {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		file = new File("data/kenkens");
+		file = new File("data/taulers");
 		if (!file.exists()) {
 			file.mkdirs();
-			file = new File("data/kenkens/num.txt");
+			file = new File("data/taulers/num.txt");
 			FileWriter fw = new FileWriter(file);
 			fw.write(("0 "), 0, ("0 ").length());
 			fw.close();
@@ -146,7 +146,7 @@ public class CtrlPersistencia {
 		int num = Integer.parseInt(s);
 		num += 1;
 		t.setId(num);
-		FileOutputStream file = new FileOutputStream("data/kenkens/kenken"+Integer.toString(num)+".txt");
+		FileOutputStream file = new FileOutputStream("data/taulers/kenken"+Integer.toString(num)+".txt");
 		ObjectOutputStream out = new ObjectOutputStream(file);
 		out.writeObject(t);
 		out.close();
@@ -154,6 +154,48 @@ public class CtrlPersistencia {
 		FileWriter fw = new FileWriter(aux);
 		fw.write(Integer.toString(num),0,Integer.toString(num).length());
 		fw.close();
+	}
+	
+	public TaulerKenken llegirTauler() throws IOException, ClassNotFoundException {
+		TaulerKenken t = new TaulerKenken(0);
+		System.out.println("\n\nTRIA UN KENKEN\n\n");
+		File f = new File("data/taulers/");
+		File[] paths = f.listFiles();
+		int it = 0;
+		for (File path:paths) {
+		++it;
+			if (!path.getName().equals("num.txt")) {
+				System.out.println(path);
+			}
+		}
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		f = new File("data/taulers/kenken"+s+".txt");
+		if (f.exists()) {
+			FileInputStream file = new FileInputStream(f);
+			ObjectInputStream in = new ObjectInputStream(file);
+			t = (TaulerKenken) in.readObject();
+			in.close();
+			file.close();
+		}
+		return t;
+	}
+	
+	public void esborrarTauler(){
+		System.out.println("\n\nTRIA UN KENKEN\n\n");
+		File f = new File("data/taulers/");
+		File[] paths = f.listFiles();
+		int it = 0;
+		for (File path:paths) {
+		++it;
+			if (!path.getName().equals("num.txt")) {
+				System.out.println(path);
+			}
+		}
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		File file = new File("data/taulers/kenken"+s+".txt");
+		file.delete();
 	}
 	
 
