@@ -88,15 +88,16 @@ public class CtrlPartida{
 		
 		kenkenSolver s = new kenkenSolver();
 		boolean stop = false;
-		
+		int count = 0;
 		//kenkenSolver s1 = new kenkenSolver();
 		//s1.setTaulerAndSolve(p1.getTauler());
 		while(!stop){
 			 p = new Partida(tamany);
-			 
+			 count ++;
 			 g = new Gen(p.getTauler());
 			stop = s.setTaulerAndSolve(p.getTauler());
 		}
+		System.out.println("COUNT : "+ count);
 		//p.getTauler().imprimirSol();
 		System.out.println();
 		System.out.println("TAULER : ");
