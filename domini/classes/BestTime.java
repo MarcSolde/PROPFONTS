@@ -104,18 +104,33 @@ public class BestTime extends Ranking {
 	public ArrayList<String> getBestTime_String() 
 	{
 		//System.out.println("Introduce el valor N, por el tama�o del Kenken NxN: ");
-		System.out.println("chivato0");
-		System.out.println("chivato0,5");
 		ArrayList<String> s = new ArrayList<String>();
-		System.out.println("chivato1");
 		for (Integer key : hash.keySet()) {
 			for (pair<String, Integer> i: hash.get(key)) {
-				s.add(Integer.toString(key));
-				s.add(Integer.toString(i.getSecond()));
-				s.add(i.getFirst());			
+							
 			}
 		}
 		return s;
 	}
+	public ArrayList<String> getBestTimeUser_String() 
+	{
+		//STUB METHOD, CONSEGUIR EL USERNAME :^) 
+		return null;
+	}
+	
+	public ArrayList<String> getBestTimeTam_String(int x) 
+	{
+		ArrayList<String> s = new ArrayList<String>();
+		for (Integer key : hash.keySet()) {
+			if (key == x) {
+				for (pair<String, Integer> i: hash.get(key)) {
+					s.add(Integer.toString(key));
+					s.add(Integer.toString(i.getSecond()));
+					s.add(i.getFirst());				}
+			}
+		}
+	}
+	}
+	
 }
 
