@@ -130,7 +130,7 @@ public class BestTime extends Ranking {
 			}
 		}
 	}
-	}
+	
 	
 }
 
