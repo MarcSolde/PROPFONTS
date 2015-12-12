@@ -231,17 +231,12 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 						matriu_incorrectes[i][j] = true;
 						return false;
 					}
-				} else {
-
-					total = false;
 				}
 			}
 		}
-		if (total) {
 			taulerPle = true;
 			w = 1;
 			System.out.println("KENKEN CORRECTE!!");
-		}
 		return true;
 	}
 
