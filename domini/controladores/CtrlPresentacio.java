@@ -264,5 +264,8 @@ public class CtrlPresentacio {
 		vr.llamarVista();
 		
 	}
+	public boolean[][] getMatriuIncorrecte() {
+		return cd.getMatriuIncorrecte();
+	}
 	
 }

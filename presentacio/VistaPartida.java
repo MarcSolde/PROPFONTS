@@ -395,7 +395,20 @@ public class VistaPartida extends SuperVista{
 
 	protected void actionPerformed_buttonComprovar(ActionEvent event) {
 	
-		
+			boolean[][] error= cp.getMatriuIncorrecte();
+			for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
+				CasillaCP c= Caselles[i][j];
+				if(error[i][j]==true){
+					c.setError(true);
+					c.setColor(new Color(255,0,0));
+				}
+				else{
+					c.setError(false);
+					c.ReturnColorOriginal();
+				}
+			
+			}
+			repintar();
 			cp.llamarComprobar(cp.comprovar());
 		
 	}
