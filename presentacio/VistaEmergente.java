@@ -315,7 +315,7 @@ public class VistaEmergente extends SuperVista{
 			  cambiarPanel(panelPartidaFi);
 			  String text = String.valueOf(cp.getTemps());
 			  llamarVista();
-			  //this.labelTemps.setText(text);
+			  this.labelTemps.setText("hecho en "+ text + "segundos");
 				
 			}
 		

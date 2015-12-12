@@ -17,6 +17,7 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 	public int[][] regions;
 	private boolean taulerPle;
 	private int id;
+	public boolean[][] matriu_incorrectes;
 
 	/**
 	 * Creadora de la classe TaulerKenken
@@ -27,11 +28,13 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 		taulerReg = new ArrayList<Regio>();
 		solucio = new Casilla_comp[mida][mida];
 		regions = new int[mida][mida];
+		matriu_incorrectes = new boolean[mida][mida];
 		int i, j;
 		for (i = 0; i < mida; ++i) {
 			for (j = 0; j < mida; ++j) {
 				solucio[i][j] = new Casilla_comp(mida, false);
 				regions[i][j] = -1;
+				matriu_incorrectes[i][j] = false;
 			}
 		}
 		id = -1;
@@ -225,12 +228,7 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 			for (j = 0; j < mida; ++j) {
 				if (tauler[i][j].getValor() != 0) {
 					if (!validesaCasella(i, j)) {
-						if (w == 3) {
-							System.out.println(
-								"incorrecte a : " + i + " " + j + " valor correcte : " + solucio[i][j].getValor());
-						} else {
-							System.out.println("incorrecte");
-						}
+						matriu_incorrectes[i][j] = true;
 						return false;
 					}
 				} else {
@@ -345,6 +343,10 @@ public class TaulerKenken extends Tablero_comp implements java.io.Serializable {
 	 */
 	public Casilla_comp getCasellaTauler(int x, int y) {
 		return tauler[x][y];
+	}
+	
+	public boolean[][] getMatriuIncorrecte(){
+		return matriu_incorrectes;
 	}
 	// OPERACIONS PRIVADES
 }
