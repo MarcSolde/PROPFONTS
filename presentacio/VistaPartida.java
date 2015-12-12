@@ -212,7 +212,7 @@ public class VistaPartida extends SuperVista{
 	  
 	  private void anadirPanels() {
 		  contentPane.setLayout(new BorderLayout());
-		  contentPane.add(panelTauler,BorderLayout.WEST);
+		  contentPane.add(panelTauler,BorderLayout.CENTER);
 		  contentPane.add(panelOpcions,BorderLayout.EAST);
 	}
 
