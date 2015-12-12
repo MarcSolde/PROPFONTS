@@ -213,6 +213,9 @@ public class CtrlPartida{
 		return s;*/
 
 	}
+	public boolean[][] getMatriuIncorrecte(){
+		return p.getMatriuIncorrecte();
+	}
 
 }
 

@@ -182,5 +182,8 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 		t=tauler;
 		
 	}
+	public boolean[][] getMatriuIncorrecte(){
+		return t.getMatriuIncorrecte();
+	}
 
 	}
