@@ -8,6 +8,7 @@ import presentacio.VistaEmergente;
 import presentacio.VistaLogin;
 import presentacio.VistaMenu;
 import presentacio.VistaPartida;
+import presentacio.VistaRanking;
 /**
  * 
  * @author arnau.zapata.i
@@ -21,6 +22,7 @@ public class CtrlPresentacio {
 	private VistaMenu vm= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
+	private VistaRanking vr = new VistaRanking(this);
 	//private HashMap<String,String> idToNom= new HashMap<String,String>();
 	//private HashMap<String,String> nomToId= new HashMap<String,String>();
 	public void inicializarPresentacion() {
@@ -253,6 +255,10 @@ public class CtrlPresentacio {
 	}
 	public String getTemps() {
 		return cd.getTemps();
+	}
+	public void llamarRanking() {
+		vr.llamarVista();
+		
 	}
 	
 }

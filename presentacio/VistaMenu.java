@@ -290,12 +290,14 @@ public class VistaMenu extends SuperVista{
 	}
 
 	protected void actionPerformed_buttonMasResueltos(ActionEvent event) {
-		cp.getMasResueltos();
+		//cp.getMasResueltos();
+		cp.llamarRanking();
 		
 	}
 
 	protected void actionPerformed_buttonMejoresTiempos(ActionEvent event) {
-		cp.getMejoresTiempos();
+		//cp.getMejoresTiempos();
+		cp.llamarRanking();
 		
 	}
 

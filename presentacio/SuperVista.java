@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 
 import domini.controladores.CtrlPresentacio;
 
-public class SuperVista{
+public class SuperVista extends JFrame{
 	
 		 protected CtrlPresentacio cp;
 		 protected JPanel panelOpcions = new JPanel();

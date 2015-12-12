@@ -24,8 +24,9 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 
-public class VistaRanking extends JFrame {
+public class VistaRanking extends SuperVista {
 
 	private JPanel contentPane;
 	private BestTime bt;
@@ -36,7 +37,7 @@ public class VistaRanking extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,18 +52,25 @@ public class VistaRanking extends JFrame {
 				}
 			}
 		});
-	}*/
-
+	}
+	 public void inicializarComponentes(){
+		    
+		 	inicializar_frameVista();
+		 	frameVista.add(contentPane);
+		 	
+	}
 	/**
 	 * Create the frame.
 	 */
+	
 	public VistaRanking(CtrlPresentacio ctrlPresentacio) {
 		cp = ctrlPresentacio;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(frameVista.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		inicializarComponentes();
 		
 		btnOk = new JButton("OK");
 		
