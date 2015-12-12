@@ -227,5 +227,9 @@ public class CtrlPresentacio {
 		ve.llamarImportar();
 		
 	}
+	public ArrayList<String> obtener_BT() {
+		return cd.obtener_BT();
+		//return null;
+	}
 	
 }

@@ -14,6 +14,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextArea;
 
 import domini.classes.*;
+import domini.controladores.CtrlPresentacio;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -29,31 +31,32 @@ public class VistaRanking extends JFrame {
 	private JButton btnOk;
 	private JScrollPane scrollPane;
 	private JTable table;
+	private CtrlPresentacio cp;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BestTime BT = new BestTime();
-					BT.setValue(1, "S", 4);
-					BT.setValue(2, "S", 4);
-					BT.setValue(3, "S", 4);
-					VistaRanking frame = new VistaRanking(BT);
-					frame.setVisible(true);
+					//BestTime BT = new BestTime();
+					//BT.setValue(1, "S", 4);
+					//BT.setValue(2, "S", 4);
+					//BT.setValue(3, "S", 4);
+					//VistaRanking frame = new VistaRanking( );
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public VistaRanking(BestTime BT) {
-		bt = BT;
+	public VistaRanking(CtrlPresentacio ctrlPresentacio) {
+		cp = ctrlPresentacio;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -101,10 +104,10 @@ public class VistaRanking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 			    model.setRowCount(0);
-				System.out.print("AAAAA");
+				//System.out.print("AAAAA");
 				ArrayList<String> ar= new ArrayList<String>();
-				ar = bt.getBestTime_String();
-				for (int i = 0; i < 9; i+= 3) {
+				ar = cp.obtener_BT();
+				for (int i = 0; i < ar.size(); i+= 3) {
 					String s = new String();
 					String s1 = new String();
 					String s2 = new String();

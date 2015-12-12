@@ -189,4 +189,8 @@ public class CtrlDomini {
 		if(!id.equals("-1")) return false;
 		return true;
 	}
+
+	public ArrayList<String> obtener_BT() {
+		return cr.obtener_BT() ;
+	}
 }

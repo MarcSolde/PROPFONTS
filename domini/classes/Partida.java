@@ -182,4 +182,5 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 		t=tauler;
 		
 	}
+
 	}
