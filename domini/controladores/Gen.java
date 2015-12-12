@@ -35,6 +35,8 @@ public class Gen {
 						System.out.print("pos "+i+" "+j+" id de regio = " + t.getIdRegio(i,j));
 						contador_regions++;
 						crear_regio(i,j);
+					
+						
 					}
 					
 				}
@@ -44,6 +46,8 @@ public class Gen {
 			}
 		}
 		
+	
+
 	/**
 	 * 
 	 * @param x fila del tauler a emplenar
@@ -143,7 +147,10 @@ public class Gen {
 		r = new Regio();
 		t.setRegioTauler(i,j,r);
 		Random rand = new Random();
-		int reg = rand.nextInt(4);
+		int reg;
+		if(tamany==9)reg= rand.nextInt(5);
+		else reg= rand.nextInt(4);
+		if(reg==4)reg=1;
 		int x=i;
 		int y=j;
 		ArrayList<Integer> agrupa_nums = new ArrayList<Integer>();

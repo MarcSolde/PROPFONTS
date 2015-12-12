@@ -26,6 +26,7 @@ public class VistaLogin extends SuperVista{
 		private JTextField textUsuari = new JTextField("Usuari");
 		private JTextField textPassword = new JTextField("Password");
 		private JButton buttonOk = new JButton();
+		private JButton buttonQuit = new JButton("Atras");
 		
 	private JPanel panelElegir = new JPanel();
 		private JButton buttonLogin = new JButton("Login");
@@ -67,6 +68,7 @@ public class VistaLogin extends SuperVista{
 			panelLogin.add(textUsuari);
 			panelLogin.add(textPassword);
 			panelLogin.add(buttonOk);
+			panelLogin.add(buttonQuit);
 			panelElegir.add(buttonLogin);
 			panelElegir.add(buttonCrear);
 			
@@ -160,8 +162,21 @@ public class VistaLogin extends SuperVista{
 					
 				}
 			 });
+			buttonQuit.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonQuit(event);
+			          
+			        }
+			 });
 		}
 		
+		protected void actionPerformed_buttonQuit(ActionEvent event) {
+			cambiarPanel(panelElegir);
+		}
+
 		protected void actionPerformed_buttonOk(ActionEvent event) {
 			String u = textUsuari.getText();
 			String p = textPassword.getText();
