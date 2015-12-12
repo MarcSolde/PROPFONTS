@@ -1,4 +1,5 @@
 package domini.controladores;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import domini.classes.*;
@@ -88,5 +89,9 @@ public class CtrlRanking {
 	}
 	public MostSolved getMostSolved() {
 		return MS;
+	}
+
+	public ArrayList<String> obtener_BT() {
+		return BT.getBestTime_String();
 	}
 }

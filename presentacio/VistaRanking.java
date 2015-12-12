@@ -14,6 +14,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextArea;
 
 import domini.classes.*;
+import domini.controladores.CtrlPresentacio;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -29,31 +31,32 @@ public class VistaRanking extends JFrame {
 	private JButton btnOk;
 	private JScrollPane scrollPane;
 	private JTable table;
+	private CtrlPresentacio cp;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BestTime BT = new BestTime();
-					BT.setValue(1, "S", 4);
-					BT.setValue(2, "S", 4);
-					BT.setValue(3, "S", 4);
-					VistaRanking frame = new VistaRanking(BT);
-					frame.setVisible(true);
+					//BestTime BT = new BestTime();
+					//BT.setValue(1, "S", 4);
+					//BT.setValue(2, "S", 4);
+					//BT.setValue(3, "S", 4);
+					//VistaRanking frame = new VistaRanking( );
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public VistaRanking(BestTime BT) {
-		bt = BT;
+	public VistaRanking(CtrlPresentacio ctrlPresentacio) {
+		cp = ctrlPresentacio;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -64,13 +67,21 @@ public class VistaRanking extends JFrame {
 		
 		
 		scrollPane = new JScrollPane();
+		
+		JRadioButton rdbtnBestTime = new JRadioButton("Best Time");
+		
+		JRadioButton rdbtnMostSolved = new JRadioButton("Most Solved");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(rdbtnBestTime)
+							.addGap(18)
+							.addComponent(rdbtnMostSolved)
+							.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
 							.addComponent(btnOk)
 							.addGap(114))
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -81,7 +92,10 @@ public class VistaRanking extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnOk)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnOk)
+						.addComponent(rdbtnBestTime)
+						.addComponent(rdbtnMostSolved))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -101,10 +115,10 @@ public class VistaRanking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 			    model.setRowCount(0);
-				System.out.print("AAAAA");
+				//System.out.print("AAAAA");
 				ArrayList<String> ar= new ArrayList<String>();
-				ar = bt.getBestTime_String();
-				for (int i = 0; i < 9; i+= 3) {
+				ar = cp.obtener_BT();
+				for (int i = 0; i < ar.size(); i+= 3) {
 					String s = new String();
 					String s1 = new String();
 					String s2 = new String();
