@@ -227,9 +227,20 @@ public class CtrlPresentacio {
 		ve.llamarImportar();
 		
 	}
+<<<<<<< HEAD
 	public ArrayList<String> obtener_BT() {
 		return cd.obtener_BT();
 		//return null;
+=======
+	public void importar(String s) {
+		cd.CarregarKenkenGuardat(s);
+		vc= new  VistaCreacio(this);
+		setTamany(tamany);
+		String[][] obj=cd.getMObjectius();
+		String[][] op=cd.getMOperacions();
+		int[][] reg=cd.getMRegions();
+		vc.llamarVista(obj,op,reg);
+>>>>>>> 8543e3e426546d0755b9c338a6d432859da982b5
 	}
 	
 }

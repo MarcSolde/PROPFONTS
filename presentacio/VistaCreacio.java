@@ -1165,4 +1165,8 @@ public class VistaCreacio extends SuperVista{
 		if(c.equals(new Color(0,255,255)))return "Cian";
 		return "Negro";
 	}
+	public void llamarVista(String[][] obj, String[][] op, int[][] reg) {
+		// TODO Auto-generated method stub
+		
+	}
 }
