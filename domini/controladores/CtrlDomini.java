@@ -215,6 +215,7 @@ public class CtrlDomini {
 		int temps = this.getTemps();
 		cr.anadir_valores_fin_partida(cu.getNom(), tam, temps);
 		
+		
 	}
 
 }
