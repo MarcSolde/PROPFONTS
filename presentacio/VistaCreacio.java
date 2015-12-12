@@ -367,6 +367,7 @@ public class VistaCreacio extends SuperVista{
 	
 	
 	protected void actionPerformed_buttonImportar(ActionEvent event) {
+		this.hacerInvisible();
 		cp.llamarImportar();
 		
 	}

@@ -46,6 +46,7 @@ public class VistaEmergente extends SuperVista{
 	private JPanel panelPartidaFi = new JPanel();
 		private JLabel labelPartidaFi= new JLabel("¡¡¡HAS GANADO!!!");
 		private JLabel labelTemps = new JLabel();
+		private JButton buttonVal = new JButton("OK");
 		
 	  public VistaEmergente(CtrlPresentacio pCtrlPresentacion) {
 		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
@@ -146,6 +147,7 @@ public class VistaEmergente extends SuperVista{
 		  private void inicializar_panelPartidaFi() {
 			  panelPartidaFi.add(this.labelPartidaFi);
 			  panelPartidaFi.add(this.labelTemps);
+			  panelPartidaFi.add(buttonVal);
 		}
 
 		private void inicializar_panelNombrar() {
@@ -229,6 +231,15 @@ public class VistaEmergente extends SuperVista{
 			          
 			        }
 			 });
+			buttonVal.addActionListener
+		      (new ActionListener() {
+			        public void actionPerformed (ActionEvent event) {
+			          String texto = ((JButton) event.getSource()).getText();
+			          System.out.println("Has clickado el boton con texto: " + texto);
+			          actionPerformed_buttonVal(event);
+			          
+			        }
+			 });
 			textFieldNombrar.addMouseListener(new MouseListener() {
 		        public void mouseClicked(MouseEvent e) {
 		        	textFieldNombrar.setText("");
@@ -258,6 +269,12 @@ public class VistaEmergente extends SuperVista{
 				}
 				
 			 });
+			
+		}
+
+		protected void actionPerformed_buttonVal(ActionEvent event) {
+			this.hacerInvisible();
+			cp.llamarMenu();
 			
 		}
 
@@ -296,7 +313,8 @@ public class VistaEmergente extends SuperVista{
 		  
 		  public void llamarPartidaFi() {
 			  cambiarPanel(panelPartidaFi);
-			  String text = cp.getTemps();
+			  String text = String.valueOf(cp.getTemps());
+			  llamarVista();
 			  //this.labelTemps.setText(text);
 				
 			}
