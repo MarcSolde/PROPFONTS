@@ -10,6 +10,7 @@ import domini.classes.TaulerKenken;
 
 public class CtrlData {
 	
+	private int numTauler;
 	/**
 	 * Creadora
 	 */
@@ -23,10 +24,32 @@ public class CtrlData {
 			file.mkdirs();
 			file = new File("data/taulers/num.txt");
 			try {
-				FileWriter fw = new FileWriter(file);
-				fw.write(("0 "), 0, ("0 ").length());
-				fw.close();
+				file.createNewFile();
+				FileOutputStream f = new FileOutputStream(file);
+				ObjectOutputStream out = new ObjectOutputStream(f);
+				numTauler = 0;
+				out.writeObject(numTauler);
+				out.close();
+				f.close();
 			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				FileInputStream f = new FileInputStream("data/taulers/num.txt");
+				try {
+					ObjectInputStream in = new ObjectInputStream(f);
+					try {
+						numTauler = (int) in.readObject();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					in.close();
+					f.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
@@ -146,29 +169,20 @@ public class CtrlData {
 	}
 	
 	public void guardarTauler(TaulerKenken t){
-		File aux = new File("data/taulers/num.txt");
-		String s = null;
+		numTauler += 1;
+		t.setId(numTauler);
 		try {
-			Scanner sc = new Scanner(aux);
-			sc.useDelimiter(" ");
-			s = sc.next();
-			sc.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		int num = Integer.parseInt(s);
-		num += 1;
-		t.setId(num);
-		try {
-			FileOutputStream file = new FileOutputStream("data/taulers/kenken"+Integer.toString(num)+".txt");
+			FileOutputStream f = new FileOutputStream("data/taulers/num.txt");
+			FileOutputStream file = new FileOutputStream("data/taulers/kenken"+numTauler+".txt");
 			try {
+				ObjectOutputStream outNum = new ObjectOutputStream(f);
+				outNum.writeObject(numTauler);
+				outNum.close();
+				f.close();
 				ObjectOutputStream out = new ObjectOutputStream(file);
 				out.writeObject(t);
 				out.close();
 				file.close();
-				FileWriter fw = new FileWriter(aux);
-				fw.write(Integer.toString(num),0,Integer.toString(num).length());
-				fw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

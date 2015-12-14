@@ -31,6 +31,7 @@ public class CtrlTauler {
 
 	public void CrearTauler(int n) {
 		t=new TaulerKenken(n);
+		cData.guardarTauler(t);
 	}
 
 	public void introduirValorCasella(int i, int j, int valor) {

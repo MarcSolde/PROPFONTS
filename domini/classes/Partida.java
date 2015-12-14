@@ -2,6 +2,7 @@
 package domini.classes;
 import java.util.Scanner;
 import domini.classes_compartides.*;
+import persistencia.CtrlData;
 
 /**
  * 
@@ -55,6 +56,8 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 		tStart = System.currentTimeMillis();
 		partida_acabada = t.taulerFi();
 		id = -1;
+		CtrlData cdata = new CtrlData();
+		cdata.guardarTauler(t);
 	}
 	/**
 	 * afegeix una pista al tauler
