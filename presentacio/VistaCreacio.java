@@ -509,7 +509,7 @@ public class VistaCreacio extends SuperVista{
 
 	protected void actionPerformed_buttonEliminarRegioCasella(ActionEvent event) {
 		if(pulsat==false){
-			cp.llamarError("No has pulsat cap Casella");
+			cp.llamarError("No has premut cap Casella");
 		}
 		else{
 			   CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
@@ -529,7 +529,7 @@ public class VistaCreacio extends SuperVista{
 
 	protected void actionPerformed_buttonEliminarRegio(ActionEvent event) {
 		if(pulsat==false){
-			cp.llamarError("No has pulsat cap Casella");
+			cp.llamarError("No has premut cap Casella");
 		}
 		else{
 			CasillaCP b = (CasillaCP) panelTauler.getComponentAt(pulsaX, pulsaY);
@@ -914,7 +914,7 @@ public class VistaCreacio extends SuperVista{
 
 	protected void actionPerformed_buttonAfegirValor(ActionEvent event) {
 		if(pulsat==false){
-			cp.llamarError("No has pulsat cap Casella");
+			cp.llamarError("No has premut cap Casella");
 		}
 		else{
 			String valor = (String) comboboxAfegirValor.getModel().getSelectedItem(); 
@@ -1154,20 +1154,20 @@ public class VistaCreacio extends SuperVista{
 		}
 	}
 	protected Color StringToColor(String color) {
-		if(color.equals("Blanco")) return new Color(255,255,255);
-		if(color.equals("Verde")) return new Color(0,255,0);
-		if(color.equals("Azul")) return new Color(0,0,255);
-		if(color.equals("Amarillo")) return new Color(255,255,0);
-		if(color.equals("Morado")) return new Color(255,0,255);
+		if(color.equals("Blanc")) return new Color(255,255,255);
+		if(color.equals("Verd")) return new Color(0,255,0);
+		if(color.equals("Blau")) return new Color(0,0,255);
+		if(color.equals("Groc")) return new Color(255,255,0);
+		if(color.equals("Lila")) return new Color(255,0,255);
 		if(color.equals("Cian")) return new Color(0,255,255);
 		return new Color(0,0,0);
 	}
 	
 	protected String ColorToString(Color c) {
-		if(c.equals(new Color(255,255,255)))return "Blanco";
-		if(c.equals(new Color(0,255,0)))return "Verde";
-		if(c.equals(new Color(255,255,0)))return "Amarillo";
-		if(c.equals(new Color(255,0,255)))return "Morado";
+		if(c.equals(new Color(255,255,255)))return "Blanc";
+		if(c.equals(new Color(0,255,0)))return "Verd";
+		if(c.equals(new Color(255,255,0)))return "Groc";
+		if(c.equals(new Color(255,0,255)))return "Lila";
 		if(c.equals(new Color(0,255,255)))return "Cian";
 		return "Negro";
 	}

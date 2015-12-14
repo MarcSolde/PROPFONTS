@@ -26,7 +26,7 @@ public class VistaLogin extends SuperVista{
 		private JTextField textUsuari = new JTextField("Usuari");
 		private JTextField textPassword = new JTextField("Password");
 		private JButton buttonOk = new JButton();
-		private JButton buttonQuit = new JButton("Atras");
+		private JButton buttonQuit = new JButton("Enrere");
 		
 	private JPanel panelElegir = new JPanel();
 		private JButton buttonLogin = new JButton("Login");
