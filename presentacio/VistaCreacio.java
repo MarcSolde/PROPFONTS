@@ -72,7 +72,7 @@ public class VistaCreacio extends SuperVista{
 	//OPCIONS
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboboxAfegirValor = new JComboBox();
-	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JButton buttonAfegirValor = new JButton("Afegir");
 	private JComboBox comboboxAfegirRegio = new JComboBox();
 	private JButton buttonAfegirRegio = new JButton("Afegir Regio");
 	private JButton buttonEliminarRegio = new JButton("Eliminar Region");
@@ -92,21 +92,19 @@ public class VistaCreacio extends SuperVista{
 	
 	
 	
-	
+	/**
+	 * inicialitza el Tauler
+	 * @param pCtrlPresentacion Controlador al cual es vol enllasar la Vista
+	 */
 	  public VistaCreacio (CtrlPresentacio ctrlPresentacio) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = ctrlPresentacio;
 	    //inicializarComponentes();
 	    
 	  }
-	  public void llamarVista(){
-		  hacerVisible();
-		  repintar();
-		  inicializarComponentes();
-	  }
 	
 	  
-	  public void inicializarComponentes(){
+	  protected void inicializarComponentes(){
 		    inicializarMatrius();
 		 	inicializar_frameVista();
 		 	anadirPanels();
@@ -115,6 +113,10 @@ public class VistaCreacio extends SuperVista{
 		    asignar_listenersComponentes(); //a hacer
 	}
 	  
+	  /**
+	   * asigna un tamany al tauler
+	   * @param tam tamany del tauler
+	   */
 	 public void setTamany(int tam){
 		 this.tamany=tam;
 	 }
