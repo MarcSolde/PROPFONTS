@@ -19,10 +19,10 @@ public class CtrlPresentacio {
 	int tamany=6;
 
 	private CtrlDomini cd = new CtrlDomini(this);
-	private VistaPartida vp= new VistaPartida(this);
+	private VistaPartida vp = new VistaPartida(this);
 	private VistaCreacio vc = new VistaCreacio(this);
 	private VistaInici vi;
-	private VistaMenu vm= new VistaMenu(this);
+	private VistaMenu vm;//= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
 	private VistaRanking vr = new VistaRanking(this);
@@ -33,7 +33,8 @@ public class CtrlPresentacio {
 	 */
 	public void inicializarPresentacion() {
 			//vi = new VistaInici(this);
-			vl.llamarVista();
+			
+		vl.llamarVista();
 			//vm.llamarVista();
 			//vp.llamarVista();
 			//vc.llamarVista();

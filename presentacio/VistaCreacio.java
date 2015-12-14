@@ -100,7 +100,7 @@ public class VistaCreacio extends SuperVista{
 	  public VistaCreacio (CtrlPresentacio ctrlPresentacio) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = ctrlPresentacio;
-	    //inicializarComponentes();
+	    inicializarComponentes();
 	    
 	  }
 	

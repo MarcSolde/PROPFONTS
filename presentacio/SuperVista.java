@@ -31,7 +31,7 @@ public class SuperVista extends JFrame{
 		  public void llamarVista(){
 			  hacerVisible();
 			  repintar();
-			  inicializarComponentes();
+			  //inicializarComponentes();
 		  }
 		  
 		  protected void inicializarComponentes() {}

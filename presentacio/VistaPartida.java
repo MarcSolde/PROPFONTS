@@ -118,6 +118,7 @@ public class VistaPartida extends SuperVista{
 	   */
 	  public void llamarVista(String[][] valor, String[][] obj, String[][] op, int[][] reg){
 		  llamarVista();
+		  inicializarComponentes();
 		  RegionsId=reg;
 		  int max=0;
 		  RegionsColor= new int[tamany][tamany];
