@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -250,6 +251,7 @@ public class VistaPartida extends SuperVista{
 		  Caselles= new CasillaCP[tamany][tamany];
 		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 				 CasillaCP c = new CasillaCP(tamany,i,j);
+				 c.setBorder(new LineBorder(new Color(0,0,0)));
 				 Caselles[i][j]=c;
 				 Graphics g = c.getGraphics();
 				 c.paintComponents(g);

@@ -178,8 +178,8 @@ public class VistaEmergente extends SuperVista{
 		}
 
 		private void inicializar_panelOpcions() {
-				panelOpcions.add(panelError);
-			  }
+				//panelOpcions.add(panelError);
+		}
 		
 		private void asignar_listenersComponentes() {
 			buttonOk.addActionListener
@@ -388,8 +388,9 @@ public class VistaEmergente extends SuperVista{
 		   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per Guardar una partida
 		   */
 		public void llamarGuardar() {
-			panelGuardar.add(this.buttonSobrescriure);
-			panelGuardar.add(this.buttonNou);
+			
+			panelGuardar.add(buttonSobrescriure);
+			panelGuardar.add(buttonNou);
 			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}

@@ -67,7 +67,7 @@ public class CasillaCP extends JPanel{
 	/**
 	 * dibuixa les lines que delimiten la casella
 	 */
-	public void paintComponent(Graphics g) {
+	/*public void paintComponent(Graphics g) {
          int i=this.getLocation().x;
          int j=this.getLocation().y; 
          //System.out.println(i+" "+j);
@@ -81,7 +81,7 @@ public class CasillaCP extends JPanel{
 	    }
 	     
  
-	 }
+	 }*/
 	 
 	 
 	/**

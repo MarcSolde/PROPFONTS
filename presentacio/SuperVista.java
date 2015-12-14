@@ -67,7 +67,7 @@ public class SuperVista extends JFrame{
 
 
 			protected void inicializar_frameVista() {
-				    frameVista.setMinimumSize(new Dimension(1080,400));
+				    frameVista.setMinimumSize(new Dimension(800,400));
 				    frameVista.setPreferredSize(frameVista.getMinimumSize());
 				    frameVista.setResizable(false);
 				    // Posicion y operaciones por defecto
