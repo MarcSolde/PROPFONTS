@@ -54,7 +54,7 @@ public class VistaLogin extends SuperVista{
 
 	  
 		  
-		  public void inicializarComponentes(){
+		  protected void inicializarComponentes(){
 			 	inicializar_frameVista();
 			    inicializar_panelOpcions();
 			    asignar_listenersComponentes(); //a hacer

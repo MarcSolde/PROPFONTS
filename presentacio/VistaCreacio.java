@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -72,7 +73,7 @@ public class VistaCreacio extends SuperVista{
 	//OPCIONS
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboboxAfegirValor = new JComboBox();
-	private JButton buttonAfegirValor = new JButton("Añadir");
+	private JButton buttonAfegirValor = new JButton("Afegir");
 	private JComboBox comboboxAfegirRegio = new JComboBox();
 	private JButton buttonAfegirRegio = new JButton("Afegir Regio");
 	private JButton buttonEliminarRegio = new JButton("Eliminar Region");
@@ -92,21 +93,19 @@ public class VistaCreacio extends SuperVista{
 	
 	
 	
-	
+	/**
+	 * inicialitza el Tauler
+	 * @param pCtrlPresentacion Controlador al cual es vol enllasar la Vista
+	 */
 	  public VistaCreacio (CtrlPresentacio ctrlPresentacio) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = ctrlPresentacio;
 	    //inicializarComponentes();
 	    
 	  }
-	  public void llamarVista(){
-		  hacerVisible();
-		  repintar();
-		  inicializarComponentes();
-	  }
 	
 	  
-	  public void inicializarComponentes(){
+	  protected void inicializarComponentes(){
 		    inicializarMatrius();
 		 	inicializar_frameVista();
 		 	anadirPanels();
@@ -115,6 +114,10 @@ public class VistaCreacio extends SuperVista{
 		    asignar_listenersComponentes(); //a hacer
 	}
 	  
+	  /**
+	   * asigna un tamany al tauler
+	   * @param tam tamany del tauler
+	   */
 	 public void setTamany(int tam){
 		 this.tamany=tam;
 	 }
@@ -146,6 +149,7 @@ public class VistaCreacio extends SuperVista{
 		  //panelTauler.setMinimumSize(new Dimension(300,300));
 		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 			 CasillaCP c = new CasillaCP(tamany,i,j);
+			 c.setBorder(new LineBorder(new Color(0,0,0)));
 			 Caselles[i][j]=c;
 			 Graphics g = c.getGraphics();
 			 c.paintComponents(g);

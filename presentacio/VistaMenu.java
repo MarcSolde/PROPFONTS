@@ -69,7 +69,10 @@ public class VistaMenu extends SuperVista{
 		private JButton buttonMejoresTiempos = new JButton("los mejores tiempos");
 		private JButton buttonMasResueltos = new JButton("Los mas resueltos");
 		private JButton buttonTornarRanking = new JButton("Tornar al menu");*/
-			
+		
+	 /**
+	   * fa visible la vista y asigna tots els elements interns d'aquesta
+	   */
 	  public VistaMenu(CtrlPresentacio pCtrlPresentacion) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = pCtrlPresentacion;
@@ -77,7 +80,7 @@ public class VistaMenu extends SuperVista{
 	    
 	  }
 	  
-	  public void inicializarComponentes(){
+	  protected void inicializarComponentes(){
 		 	inicializar_frameVista();
 		 	contentPane.add(panelOpcions);
 		    inicializar_panelOpcions();
@@ -89,14 +92,6 @@ public class VistaMenu extends SuperVista{
 		
 	}
 	  
-	  
-	/*private void inicializar_panelRanking() {
-		panelRanking.setLayout(new FlowLayout());
-		panelRanking.add(labelRanking);
-		panelRanking.add(buttonMejoresTiempos);
-		panelRanking.add(buttonMasResueltos);
-		panelRanking.add(buttonTornarRanking);
-	}*/
 
 	private void inicializar_panelElegir() {
 		panelElegir.setLayout(new FlowLayout());

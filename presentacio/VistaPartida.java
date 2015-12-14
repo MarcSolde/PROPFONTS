@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -69,9 +70,9 @@ public class VistaPartida extends SuperVista{
 	
 	//OPCIONS
 	private JComboBox<String> comboboxAfegirValor = new JComboBox<String>();
-	private JButton buttonAfegirValor = new JButton("ANadir");
+	private JButton buttonAfegirValor = new JButton("Afegir");
 	private JComboBox<String> comboboxAfegirCandidat = new JComboBox<String>();
-	private JButton buttonAfegirCandidat = new JButton("ANadir Candidato");
+	private JButton buttonAfegirCandidat = new JButton("Afegir Candidato");
 	String auxAfegirCandidat = "indica el valor del candidato";
 	private JComboBox<String> comboboxBorrarCandidat = new JComboBox<String>();
 	private JButton buttonBorrarCandidat = new JButton("Borrar Candidato");
@@ -79,29 +80,42 @@ public class VistaPartida extends SuperVista{
 	private JButton buttonPista = new JButton("Pista");
 	private JButton buttonComprovar = new JButton("Comprovar");
 	String auxBorrarCandidat = "indica el valor del candidato";
-	
-	
-	
+
+	/**
+	 * inicialitza la partida
+	 * @param pCtrlPresentacion Controlador al cual es vol enllasar la Vista
+	 */
 	  public VistaPartida (CtrlPresentacio pCtrlPresentacion) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = pCtrlPresentacion;
 	  }
 	  
+	  /**
+	   * asigna un tamany al tauler
+	   * @param tam tamany del tauler
+	   */
 	  public void setTamany(int tam){
 			 tamany=tam;
 	   }
-	  
-	  public void llamarVista(){
-		  hacerVisible();
-		  inicializarComponentes();
-		  repintar();
-	  }
+	
+	  /**
+		  * asigna a cada casella del tauler els valors de la matriu
+		  * @param mv Matriu dels Strings amb el valor de cadascuna de les caselles
+	   */
 	  public void afegirValor(String[][] mv) {
 			for(int i=0;i<mv.length;i++)for(int j=0;j<mv.length;j++){
 				Caselles[i][j].setValor(mv[i][j]);
 			}
 			
 		}
+	  
+	  /**
+	   * asigna tots els parametres a cadascuna de les casilles
+	   * @param valor Matriu dels Strings amb el valor de cadascuna de les caselles
+	   * @param obj Matriu dels Strings amb el objectiu de la regio de cadascuna de les caselles
+	   * @param op Matriu dels Strings amb la operacio de la regio de cadascuna de les caselles
+	   * @param reg Matriu dels ints amb el id de les regions de cadascuna de les caselles
+	   */
 	  public void llamarVista(String[][] valor, String[][] obj, String[][] op, int[][] reg){
 		  llamarVista();
 		  RegionsId=reg;
@@ -200,7 +214,7 @@ public class VistaPartida extends SuperVista{
 			}
 		}
 	  
-	  public void inicializarComponentes(){
+	  protected void inicializarComponentes(){
 		  	inicializarMatrius();
 		 	inicializar_frameVista();
 		    inicializar_panelTauler();
@@ -237,6 +251,7 @@ public class VistaPartida extends SuperVista{
 		  Caselles= new CasillaCP[tamany][tamany];
 		  for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 				 CasillaCP c = new CasillaCP(tamany,i,j);
+				 c.setBorder(new LineBorder(new Color(0,0,0)));
 				 Caselles[i][j]=c;
 				 Graphics g = c.getGraphics();
 				 c.paintComponents(g);
@@ -399,12 +414,11 @@ public class VistaPartida extends SuperVista{
 			for(int i=0;i<tamany;i++)for(int j=0;j<tamany;j++){
 				CasillaCP c= Caselles[i][j];
 				if(error[i][j]==true){
-					c.setError(true);
+					
 					c.setColor(new Color(255,0,0));
 					System.out.print("1 ");
 				}
 				else{
-					c.setError(false);
 					c.ReturnColorOriginal();
 					System.out.print("0 ");
 				}
@@ -510,16 +524,15 @@ public class VistaPartida extends SuperVista{
 				}
 				else{
 					int n=Integer.valueOf(valor);
-					if(cp.afegirValor(x,y,n)){
-						b.setValor(valor);
-						if(partidaFinalitzada() && cp.comprovar()){
-							this.hacerInvisible();
-							cp.llamarPartidaFi();
-						}
-						else if(partidaFinalitzada() && !cp.comprovar()){
-							this.actionPerformed_buttonComprovar(null);
-							cp.llamarComprobar(false);
-						}
+					cp.afegirValor(x,y,n);
+					b.setValor(valor);
+					if(partidaFinalitzada() && cp.comprovar()){
+						this.hacerInvisible();
+						cp.llamarPartidaFi();
+					}
+					else if(partidaFinalitzada() && !cp.comprovar()){
+						this.actionPerformed_buttonComprovar(null);
+						cp.llamarComprobar(false);
 					}
 				}
 				b.ReturnColorOriginal();

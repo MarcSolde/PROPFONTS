@@ -64,13 +64,19 @@ public class VistaEmergente extends SuperVista{
 		    frameVista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    contentPane = (JPanel) frameVista.getContentPane();
 	}
-
+	  /**
+	   * La Vista es fara visible mostrant per pantalla el misatge de error que se li pasi per parametres
+	   * @param s Misatge de Error que se li vol pasar
+	   */
 	  public void llamarVista(String s){
 		  hacerVisible();
 		  cambiarPanel(panelError);
 		  labelError.setText(s);
 		  repintar();
 	  }
+	  /**
+	   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per Carregar el kenken
+	   */
 	  public void llamarCarregarKenken() {
 		  llamarVista();
 		  ArrayList<String> s=cp.ConsultaKenkenGuardats();
@@ -80,7 +86,9 @@ public class VistaEmergente extends SuperVista{
 			llamarVista();
 			opcio=0;
 		}
-	  
+	  /**
+	   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per importar un Kenken
+	   */
 	  public void llamarImportar() {
 		  llamarVista();
 		  ArrayList<String> s=cp.ConsultaKenkenGuardats();
@@ -90,7 +98,9 @@ public class VistaEmergente extends SuperVista{
 			llamarVista();
 			opcio=3;
 		}
-	  
+	  /**
+	   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per Resumir una Partida
+	   */
 	  public void llamarResumirPartida() {
 		    llamarVista();
 		  	ArrayList<String> s =cp.ConsultaPartidesGuardades();
@@ -99,6 +109,9 @@ public class VistaEmergente extends SuperVista{
 			cambiarPanel(panelCarregarKenken);
 			opcio=1;
 		}
+	  /**
+	   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per Esborrar una partida
+	   */
 	  public void llamarEsborrarPartida() {
 		  llamarVista();
 		  	ArrayList<String> s =cp.ConsultaPartidesGuardades();
@@ -107,6 +120,7 @@ public class VistaEmergente extends SuperVista{
 			cambiarPanel(panelCarregarKenken);
 			opcio=2;
 		}
+	
 	  private void inicializar_panelCarregarKenken(ArrayList<String> ls) {
 		  panelCarregarKenken.removeAll();
 		  comboboxKenkenPosible= new JComboBox();
@@ -164,8 +178,8 @@ public class VistaEmergente extends SuperVista{
 		}
 
 		private void inicializar_panelOpcions() {
-				panelOpcions.add(panelError);
-			  }
+				//panelOpcions.add(panelError);
+		}
 		
 		private void asignar_listenersComponentes() {
 			buttonOk.addActionListener
@@ -310,7 +324,9 @@ public class VistaEmergente extends SuperVista{
 			  
 			  
 		}
-		  
+		  /**
+		   * la finestra emergent es fara visible mostrant per pantalla que la partida ha acabat
+		   */
 		  public void llamarPartidaFi() {
 			  cambiarPanel(panelPartidaFi);
 			  String text = String.valueOf(cp.getTemps());
@@ -353,7 +369,9 @@ public class VistaEmergente extends SuperVista{
 			 this.hacerInvisible();
 			
 		}
-
+		/**
+		   * la finestra emergent es fara visible mostrant per pantalla si hi han errors en la partida
+		   */
 		public void llamarComprovar(boolean comprovar) {
 			if(comprovar){
 				labelComprovar.setText("Correcto");
@@ -366,10 +384,13 @@ public class VistaEmergente extends SuperVista{
 			 cambiarPanel(panelComprovar);
 			 llamarVista();
 		}
-
+		/**
+		   * la finestra emergent es fara visible mostrant per pantalla la interficie necesaria per Guardar una partida
+		   */
 		public void llamarGuardar() {
-			panelGuardar.add(this.buttonSobrescriure);
-			panelGuardar.add(this.buttonNou);
+			
+			panelGuardar.add(buttonSobrescriure);
+			panelGuardar.add(buttonNou);
 			cambiarPanel(panelGuardar);
 			 llamarVista();
 		}

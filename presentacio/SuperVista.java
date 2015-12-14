@@ -18,39 +18,56 @@ public class SuperVista extends JFrame{
 		 protected JFrame frameVista = new JFrame("Vista Principal");
 		 protected JPanel contentPane = new JPanel();
 	
+		 	/**
+		 	 * actualitza la vista amb els canvis fets a l'interficie
+		 	 */
 			public void repintar(){
 				 frameVista.pack();
 			     frameVista.repaint();
 			}
-		  
+		  /**
+		   * fa visible la vista, l'actualitza els cambis y asigna els components
+		   */
 		  public void llamarVista(){
 			  hacerVisible();
 			  repintar();
+			  inicializarComponentes();
 		  }
 		  
-		  public void hacerInvisible() {
+		  protected void inicializarComponentes() {}
+
+		/**
+		 * fa invisible la vista
+		 */
+		public void hacerInvisible() {
 			    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 			    frameVista.pack();
 			    frameVista.setVisible(false);
 			  }
-		  
+		/**
+		 * fa visible la vista
+		 */
 		  public void hacerVisible() {
 		    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 		    frameVista.pack();
 		    frameVista.setVisible(true);
 		  }
-
+		  /**
+		   * activa la vista
+		   */
 		  public void activar() {
 		    frameVista.setEnabled(true);
 		  }
-
+		  /**
+		   * desactiva la vista
+		   */
 		  public void desactivar() {
 		    frameVista.setEnabled(false);
 		  }
 
 
 			protected void inicializar_frameVista() {
-				    frameVista.setMinimumSize(new Dimension(1080,400));
+				    frameVista.setMinimumSize(new Dimension(800,400));
 				    frameVista.setPreferredSize(frameVista.getMinimumSize());
 				    frameVista.setResizable(false);
 				    // Posicion y operaciones por defecto
