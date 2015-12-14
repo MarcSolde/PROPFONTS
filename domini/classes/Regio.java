@@ -8,7 +8,7 @@ import domini.classes_compartides.*;
  * @author arnau.zapata.i
  *
  */
-public class Regio{
+public class Regio implements java.io.Serializable{
 	private String operacio;
 	private int resultat;
 	private int objectiu;

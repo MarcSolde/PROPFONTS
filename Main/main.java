@@ -69,10 +69,9 @@ public class main {
 						break;
 					case 2:
 						System.out.println("\n\nTRIA UN KENKEN GUARDAT\n\n");
-						File f = new File("data/taulers/");
-						File[] paths = f.listFiles();
-						for (File path:paths) {
-							if (!path.getName().equals("num.txt")) System.out.println(path);
+						ArrayList<String> l = cData.llistaKenkens();
+						for (int i = 0; i<l.size(); ++i) {
+							System.out.println(l.get(i)+"\n");
 						}
 						System.out.println("\n\n 0: Tornar al menu");
 						System.out.println("\nNumero del kenken: ");
@@ -102,23 +101,14 @@ public class main {
 					break;
 				case 2:
 					System.out.println("\n\nTRIA UNA PARTIDA\n\n");
-					File f = new File("data/usuaris/"+cUsr.getNom());
-					File[] paths = f.listFiles();
-					int it = 0;
-					for (File path:paths) {
-					++it;
-						if (!path.getName().equals("contrasenya.txt") && !path.getName().equals("num.txt")) {
-							System.out.println(path);
-						}
+					ArrayList<String> l = cData.llistaPartides(cUsr.getNom());
+					for (int i = 0; i<l.size(); ++i) {
+						System.out.println(l.get(i)+"\n");
 					}
 					System.out.print("0: Tornar al menu");
-					System.out.print("\n\nNumero de la partida: ");
+					System.out.print("\n\nNom de la partida: ");
 					String s = scin.next();
 					if (s.equals("0")) break;
-					if(Integer.parseInt(s)>it-2 || Integer.parseInt(s) <=0){
-						System.out.println("No hi ha partides per a poder carregar. Tornant al menu");
-						return;
-					}
 					cPartida.carregaPartida(s, cUsr.getNom());
 					cPartida.inGame();
 					if (cPartida.getAcabada()) {
@@ -132,28 +122,19 @@ public class main {
 					break;
 				case 4:
 					System.out.println("\n\nTRIA UNA PARTIDA\n\n");
-					File file = new File("data/usuaris/"+cUsr.getNom());
-					File[] p = file.listFiles();
-					int ite = 0;
-					for (File path:p) {
-					++ite;
-						if (!path.getName().equals("contrasenya.txt") && !path.getName().equals("num.txt")) {
-							System.out.println(path);
-						}
+					ArrayList<String> la = cData.llistaPartides(cUsr.getNom());
+					for (int i = 0; i<la.size(); ++i) {
+						System.out.println(la.get(i)+"\n");
 					}
 					System.out.print("0: Tornar al menu");
 					System.out.print("\n\nNom de la partida: ");
 					String id = scin.next();
 					if (id.equals("0")) break;
-					if(Integer.parseInt(id)>ite-2 || Integer.parseInt(id) <=0){
-						System.out.println("No hi ha partides per a poder carregar. Tornant al menu");
-						break;
-					}
 					cData.esborrarPartida(id,cUsr.getNom());
 				}
 			}
-			cData.escriureMostSolved(cRank.getMostSolved());
-			cData.escriureBestTime(cRank.getBestTime());
+			cData.guardarMostSolved(cRank.getMostSolved());
+			cData.guardarBestTime(cRank.getBestTime());
 		}
 		
 		/**
@@ -197,7 +178,7 @@ public class main {
 				//pwd = new String(console.readPassword("\nContrasenya: "));
 				System.out.println("\nContrasenya: ");
 				pwd = scin.next();
-				if (cData.escriureUsuari(nom, pwd)) {
+				if (cData.guardarUsuari(nom, pwd)) {
 					cUsr.nouUsuari(nom, pwd);
 					b = true;					//ET FALTAVA B = TRUE, FEIA BUCLE A REGISTRARSE
 					break;

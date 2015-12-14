@@ -1,27 +1,28 @@
 package domini.classes_compartides;
-/**
- * 
- * @author	grupo kenken
- *
- */
-public class Tablero_comp {
+
+import java.io.Serializable;
+
+public class Tablero_comp implements Serializable {
        
+		private static final long serialVersionUID = 1L;
         protected Casilla_comp[][] tauler;
         protected int mida;
        
+        public Tablero_comp() {}
         /**
          * Crea un tauler de mida NxN
          */
         public Tablero_comp(int N)
         {
                 tauler = new Casilla_comp[N][N];
+                mida = N;
+       
                 int i,j;
                 for (i = 0; i < N; ++i) {
                         for (j = 0; j < N; ++j) {
-                                tauler[i][j] = new Casilla_comp(new boolean[mida], false, 0);
+                                tauler[i][j] = new Casilla_comp(mida+1,false);
                         }
                 }
-                mida = N;
         }
        
         /**
@@ -76,6 +77,7 @@ public class Tablero_comp {
         {
                 tauler[x][y].setCandidat(n);
         }
+     
        
         /**
          * Esborra n dels candidats de la casella que hi

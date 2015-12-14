@@ -9,7 +9,7 @@ import java.util.Scanner;
  */
 public class Ranking implements java.io.Serializable {
 	
-	protected Scanner in = new Scanner(System.in);
+	//protected Scanner in = new Scanner(System.in);
 	protected int SIZE = 10;
 	
 	/**

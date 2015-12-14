@@ -6,7 +6,7 @@ import java.util.TreeMap;
 /** Rankings de kenkens resueltos
  * @author Marc Soldevilla
  * **/
-public class MostSolved extends Ranking{
+public class MostSolved extends Ranking implements java.io.Serializable {
 	/**  TreeMap de la informacion, el String indica el usuario y el integer el cantidad de kenkens resueltos **/
 	Map<String, Integer> map;
 

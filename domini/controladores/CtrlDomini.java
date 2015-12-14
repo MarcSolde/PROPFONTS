@@ -44,11 +44,7 @@ public class CtrlDomini {
 	}
 
 	public void GuardarTauler() {
-		ArrayList<String> ls = cd.ListKenkens();
-		int i=0;
-		if(ls.isEmpty())i=1;
-		else i=ls.size()+1;
-		cd.escriureTauler(ct.getTauler(),i);
+		cd.guardarTauler(ct.getTauler());
 		cPar=new CtrlPartida();
 		cPar.creaPartidaRand(ct.getTauler().getMida());
 		cPar.setTauler(ct.getTauler());
@@ -83,29 +79,27 @@ public class CtrlDomini {
 	public ArrayList<String> ConsultaKenkenGuardats() {
 		//return cd.consultarLlistaPartides();
 		ArrayList<String> ls= new ArrayList<String>();
-		ls=cd.ListKenkens();
+		ls=cd.llistaKenkens();
 		return ls;
 	}
 
 	public boolean CarregarPartida(String s) {
-		String id=cd.findId(s,cu.getNom());
-		if(id.equals("-1")) return false;
-		Partida p=cd.llegirPartida(id, cu.getNom());
-		if(p.getId()==-1)return false;
+		if(cd.existeixPartida(cu.getNom(), s)) return false;
+		Partida p=cd.llegirPartida(cu.getNom(),s);
 		ct.setTauler(p.getTauler());
 		cPar.setPartida(p);
 		System.out.println("retorna true");
-		 return true;
+		return true;
 	}
 
 	public ArrayList<String> consultaPartidesGuardades() {
 		ArrayList<String> ls= new ArrayList<String>();
-		ls=cd.ListPartides(cu.getNom());
+		ls=cd.llistaPartides(cu.getNom());
 		return ls;
 	}
 
 	public void crearUsuari(String u, String p) {
-		if(cd.escriureUsuari(u, p))cu.nouUsuari(u,p);
+		if(cd.guardarUsuari(u, p))cu.nouUsuari(u,p);
 	}
 
 	public void CarregarKenkenGuardat(String id) {
@@ -153,8 +147,8 @@ public class CtrlDomini {
 		System.out.println("La mida es:" +ct.getTauler().getMida());
 	}
 
-	public void guardarPartida() {
-		cd.escriurePartida(cPar.getPartida(),cu.getNom());
+	public void guardarPartida(String s) {
+		cd.guardarPartida(cPar.getPartida(),cu.getNom(),s);
 	}
 	public void Sobrescriu(String s) {
 		String id= cd.findId(s, cu.getNom());

@@ -11,9 +11,9 @@ import domini.classes_compartides.*;
 public class Partida extends Partida_comp implements java.io.Serializable {
 
 	private int temps;
-	private static int tamany;
+	private int tamany;
 	private boolean partida_acabada;
-	private static TaulerKenken t;
+	private TaulerKenken t;
 	int id;
 	long tStart;
 	double elapsedSeconds;
@@ -72,7 +72,7 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 	 * 
 	 * @return tauler de la partida
 	 */
-	public static TaulerKenken getTauler(){
+	public TaulerKenken getTauler(){
 		return t;
 	}
 	
@@ -114,7 +114,7 @@ public class Partida extends Partida_comp implements java.io.Serializable {
 	/**
 	 * monta un kenken definit per lusuari
 	 */
-	public static void montar(){
+	public  void montar(){
 			int count = 0;
 			Scanner in = new Scanner(System.in);
 			tamany = getTauler().getMida();

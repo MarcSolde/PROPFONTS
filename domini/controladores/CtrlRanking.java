@@ -23,9 +23,9 @@ public class CtrlRanking {
 	{
 		CtrlData cData = new CtrlData();
 		BT = new BestTime();
-		cData.llegirBestTime(BT);
+		BT = cData.llegirBestTime();
 		MS = new MostSolved();
-		cData.llegirMostSolved(MS);
+		MS = cData.llegirMostSolved();
 	}
 
 	/**

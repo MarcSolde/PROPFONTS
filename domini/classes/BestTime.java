@@ -10,7 +10,7 @@ import java.util.Hashtable;
  * @author Marc Soldevilla
  */
 
-public class BestTime extends Ranking {
+public class BestTime extends Ranking implements java.io.Serializable{
 	//atributos
 	Hashtable<Integer, ArrayList<pair<String, Integer> > > hash;
 	
@@ -31,6 +31,7 @@ public class BestTime extends Ranking {
 	public void getBestTime() 
 	{
 		System.out.println("Introduce el valor N, por el tama�o del Kenken NxN: ");
+		Scanner in = new Scanner(System.in);
 		int x = in.nextInt();
 		for (Integer key : hash.keySet()) {
 			if (key == x) {
@@ -59,6 +60,7 @@ public class BestTime extends Ranking {
 	public void getBestTimeUser() 
 	{
 		System.out.println("Introduce el nombre del usuario: ");
+		Scanner in = new Scanner(System.in);
 		String x = in.nextLine();
 		for (Integer key : hash.keySet()) {
 			for (int i = 0; i <hash.get(key).size(); ++i) {

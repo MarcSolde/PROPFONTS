@@ -39,9 +39,9 @@ public class CtrlPartida{
 	 * @param id - id de la partida
 	 * @param usr - nom del usuari
 	 */
-	public void carregaPartida(String id, String usr){
+	public void carregaPartida(String nom, String usr){
 		CtrlData cData = new CtrlData();
-		p = cData.llegirPartida(id,usr);
+		p = cData.llegirPartida(usr, nom);
 	}
 	/**
 	 * 
@@ -66,8 +66,27 @@ public class CtrlPartida{
 			System.out.println("2: Jugarlo");
 			switch(in.nextInt()){
 			case 1: CtrlData cdata = new CtrlData();
-			boolean res = cdata.escriurePartida(p, usuari);
-			if (!res) System.out.println("La partida no s'ha pogut guardar correctament");
+			/*ArrayList<String> l = cdata.llistaPartides(usuari);
+			System.out.println("\n\nTRIA QUINA PARTIDA VOLS:\n");
+			for (int i = 0; i<l.size(); ++i) {
+				System.out.println(l.get(i));
+			}*/
+			boolean guardat = false;
+			while (!guardat) {
+				System.out.println("\nQUIN NOM LI VOLS POSAR A LA TEVA PARTIDA?\n");
+				String nom = in.next();
+				
+				if (cdata.existeixPartida(usuari, nom)) {
+					System.out.println("\nJa existeix una partida amb aquest nom, vols sobreescriure-la? s/n\n");
+					if (in.next().equals("s")) {
+						cdata.guardarPartida(p, usuari, nom);
+						guardat = true;
+					}
+				} else {
+					cdata.guardarPartida(p, usuari, nom);
+					guardat = true;
+				}
+			}
 			break;
 			case 2: inGame();
 			break;	
@@ -148,8 +167,8 @@ public class CtrlPartida{
 		
 				System.out.println();
 				System.out.println("TAULER : ");
-				Partida.getTauler().imprimir();
-				Partida.getTauler().imprimirReg();
+				p.getTauler().imprimir();
+				p.getTauler().imprimirReg();
 				break;
 			case 3:
 				int i = 0;
@@ -170,12 +189,36 @@ public class CtrlPartida{
 				break;
 			case 8:
 				CtrlData cdata = new CtrlData();
-				boolean res = cdata.escriurePartida(p, usuari);
-				if (!res){
-					System.out.println("La partida no s'ha pogut guardar correctament");
-					b = false;
+				boolean guardat = false;
+				while (!guardat) {
+					System.out.println("\nQUIN NOM LI VOLS POSAR A LA TEVA PARTIDA?\n");
+					String nom = in.next();
+					if (cdata.existeixPartida(usuari, nom)) {
+						System.out.println("\nJa existeix una partida amb aquest nom, vols sobreescriure-la? s/n\n");
+						if (in.next().equals("s")) {
+							cdata.guardarPartida(p, usuari, nom);
+							guardat = true;
+						}
+					} else {
+						cdata.guardarPartida(p, usuari, nom);
+						guardat = true;
 					}
-					else b = true;
+				}
+				guardat = true;
+				while (!guardat) {
+					System.out.println("\nQUIN NOM LI VOLS POSAR A LA TEVA PARTIDA?\n");
+					String nom = in.next();
+					if (cdata.existeixPartida(usuari, nom)) {
+						System.out.println("\nJa existeix una partida amb aquest nom, vols sobreescriure-la? s/n\n");
+						if (in.next().equals("s")) {
+							cdata.guardarPartida(p, usuari, nom);
+							guardat = true;
+						}
+					} else {
+						cdata.guardarPartida(p, usuari, nom);
+						guardat = true;
+					}
+				}
 				break;
 			default: b = true;
 			break;
