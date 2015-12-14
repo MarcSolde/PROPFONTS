@@ -9,6 +9,7 @@ import presentacio.VistaLogin;
 import presentacio.VistaMenu;
 import presentacio.VistaPartida;
 import presentacio.VistaRanking;
+import presentacio.VistaInici;
 /**
  * 
  * @author arnau.zapata.i
@@ -16,9 +17,11 @@ import presentacio.VistaRanking;
  */
 public class CtrlPresentacio {
 	int tamany=6;
+
 	private CtrlDomini cd = new CtrlDomini(this);
 	private VistaPartida vp= new VistaPartida(this);
 	private VistaCreacio vc = new VistaCreacio(this);
+	private VistaInici vi;
 	private VistaMenu vm= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
@@ -29,11 +32,15 @@ public class CtrlPresentacio {
 	 * inicialitza la interficie
 	 */
 	public void inicializarPresentacion() {
-
+			//vi = new VistaInici(this);
 			vl.llamarVista();
 			//vm.llamarVista();
 			//vp.llamarVista();
 			//vc.llamarVista();
+	}
+	
+	public void ini(){
+		vl.llamarVista();
 	}
 	/**
 	 * donades una matriu de caselles y de id de les regions per cada casella, si es solucio
