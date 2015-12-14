@@ -1,6 +1,0 @@
-# PROPFONTS
-#KenKen WARS
-
-Version 2.0 
-
-EJECUTAR: javac -cp .:PROPFONTS PROPFONTS/

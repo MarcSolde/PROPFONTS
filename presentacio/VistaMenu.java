@@ -60,12 +60,12 @@ public class VistaMenu extends SuperVista{
 	
 	private JPanel panelTamany = new JPanel();
 		private JComboBox<String> comboboxTamany = new JComboBox<String>();
-		private String StringCombo = "elije tamaNo";
-		private JButton buttonValidar = new JButton("Seleccionar tamaño");
+		private String StringCombo = "tria mida";
+		private JButton buttonValidar = new JButton("Seleccionar mida");
 		private JButton buttonTornarTamany = new JButton("Tornar al menu");
 		
 	/*private JPanel panelRanking = new JPanel();
-		private JLabel labelRanking = new JLabel("¿Que desea Consultar?");
+		private JLabel labelRanking = new JLabel("ï¿½Que desea Consultar?");
 		private JButton buttonMejoresTiempos = new JButton("los mejores tiempos");
 		private JButton buttonMasResueltos = new JButton("Los mas resueltos");
 		private JButton buttonTornarRanking = new JButton("Tornar al menu");*/

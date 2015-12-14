@@ -44,7 +44,7 @@ public class VistaEmergente extends SuperVista{
 		private JButton buttonNombrar = new JButton("Nombrar");
 		
 	private JPanel panelPartidaFi = new JPanel();
-		private JLabel labelPartidaFi= new JLabel("¡¡¡HAS GANADO!!!");
+		private JLabel labelPartidaFi= new JLabel("HAS GUANYAT!!!");
 		private JLabel labelTemps = new JLabel();
 		private JButton buttonVal = new JButton("OK");
 		
