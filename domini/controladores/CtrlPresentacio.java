@@ -22,7 +22,7 @@ public class CtrlPresentacio {
 	private VistaPartida vp = new VistaPartida(this);
 	private VistaCreacio vc = new VistaCreacio(this);
 	private VistaInici vi;
-	private VistaMenu vm;//= new VistaMenu(this);
+	private VistaMenu vm= new VistaMenu(this);
 	private VistaLogin vl=new VistaLogin(this);
 	private VistaEmergente ve = new VistaEmergente(this);
 	private VistaRanking vr = new VistaRanking(this);
@@ -39,7 +39,7 @@ public class CtrlPresentacio {
 			//vp.llamarVista();
 			//vc.llamarVista();
 	}
-	
+		
 	public void ini(){
 		vl.llamarVista();
 	}
@@ -93,8 +93,11 @@ public class CtrlPresentacio {
 	 */
 	public void llamarCreacio() {
 		vc = new VistaCreacio(this);
+		System.out.println(tamany);
 		this.setTamany(tamany);
 		cd.crearTauler(tamany);
+
+	//	vc.inicializarComponentes();
 		vc.llamarVista();
 	}
 	/**
@@ -138,6 +141,7 @@ public class CtrlPresentacio {
 	 */
 	public void setTamany(int tam) {
 		tamany=tam;
+		System.out.println(tam);
 		vc.setTamany(tam);
 		vp.setTamany(tam);
 	}

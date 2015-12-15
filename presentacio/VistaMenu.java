@@ -140,7 +140,7 @@ public class VistaMenu extends SuperVista{
 	    // Listeners para los botones
 			//Componentes de PanelBotones
 		
-		buttonCreacio.addActionListener
+	/*	buttonCreacio.addActionListener
 	      (new ActionListener() {
 		        public void actionPerformed (ActionEvent event) {
 		          String texto = ((JButton) event.getSource()).getText();
@@ -148,7 +148,7 @@ public class VistaMenu extends SuperVista{
 		          actionPerformed_buttonCreacio(event);
 		          
 		        }
-		      });
+		      });*/
 		buttonNovaPartida.addActionListener
 	      (new ActionListener() {
 		        public void actionPerformed (ActionEvent event) {
@@ -350,6 +350,7 @@ public class VistaMenu extends SuperVista{
 			this.hacerInvisible();
 			int tam = Integer.valueOf(valor);
 			cp.setTamany(tam);
+			System.out.println(tam);
 			if(opcio==0){cp.llamarCreacio();}
 			else if (opcio==1){
 				cp.llamarNovaPartida(tam);
@@ -361,13 +362,13 @@ public class VistaMenu extends SuperVista{
 		
 	}
 
-	protected void actionPerformed_buttonCreacio(ActionEvent event) {
+	/*protected void actionPerformed_buttonCreacio(ActionEvent event) {
 		desactivar();
 		this.hacerInvisible();
 		cp.llamarCreacio();
 		//opcio=1;
 		//cambiarPanelTamany();
-	}
+	}*/
 
 	private void cambiarPanelTamany() {
 		panelOpcions.remove(buttonCreacio);

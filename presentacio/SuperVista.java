@@ -30,11 +30,12 @@ public class SuperVista extends JFrame{
 		   */
 		  public void llamarVista(){
 			  hacerVisible();
+			  System.out.println("sha fet visible");
 			  repintar();
 			  //inicializarComponentes();
 		  }
 		  
-		  protected void inicializarComponentes() {}
+		 	protected void inicializarComponentes() {}
 
 		/**
 		 * fa invisible la vista

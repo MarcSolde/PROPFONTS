@@ -91,7 +91,12 @@ public class VistaCreacio extends SuperVista{
 
 	private int[][] RegionsColor;
 	
-	
+	  public void llamarVista(){
+		  hacerVisible();
+		  System.out.println("sha fet visible");
+		  repintar();
+		  inicializarComponentes();
+	  }
 	
 	/**
 	 * inicialitza el Tauler
@@ -100,12 +105,12 @@ public class VistaCreacio extends SuperVista{
 	  public VistaCreacio (CtrlPresentacio ctrlPresentacio) {
 	    System.out.println("isEventDispatchThread: " + SwingUtilities.isEventDispatchThread());
 	    cp = ctrlPresentacio;
-	    inicializarComponentes();
+	    //inicializarComponentes();
 	    
 	  }
 	
 	  
-	  protected void inicializarComponentes(){
+	  public void inicializarComponentes(){
 		    inicializarMatrius();
 		 	inicializar_frameVista();
 		 	anadirPanels();
@@ -120,6 +125,7 @@ public class VistaCreacio extends SuperVista{
 	   */
 	 public void setTamany(int tam){
 		 this.tamany=tam;
+		 System.out.println(tamany);
 	 }
 
 	private void anadirPanels() {

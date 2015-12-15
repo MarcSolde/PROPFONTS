@@ -223,7 +223,7 @@ public class Gen {
 		}
 		else if( agrupa_nums.size() == 2){
 			rand_op = rand.nextInt(4);
-			operacions.add(rand_op);
+
 			int num1 = agrupa_nums.get(0);
 			int num2 = agrupa_nums.get(1);
 			if(rand_op == 0){
@@ -246,15 +246,29 @@ public class Gen {
 			}
 			else{
 				if(num1 >= num2){
-
+					if(num1%num2 != 0){
+						num1 *= num2;
+						resultats.add(num1);
+						rand_op = 1;
+					}
+					else{
 					num1 /= num2;
 					resultats.add(num1);
+					}
 				}
 				else{
+					if(num2%num1 != 0){
+						num1 *= num2;
+						resultats.add(num1);
+						rand_op = 1;
+					}
+					else{
 					num2 /= num1;
 					resultats.add(num2);
+					}
 				}
 			}
+			operacions.add(rand_op);
 		}
 		else{
 			rand_op = rand.nextInt(2);
